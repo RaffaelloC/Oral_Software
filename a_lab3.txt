@@ -1,0 +1,417 @@
+1: Un oggetto e' definito come una variabile che punta su un pezzo di data
+la dichirazione di un oggetto e' definita come 
+    String s = new String("abc");
+    String e' il tipo dell'oggetto e String("abc") la funzione costrutisce 
+    Se non e' dichiarato una data oggetto da puntare, il valore s sara' null 
+    Dopo la sua creazione l'indirizzo rifera' al nuovo oggetto che contiene il suo stato ed i metodi definiti
+2: Lo stesso oggetto puo' essere contenuto nella stessa variabile 
+    String s = new String("abc");
+    String s2 = s; 
+    Abbiamo che s == s2 ritorna true (perche fanno riferimento allo stesso oggetto) 
+    Se String s2 = new String("abc"); s == s2 ritorna falso perche' fanno riferimento ad oggetti diversi 
+    Se vogliamo saper se i contenuti di due oggetti sono uguali, usamo s.equals(s2) che ritorna true 
+3: Una classe e' il blue print che descrivera' gli attributi di un oggetto 
+    questo tramite la definizione di dati (attributi) ed operazione su questi dati (metodi)
+4: I costruttori sono funzioni dichiarate nella definizione di una classe
+    Servono per creare definire le proprieta' di un ingresso
+    Sono dichiarate con lo stesso nome della classe, se non viene definito allora la JVM usa il costruttore di defualt (inizia le variabili di istanza col corrispondente valore default)
+5: L'overloading dei metodi (che puo' essere usato per i costruttori) sono dichiarazioni di funzioni dello stesso nome ma che differiscono per numero di parametri e/o tipo dei parametri (non conta il tipo di ritorno)
+    Anche i costruttori possono usare overloading seguendo le stesse regole
+6: Il riferimento this (detto parametro implicito) e' usato per riferirsi all'oggetto che e' stato invocato 
+    void paint (String color){
+        this.color = color;
+        }
+    serve per utilizzare le variabili di istanza 
+7: Modificatori di accesso servono per controllare la visibilita' di una classe, interfaccia, variabile metodo o costruttore 
+Alcuni modificatori:
+    Public: visibile in tutto il progetto
+    Protected: visibile in tutto il package, fuori dal package solo nelle sottoclassi
+    Private: visibile solo a livello classe 
+    final keyword: Puo' essere applicata in classi, metodi o variabili 
+        final variable: per creare valori costanti, deve essere inizializzata 
+        final method: nonn puo' essere sovvrascritto (overriding) 
+        final class: non puo' essere estesa
+    static: sulle variabili appartiene alla classe e non ad una istanza della classe 
+        puo' essere utilizzata per riferire a proprieta' comune tra oggetti 
+        occupa solo uno slot di memoria 
+    sui metodi: parte dalla definizione di classe e non di istanza 
+        riferito col nome della classe, non richiede la creazione di una istanza dell'oggetto
+8: L'eredita' di una classe in java usa la keyword extends 
+    Ogni classe ha solo una superclasse, non c'e' eredita' multipla 
+    L'eredita' serve per espandere la classe con altri metodi, altre proprieta' ed overriding per ridefinire metodi della superclasse 
+    La sotto classe puo' accedere tutti i meccanismi non privati della superclasse 
+9: Il riferimento super e' una keyword che permette una sottoclasse di accedere i membri non privati di una superclasse
+10: Una classe astratta viene definita mediate il modificatore abstract
+    Non puo' essere usata per creare istanze di oggetti, solo estesa (la classe non e' completa)
+    La sottoclasse che la estende definisce i metodi astratti 
+    Puo' prevedere costruttori che saranno richiamati dalla sottoclasse
+11: Un'interfaccia e' simile ad una classe astratta con certe differenze 
+    Possede soltanto metodi astratti (e' completamente non definita)
+    Non usa il modificatore abstract ed usa la parola interface invece di class 
+    La classe che implementa i metodi di un'interfaccia usa la parola chiave implements invece di extends 
+    Una classe puo' implementare multiple interfacce
+12: Overriding consente ad una sottoclasse di forinire un'implementazione specifica di un metodo che e' gia' fornito dalla superlcasse 
+    Il metodo sovvrascrivere quello della super classe, deve contenere gli stessi parametri e lo stesso tipo di ritorno (e nome) 
+    La versione del metodo eseguita e' determinata dall'oggetto che invoca il metodo
+13: I pachetti sono definiti con la parola package e definisce che la classe sara' inclusa nel pachetto 
+    package server;
+        public class ServerImplementation{}
+    I file delle classi vengono salvati in directory diverse che corrispondono ai diversi package 
+    Vengono importata tramite la keyword import, che puo' importare sia il completto pachetto o solo una classe 
+    
+    import myPackage //tutto il pachetto
+    import myPackage.MyClass //solo la classe MyClass
+14: Gli errori ed eccezioni interrompono l'esecuzione e generano un evento non pianificato 
+Su java e' possibile gestirli ed intercetarli cosi' il programma non si ferma, se non gestiti vengono messi nello stack delle c hiamate, nello stack trace stampata e' possibile individuare il tipo di errore/eccezione e dove il programma si e' fermato 
+Ci sono due tipi di eccezioni, quelle checked ed un checked 
+    Le checked exceptions sono dette compile-time exceptions, il compilatore controlla se il programmatore ha gestito o meno una potenziale eccesione 
+    Restituisce un errore di compilazionen se l'eccezione non e' gestita (tramite try-catch)
+    Le unchecked exceptions sono dette run-time exceptions, sono ignorate dal compilatore ma sollevate durante il run time dalla JVM, dove l'esecuzione del programma si ferma se l'operazione non viene gestita
+Quando viene sollevata un'eccezione, Java crea un oggetto eccezione che contiene informazioni sull'errore 
+    Ogni oggetto eccezione conteien una stringa che puo' essere usato invece di creare un messaggio personalizzato (e.getMessage();)
+    Il programmatore puo' creare le proprie eccezione poiche e' un oggetto, deve solo estendere la classe Exception
+15: Il blocco try catch e' il blocco di codice usato per gestire l'eccezioni
+    Il blocco try specifica le chiamate che possono sollevare un'ecessione 
+    Il blocco catch segue il bloco try e gestisce la situazione eccezionale quando viene sollevata un'eccezione, dopodiche' viene eseguito il codice normalmente 
+    C'e' anche un finally opzionale, che viene eseguito indipendente se un'eccezione viene sollevata o no, di solito utilizzato per chiudere file e risorse utilizzate nel blocco try
+16: Come si possono sollevare multiple eccezioni in un blocco try, si puo' usare multipli blocchi catch che prendono le eccezioni, pero' esse devono seguire certe regole cosi' funziona normalmente 
+    Se l'eccezioni intercettate in una catch multipla non appartengono alla stessa gerarchia di classi, l'ordine non conta 
+    Se due eccezioni intercettate sono in relazione alla superclasse-classe figlia
+        Ordinare le catch indicando per prime le eccezioni piu specifiche e poi quelle generali
+        Le catch vengono valutate dalla prima all'ultima e si esegue la prima clausola (e solo) in cui la classe dell'eccezione e' compatibile con quella sollevata 
+    Un'eccezione della superclasse conta anche per le sottoclassi, se si vuole intercettare da entrambi, conviene inserire per primo le eccezioni della sottoclasse e poi della superclasse
+17: Throw:
+    Usata per sollevare esplicitamente un'eccezione in un blocco di codice 
+    Rifersice l'instanza di una sottoclasse della classe Exception che si vuole sollevare 
+    Puo' essere usata da sola per propagare una unchecked exception 
+    Throws:
+    Utilizzata nella segnatura del metodo per dichiarare una eccezione che puo' essere sollevata dal metodo durante l'esecuzione 
+    Puo' essere usata per dichiarare sia checked che unchecked exceptionsn 
+    Riferisce il tipo di eccezione che puo' essere sollevata 
+18: La Java Collections Frameowork e' parte della libreria standard di Java che forinisce una serie di classi che consentono di lavorare con gruppi di oggetti (collezioni)
+    Sono contenute nel package java.util della libreria standard
+19: Arraylist e' simile ad un'array pero' ha una struttura dinamica (si puo' cambiare la lunghezza) ed ha automatic resizing 
+Utilizza i generics per definire il tipo dell'array, non puo' contenere tipi primitivi, solo oggetti, si puo' usare le classi wrapper per poter usarla con tipi primitivi
+I metodi sono: 
+    .add(x): l'oggetto viene aggiunto alla lista, gli elementi vengono aggiunti alla fine dell'arraylist 
+    .get(y): ricerca l'indice y e lo ritorna 
+    .add(y,x): metodo in overload, inserisce l'oggetto x nella posizione y
+    .set(y,x): modifica l'oggetto esistente in posizione y all'oggetto x 
+    .remove(y): toglie l'elemento e ritorna quello di indice y 
+    .isEmpty(): ritorna true se la lista e' vuota 
+    .size(): ritorna la lunghezza della lista
+20: Le generics in java sono per indicare un tipo generico, servono per implementare strutture dati ed algoritmi che possono essere usati per tipi diversi 
+Le generics possono essere utilizzate in una classe 
+    public class Classe <T1, T2>{} 
+O in metodi 
+    private <T> void method(List<T> list){}
+I generici su java possono essere bounded: ristretti rispetto ad altre classi usando la keyword extends aggiungendo la classe eventualmente presente come primo tipo 
+    public class Classe <T extends Comparable<T>>{} 
+    Dove comparable e' un'interface 
+21: Gli iteratori (Iterator) e' un oggetto di supporto per accedere agli elementi di una collezione, uno alla volta ed in sequenza 
+E' semrpe associato ad un oggetto collezione (lavora su un set o list) 
+Per funzionare: L'iteratore deve conoscere e poter accedere alla rappresentazione interna della classe che implementa la collezione 
+    ArrayList<Integer> list = new ArrayList <Integer>();
+    Iterator here = list.iterator();
+Gli iteratori non sono invocati come new, invece sono associati all'istanza della struttura dati utillizata
+Gli iteratori provedono i metodi:
+    next(): sposta il puntatore e restituisce il prossimo elemento della collezione 
+    hasNext(): verifica se c'e' un ellemento successivo da fornire o se invece si e' riaggiunto la fine della collezione 
+    remove(): elimina l'elemento nella posizione precedente al puntatore 
+L'iteratore non ha alcuna funziona che lo resetti, una volta iniziata la scansione non si puo' piu tornare indietro e una volta finita la scansione, l'iteratore non e' piu utilizzabile (si deve creare un nuovo)
+22:Una map e' un container che associa chiavi a valori e fornisce la possibilita' di acesso ai dati per chiave 
+    CHiavi e valori devono essere oggetti 
+    Non ci possono essere chiavi dupplicate 
+    Hashmap: implementata usando l'interfaccia Map , una collezione non ordinata di coppie (chiave-valore)
+    Fornisce tempo costante O(1) per le operazioni basi (put, get) 
+    Usa una funzione hash per associare un codice hash alla chiave, il codice viene quindi uttillizato per individuare il bucket che contiene l'elemento ricercato 
+    Treemap: red-black tree implementation, garantisce che le chiavi possono essere restituite in ordine 
+    Complessita' di log(n) per le principali operazioni (get put)
+    Non possono esistere chiavi nulle
+23: Si possono fare in due modi: implements Runnable (interfaccia) o extends Thread (sottoclasse di Thread) 
+Per runnable: si definisce un task tramite la creazione di una classe che implementa l'interfaccia Runnable, e si crea un'instanza R di questa classe che sara' passata al thread 
+Si crea un oggetto thread e si passa il task definito col codice da eseguire e si attiva con la funzione start
+Per thread: si crea una classe che estenda la predefinita classe Thread ed effettua l'overriding del metodo run 
+Istanziare un oggetto di quella classe (l'oggetto sara' un thread ed il suo comportamento sara' definito)
+Si invoca il metodo start sull'oggetto istanzato
+E' vantaggioso usare la prima opzione poiche' cosi' si puo' estendere ad altre classi (poiche java non ha multiple inheratance) ed implementare runnable per poter eseguirla in un thread diverso
+24: Il metodo run e' eseguito all'interno del flusso del thread attivato per l'esecuzione del programma principale 
+se sostituito il metodo start al metodo run, il thread non inizia 
+Il metodo start segnala allo scheduler (tramite la JVM) che il thread puo' essere attivato 
+L'ambiente del thread viene inizializzato e restituisce immediatamente il controllo al chiamante
+25: Un programma di Java termina quando terminano tutti i threads non demoni che lo compongono
+Se il thread iniziale (quello di main) termina, i restanti thread ancora attivi e non demoni continuano la loro esecuzione, il programma termina quando anche questi terminano 
+Se uno dei thread usa l'istruzione System.exit() per terminare l'esecuzione, allora tutti i threads terminano la loro esecuzione 
+26: La creazione dei thread causa un overhead nel programma poiche' la sua attivazione ed eliminazione richiedere interazione tra la JVM ed il SO, anche ogni thread causa un overhead nella sua esecuzione (un stack per thread, garbage collector stress) 
+Si puo' usare il threadpool per limitare il numero di threads creati nell'esecuzione del programma 
+Il threadpool e' una coda di task che aspettono esecuzione dei thread, il sistema di threadpool chiede se esiste un thread libero per l'esecuzione del primo task della coda 
+Quando il pool e' vuoto e tutti i thread sono occupati, ci sono due alternative:
+    il task viene inserito in coda e aspetta che si renda disponibile un thread (fixedthreadpool)
+    si crea un nuovo thread all'interno del threadpool (cachedthreadpool)
+27: Un threadpool si esegue con la creazione di un oggetto di tipo ExecutorService che implementa l'interfaccia Executor 
+    //import java.util.concurrent.Executors;
+    //import java.util.concurrent.ExecutorService;
+    ExectuorService service = new Executors.newFixedThreadPool(10);
+    service.execute(new Task());
+    ExecutorService service2 = new Executor.newCachedThreadPool();
+Nel FixedThreadPool si da il numero di threads che saranno creati ed e' riutilizzato per nuove task 
+Quando viene messo un task T, se tutti i threads sono occupati nell'esecuzioni di altre task, viene inserito in coda gestita automaticamente dall'ExecutorService, se almeno un thread e' innativo, viene utilizzato quel thread 
+Nel CachedThreadPool se tutti i thread del pool sono occupati nell'esecuzione di altri task e c'e' un nuovo task da eseguire, si viene creato un nuovo thread (nessun limite alla dimensione del pool)
+Se disponibile un thread viene riutilizzato che ha terminnato l'esecuzione di un task precedente 
+Se un thread rimanne inutilklizzato per 60 secondi, la sua esecuzione termina 
+28: Il THreadPoolExecutor e' un costruttore per i threadpool dove si puo' aver un controllo piu grande su le dinamiche del threadpool 
+    CorePoolSize: Il numero di threads creati per il pool alla creazione del threadpool 
+    MaximumPoolSize: Il numero di threads massimo che il pool puo' avere 
+    keepAliveTime: Il tempo finche' un thread che non appartiene al core viene distrutto
+Si puo' far scendere il threadpoolsize col keepAliveTime usando la funzione allowCoreThreadTimeOut(true)
+Si crea usando la funzione 
+    new ThreadPoolExecutor(CorePoolSize, MaximumPoolSize, keepAliveTime, timeUnit);
+29: La rejection policy puo' essere implementata dal programmatore scegliendola esplicitamente
+Alla creazione della task si puo' scegliere 
+    AbortPolicy: politica di default, consiste nel sollevare RejectedExectionException
+    DiscardPolicy, DiscardOldestPolicy,CallerRunsPolicy: altre politiche definite 
+    Si puo' definire un custom rejection handler implementando l'interfaccia RejectExecutionHandler ed il metodo rejectedExecution
+30: Lo ScheduledExecutorService da la possibilita' di schedulare un task periodicamente 
+    Puo' eseguire single shot: un task una sola volta dopo un certo periodo di tempo (delay)
+    schedule(Runnable command, long delay, TimeUnit unit)
+Multiple shots: esegue un task piu volte periodicamente 
+    scheduleAtFixedRate(Runnable command, long InitialDelay, long delay, TimeUnit unit)
+    scheduleWithFixedDelay(Runnable command, long InitialDelay, long delay, TimeUnit unit)
+
+nella scheduleWithFixedDelay qualunque sia la durata di una task, la pausa tra due esecuzioni successive di un task e' sempre della stessa lunghezza (detta delay)
+quindi esegue un task dopo un intervallo iniziale, poi lo ripete periodicamente con delay tra la terminazione di una esecuzione e l'inizio della successiva 
+
+ScheduleAtFixedRate esegue un task dopo un intervallo iniziale, poi lo ripete periodicamnete ad intervalli costanti
+Se la durata del task e' minore della durata e' minore dell'intervallo non ci sono problemi
+Se il tempo di esecuzione della task e' maggiore del periodo specificato, le sue seguenti esecuzioni possono ritardare, ma la JVM cerca di recuperare il ritardo facendo eseguire immediatamente la task in ritardo
+
+31: La blockingqueue e' una java interface che rappresenta una coda (inserimento alla fine, estrazioen all'inizio)
+E' pensata per essere utilizzata in un ambiente mulithreaded, permette una corretta sincronizzazione tra i thread che inseriscono e quelli che eliminano dalla coda, implementa una corretta sincronizzazione tra i thread 
+CI sono implementazioni diverse come ArrayBlockingQueue  (dimensione limitata definita in fase di inizializazzione,non crea oggetti nuovi per inserzione, uno solo lock per tutta la struttura) e LinkedBlockingQueue(dimensione limitata o limitata, maggiore occupazione di memoria, nuovo oggetto per ogni inserzione, possibili inserzioni ed estrazioni concorrenti (ha lock separati) con maggiore throughput)
+
+32: L'interfaccia Callable ci consente di creare tasks che restituiscono risultati in modo asincrono e possono sollevare eccezioni 
+Si puo' riprendere il risultato di una task in modo asincrono usando la Future interface 
+L'interfaccia Callable contiene solo il metodo call(), analogo al metodo run() dell'interfaccia Runnable
+A differenza di run(), call() puo' restituire un valore e sollevare eccezioni 
+    public interface Callable <V>{ V call() throws Exception;}
+Il parametro V indica il tipo del valore restituito 
+Per il threadpool si usa il metodo submit invece di execute per inizializzarlo 
+
+33: L'interfaccia future permette di riprendere i risultati dai thread che lo restituiscono usando il metodo get()
+Ogni oggetto Future e' associato ad uno dei task sottomessi al Threadpool, e' possibile applicare diversi metodi all'oggetto future 
+Il metodo get() blocca l'esecuzione finche il thread non ha prodotto il valore richiesto e restituisce il valore calcolato
+Il metodo get(long timeout, TimeUnit) definisce un tempo massimo di attesa della terminazione del task, dopo cui viene sollevata una TimeoutException 
+E' possibile cancellare il task e verificare se la computazione e' terminata o cancellata
+
+34: Il metodo synchronized e' un tipo di lock implicita che serve per garantire la thread safety di un metodo definito dal programmatore ed eliminare le race conditions 
+    public synchronized void someMethod(){}
+Il metodo synchronized quando viene invocato se l'oggetto e' bloccato il thread viene sospeso nella coda associata all'oggetto fino a che il thread che ditiene la lock la rilascia
+La lock viene rilasciata al ritorno del metodo (sia normale o eccezionale come in una uncaught exception)
+
+35: Uno stream rappresenta una connessione tra un programma Java ed un dispositivo esterno (file, buffer di memoria, connessione di rete), e' un flusso di informazione di lunghezza illimitata, i dati fluiscono dalle estremita' del tubo di flusso 
+Ci sono 4 classi astratte di stream 
+InputStream: legge bytes, sono dati copiati byte a byte non strutturati senza nessuna traduzione, ideale per leggere data in binario (immagini, codifica di un video) 
+OutputStream: scrive bytes come descritto sopra 
+Read/Writer: leggono/scrivono caratteri
+Usando BufferedInputStream/BufferedOutputStream riempiamo una buffer di bytes e leggera'/scrivera' piu velocemente 
+
+36: La classe file e' la classe descrittore del file, un'istanza della classe descrive: 
+    Il path per l'individuazione del file o della directory
+    Non e' una stringa, ma fornisce metodi per verificare l'esistenza del path e restituire informazioni sul file 
+Quando si vuole stabilire una connessione (stream) con un file si puo' passare come parametro un oggetto di tipo file
+
+37: Usando DataInputStream possiamo leggere un byte o una stringa di byte come se fossero un tipo 
+Usiamo la pipeline 
+    DataInputStream = new DataInputStream(new BufferedInputStream ( new FileInputStream(filename)));
+    Cosi' possiamo leggere i byte come se fossero tipi 
+
+38: Try with resources e' un modo di aver la chiusura automatica delle risorse IO usate da un proigramma 
+Si fa con un blocco try con uno o piu argomento tra parentesi 
+    Le risorse che devono essere chiuse vanno nel try block 
+    Le variabili che rappresentano le risorse non devono essere riutilizzate 
+Se un'eccezione e' sollevata durante le parentesi, non si deve chiudere il file e si solleva l'eccezione 
+Se un'eccezione e' sollevata durante la scrittura, si chiude il file e si solleva quella al programma 
+Se un'eccezione e' sollevata durante la chiusura, viene propagata quella 
+Le eccezioni vengono propagate per ordine nel programma, se write solleva un'eccezione ed anche close, quella sollevata al programma sara' write e close sara' soppressa
+
+39: La serializazzione e' un meccanismo per poter registrare gli oggetti in magazzinamento o per poter trasmettere informazioni in modo indipendente dall'implementazione (da un linguaggio ad altro)
+La serializazzione effettua il flattening dello stato dell'oggetto, la deserializzazione ricostruire lo stato dell'oggetto 
+    serializazzione: Object -> ByteStream -> File/Memoria/Database/Rete 
+    deserializazzione: File/Memoria/Database/Rete -> ByteStream  -> Object
+La serializazzione garantisce un'intoperabilita' tra linguaggi e macchine diverse uttilizzando un linguaggio di formato neutrale (XML, JSON) 
+
+40: JSON (Java Script Object Notation) e' un linguaggio da java script per rappresentare oggetti 
+Funziona come una coppia di chiave: valore {"name": "John"} e i tipi ammissibili sono String, Number (int o float), Object (JSON object, accetta strutture ricorsive), Array, Boolean, Null
+    {"name": "john", "age":30, "car":null}
+Le array sono delimitate in parentesi quadre, ci sono mapping diretto con alcuni tipi di dato Java (array, list, vector)
+
+41: Ce ne sono 3 
+Data biding API: converte i dati da Json a Java e vice versa usando dei data type adapters, usa reflection e supporta anche dapaters per tipi generici 
+    Usa la funzione Gson.fromJson(json, type) con type di tipo TypeToken 
+Tree model API: crea in memoria una rappresentazione dell'oggetto JSON mediante un albero di JsonElements, e' possibile poi trasformare gli elementi JSON in Strutture Java 
+    SI utillizza JsonReader e si analizza JsonObject per JsonObject
+Streaming API: tokenizza il documento JSON: Legge JsonTokens, buona performance nelle operazioni di lettura/scrittura 
+    Si crea un JsonWriter/JsonReader che va da nome e valore uno per uno, utile per file Json enormi e costanti (trasmessi sulla rete)
+    Livello molto basso, si usa .beginObject(); per iniziare a leggere o scrivere e si chiude con .endObject(), stesso per .beginArray() e endArray() 
+    Si scrive .name() per definire la key e .value() per definire il value 
+
+42: Per rendere un oggetto serializzible su java, si deve implementarlo con l'interfaccia Serializable
+La serializazzione lo trasforma in una sequenza di byte con la classe ObjectOutputStream(x); dove x puo' essere un file, una socket o qualcosa che accetti una stream de bytes, poi su usa la funzione out.writeObject(time); per trasmetterla 
+La deserializzazione e' fatta con ObjectInputStream(x) e in.readObject(), analogo a sopra 
+Nella deserializzazione, e' necessario un cast per poter metterlo nel tipo giusto dell'oggetto time = (PersistentTime) in.readObject(); 
+Se non trovata il tipo di classe dell'oggetto o una classe compatibile, solleva l'eccezione ClassNotFoundException ed il processo di serializazzione viene abortito, altrimente viene creato un nuovo oggetto su heap 
+
+43: Oggetti contenenti riferimenti specifici alla JVM o al Sistema Operativo non sono serializzabile (Thread, OutputStream, Socket, File), variabili marcate con la keyword transient, le variabile statiche (poiche' sono assocciate alla classe e non alla specifica stanza dell'oggetto serializzato) e sono lette dalla classe in fase di deserializzazione
+Tutti i componenti devono essere serializzabili, se esiste uno non serializzabile e non transient allora si solleva un'eccezione notSerializableException
+
+44: La classe InetAddress e' una classe serializzabile utilizzata per gestire gli Ipv4 o Ipv6 che contera' informazioni su quel indirizzo (IP, nome del host) 
+Non si crea con costruttore ma con metodi statici 
+    InetAddress add = InetAddress.getByName("www.unipi.it"); //lookup per indirizzo di un host 
+    add = InetAddress.getLocalHost(); //lookup dell'indirizzo locale 
+    InetAddress [] adds = InetAddress.getAllByName("www.reppublica.it"); //lookup di tutti gli indirizzi di un host
+I metodi descritti effetuano caching dei nomi/indirizzi risolti poiche' la chiamata al DNS e' costosa 
+Il tempo della cache e' illimitato se c'e' stata una risoluzione (altrimenti 10 secondi) e puo' essere alterato usando la funzione Security.setProperty("networkaddress.cache.ttl", CACHINGTIME);
+Ci sono certi factory methods che non usano il DNS per contattare, utile quando il DNS non e' disponibile e so la coppia hostname/IP 
+    getByAddress(byte IPAddr[]) throws UnknownHostException 
+    getByAddress(String hostName, byte IPAddr[]) throws UnknownHostException
+
+45: La classe Socket serve per creare una connessione TCP tra due host diversi (possono essere su PC diversi sulla web o sulla stessa macchina), si crea tramite il costruttore 
+    public socket(InetAddress host, int port) throws IOException 
+Crea un socket su una porta effimera e tenta di stabilire una connessione con l'host individuato da InetAddress sulla porta port 
+Si puo' anche fare 
+    public socket(InetAddress host, int port) throws UnknownHostException, IOException 
+Dove contatta il DNS manualmente 
+
+46: Appena stabilita una connessione con un host, i server e client possono scambiare dati tramite uno stream 
+Per associare uno stream di input o di output ad un oggetto di tipo socket si usano 
+    public InputStream getInputStream() throws IOException
+    public OutputStream getOutputStream() throws IOException
+Inviano dai dati che leggono/scrivono dallo/sullo stream con una sequenza di byte che poi deve essere filtratta per strutturarla 
+
+47: Per chiudere una socket, si usa il metodo close()
+E' possibile fare una half closure, una chiusura unodimensionale 
+    showdownInput()
+    shutdownOutput() 
+Una lettura o scrittura successiva all'invocazione dei sudetti metodi causa una IOException
+
+48: Un threadpool fatto da un Executor puo' essere chiuso in modo graduale o in modo istantaneo 
+    service.shutdown() per la terminazione graduale 
+    Continua le task gia' iniziate, pero' non accetta nuove task lanciando la eccezione RejectionExectionException
+    Tutti i task messi in coda in precedenza vengono eseguiti, anche quelli accodati, la cui esecuzione non e' ancora iniziata 
+    service.isShutdown() ritorna true se il processo di shutdown e' iniziato 
+    service.isTerminated() ritorna true se tutte le task sono state completate (comprese quelle accodate) 
+    service.awaitTermination(long timeout, TimeUnit timeunit) blocca finche tutte le task sono completate o se il timeout occore 
+    service.shutdownNow() per la terminazione istantanea 
+    Non accetta ulteriore task ed elimina quelle non iniziate (restituisce una lista di task non eseguite)
+    Tenta di terminare le task in modo best effort
+    Non garantisce la terminazione immediata dei thread del pool, se un thread non risponde alla interruzione non termina 
+
+49: La classe ServerSocket sara' la socket apperta del lato server, e' fatta per essere una listening socket che ascolta su una porta in attesa di nuove connessione, ha 3 costruttori diversi 
+    ServerSocket(int port); //port sarebbe la porta dove si attende ascoltando le connessioni
+    ServerSocket(int port, int length); //length la lunghezza della coda in cui memorizzare le richieste di connessione, ulteriori richieste di connessione sono rifiutate 
+    ServerSocket(int port, int length, InetAddress bindAddress); //bindAddress server per associare il socket ad uno specifico IP locale, utile per macchine dotate di piu' schiede rete 
+    lanciano IOException e BindException 
+IL metodo accept() throws IOException e' un metodo che si mette in attesa di connessioni
+e' un metodo bloccante: se non ci sono richieste, il server si blocca (possibile uso di timeout)
+Alla richiesta, il processo si blocca e costruisce un nuovo socket tramite cui avviene la comunicazione effettiva tra server e client
+
+50: UDP e' un protocollo message oriented, non si deve creare una connessione diretta per poter inviare un pacchetto
+Java ci da la possibilita' di creare una socket UDP tramite la classe DatagramPacket che serve sia per mandare messaggi e ricevere 
+
+public DatagramPacket(byte[] buffer, int length); //ricevere dati 
+Definisce una struttura per memorizzare il pacchetto ricevuto 
+Il buffer viene passato vuoto alla receive che lo riempe col payload del pachetto ricevuto (si puo' anche dichiarare un offset, che legge dalla posizione indicata dall'offset)
+Il parametro length indica il numero di bytes che possono essere coppiate nel buffer, minore o uguale a buffer.length se no solleva un'eccezione 
+Il payload finisce quando l'intero pacchetto e' copiato o quando length bytes sono copiati (se buffer e' piu grande)
+getLength restituisce il numero di bytes effettivamente copiati 
+
+public DatagramPacket(byte[] buffer, int length, InetAddress destination, int port);
+Definisce il DatagramPacket da inviare 
+length indica il numero di bytes per essere dal buffer (da 0 o offset)
+    solleva eccezione se length > buffer.length 
+    se buffer.length > length il resto dopo length non viene copiato 
+Destination e port indicano il destinatario 
+Il messaggio deve essere inviato in bytes, che puo' essere fatto col metodo getBytes();
+
+51: DatagramSocket e' una classe per creare una socket UDP per il client, puo' essere collegato ad una porta random se nel costruttore non viene indicato o ad una porta specifica se viene 
+Ad ogni socket sono associato due buffers, uno per ricevere ed uno per spedire gestiti dall'OS non JVM 
+Metodi importanti 
+void setData(byte[] buffer) setta il payload del packet, prendendo i dati dal buffer 
+void setPort(int iport) setta la porta del datagram 
+void setLength(int length) setta la lunghezza del payload del Datagram 
+void setAddress(InetAddress idaddr) setta l'InetAddress della macchina a cui il payload e' diretto 
+void setSocketAddress(SocketAddress addr) utile per inviare risposta 
+void InetAddress getAddress() restituisce l'IP della macchina a cui il Datagram e' stato inviato oppure dalla macchina da cui e' stato spedito 
+int getPort() analogo sopra ma per il port 
+byte[] getData() restituisce un byte array contenete i dati del buffer associato al Datagram 
+SocketAddress getSocketAddress() restituisce ip e porta del Datagram sull'host remoto cui il Datagram e' stato inviato o dell'host a cui e' stato spedito 
+Si possono inviare pacchetti con sock.send(dp) o ricevere con sock.receive(dp) 
+
+52: La classe ByteArrayOutputStream crea oggetti che rappresentano stream di bytes 
+Ogni dato scritto sullo stream viene riportato in un buffer di memoria a dimensione variabile (default 32 byte) 
+Quando il buffer si riempe la sua dipensione viene raddoppiata automaticamente 
+E' possibile collegare ByteArrayOutputStream ad un altro filtro DataOutputStream/DataInputStream consentendo di scrivere dati primiti sullo stream, la trasformazione in bytes e' effettuata automaticamente 
+I dati di ByteArrayOutputStream possono essere copiati in un array di dati che saranno trasmessi in un pacchetto UDP 
+ByteArrayInputStream(byte[] buf); crea uno stream di byte a partire dai dati contenuti nel vettore di byte buf 
+ByteArrayInputStream(byte[] buf, int offset, int length); copia length bytes iniziando da offset 
+Si puo concatenare un DataInputStream
+
+Questo e' particolarmente utile quando si devono inviare pacchetti di lunghezza sopra quella consentita dell'UDP, potendo soddividere in multipli pacchetti in modo piu facile 
+
+53: Multicast e' un modo di inviare dati da un host ad un insieme di altri nodi (non tutti gli host della rete, solo quelli che hanno espresso interesse) 
+l'IP multicast basasi sul concetto di gruppo (insieme di processo in esecuzione su host diversi), tutti i membri del gruppo di multicast ricevono un messaggio spedito su quel gruppo
+Non occore essere membro del gruppo per inviare messaggio su esso 
+Ci sono diversi primite per farlo funzionare, come: 
+    unirsi ad un gruppo multicast 
+    lasciare il gruppo
+    spedire messaggi ad un gruppo 
+    ricevere messaggi indirizzati ad un gruppo 
+Su java si puo' instanzare una socket del genere con la classe MulticastSocket che estende DatagramSocket 
+Ha il metodo joinGroup() neccessaria nel caso si vogliono ricevere messaggi dal gruppo di multicast 
+Lega il multicast socket ad un gruppo multicast: tutti i messaggi ricevuti tramite quel socket provengono da quel gruppo 
+IOException se l'indirizzo multicast e' errato (fuori dal range 224.0.0.0 - 239.255.255.255)
+Se attivo due istanze del programma sullo stesso host, non si solleva una BindException (verebbe sollevata con DatagramSocket) 
+Le socket mujlticast hanno la proprieta' reuse socket, che se sttata a true, da la possibiltia' di associare piu socket alla stessa porta
+
+54: Il blocco synchronized e' utile quando si deve usare un lock su una parte di un programma ma non sull'intero metodo, funziona usando un oggetto (qualsiasi, poiche' ogni classe estende Object) 
+Invece di usare tutto il metodo, usiamo il blocco da synchronizzare con 
+    synchronized(object_instance){...}
+Possiamo notificare i thread in attesa con obj.notifyAll(); e far aspettare che sia rilasciato il lock con obj.wait() 
+Possiamo usare i monitor o i lock 
+    Monitor: vantaggi che l'unita' di sincronizzazione e' il metodo ed ha rilascio del lock automatico, rendendolo piu mantenibile, svantaggio e' che e' coarse grain synchronization. puo' diminuire il livello di concorrenza 
+    Lock esplicite: Vantaggio che ha piuu controllo e flessibilita', tryLock() il thread prova ad acquisire la lock, ma non si blocca, read/write locks: multiple reader single writer, ha lo svantaggio che rende il codice poco leggibile 
+
+55: L'interfaccia Collection estende le principali strutture dati della Java Collections (Set, List, Queue) ed e' estesa da Iterable 
+Contiene il metodo iterator() che restituisce un iteratore per la collezione (collezioni diverse implementano in modo diverso) 
+
+56: Java Concurrent Collections e' un pacchetto di java che contiene strutture dati sincronizzate che garantiscono la thread safety 
+ArrayList non e' threadsafe: L'operazione add non e' ottimica, determina quanti elementi ci sono nella lista, il punto esatto del nuovo elemento ed incrementa il numero di elementi della lista, se si eseguono due add contemporaneamente lo stato della struttura puo' essere inconsistente (analogo per remove)
+Vector e' una classe conditionally threadsafe
+Conditionally threadsafe significa che le sue operazioni sono threadsafe, ma la loro combinazione non lo e' 
+    Es: un thread vede se un'array di 1 elemento e' vuota, un altro thread dopo rimuove l'unico elemento, poi il primo thread prova a rimuovere l'elemento (torna errore)
+La collezione java synchronized collections garantisce operazioni atomiche, ma non sulla loro composizione 
+Concurrent Collections: evoluzione delle precedenti librerie basata sull'esperienza nel loro utilizzo 
+Fine-grain locking, non bloccano l'intera collezione )concurrent reads, write parzialmente concorrenti 
+Iteratori fail safe/weakly consistent 
+    Restituiscono tutti gli elementi che erano presenti nella collezione quando l'iteratore e' stato creato, possono restituire o meno elementi aggiunti in concorrenza 
+Forniscono alcune operazioni attomiche composte da piu operazioni elementari 
+La piu utilizzata e' concurrentHashMap <K,V> sincronizzazione ottimizzata, diverse operazioni atomiche 
+    put-if-absent, remove-if-equal, replace-if-equal 
+E' piu efficiente di Synchronized Map e HashTable poiche introduce un array di segmenti: ogni segmento punnta ad una hash map, fa fine grained locking unn loc per ogni segment (lock striping), numero di segmenti determina il livello di concorrenza, modifiche simultanee possibile se modificono segmenti diversi
+
+57: Le concurrent collections offrono anche un insieme di operazioni composte atomiche, sequenze di operazioni di uso comune definite come operazione unica 
+Funzioni del tipo test-and-set, remove-if-equal, replace-if-equal, put-if-absent
+
+58: L'implementazione degli iteratori a livello collection cambia dipendendo di come deve gestire una concurrent modification, quando una modificazione accade in un altro thread 
+Fail-fast: Se c'e' una modifica strutturale (inserzione, rimozione, aggiornamento) dopo che l'iteratore e' stato creato, l'iteratore la rileva e solleva una ConcurrentModificationException causando il fallimento immediato dell'operatore per evitare comportamenti non deterministici. La maggior parte delle colezioni concurrenti sono fail-test (Vector, ArrayList, HashMap)
+Fail-safe("snapshot"): creano una copia della collezione al momento della creazioen dell'iteratore. non sollevano ConcurrentModificationException, l'iteratore accede ad una versione non aggiornata della collezione CopyOnWriteArrayList (crea una copia dell'array per ogni operazione di modifica)
+Weakly consistent: L'iteratore e modifiche operano sulla stessa copia, no ConcurrentModificationException, comportamento fail-safe, l'iteratore considera gli elementi che esistevano al momento della costruzione dell'iteratore e puo' riflettere le modifiche che sono avvenute dopo la sua creazione, anche se non e' garantito (ConcurrentHashMap)
+
+59: La keyword volatile serve ad indicare al compilatore di non ottimirizzare la variabile (lasciarla in memoria e non usarla dalla cache locale), questo e' utile per la visibilita' di una variabile condivisa tra multipli thread 
+Se una variabile e' aggiornata in memoria, ma un thread uttilizza ancora la sua versione non aggiornata in cache locale, avra' che il programma produrra' un atteggiamento non prevedibile 
+Una variabile volatile e' letta e scritta soltanto nella memoria condivisa, e quando un thread aggiorna la variabile, quelle non volatile vengono anche sincroniizzati in memoria condivisa 
+La volatile keyword e' soltanto per una questione di visibilita', non la rende sincronizzata
+Se due thread provano a scrivere alla stessa variabile volatile allo stesso tempo, avra' atteggiamento imprevidibile
+
+60: Una variabile atomic e' una variabile dove le operazioni atomiche (increment, get, set, decrement) non richiedono sincronizzazione esplicite o lock, la JVM garantisce la sua atomicita' e la rende sincronizzata
+Esempi: AtomamicInteger, AtomicLong, AtomicBoolean 

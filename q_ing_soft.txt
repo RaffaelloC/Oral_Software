@@ -1,0 +1,85 @@
+1: Cos'e' il processo software
+2: Dammi la definizione di Ingegneria del Software
+3: Cos'e' la robustezza (resistenza ai guasti)?
+4: Cos'e' la fault tolerance/tollerazna ai guasti
+5: Cos'e' un modello del processo software
+6: Cos'e' il modello build-and-fix
+7: Cos'e' il modello a cascata?
+8: Cos'e' il modello a V?
+9: Cos'e' il modello rapid prototyping?
+10: Cose' il modello incrementale?
+11: Cos'e' Modello a spirale?
+12: Quali sono le fasi/attivita' fondamentali di un processo software e spiegale
+13: Cos'e' il modello agile per il processo software?
+14: Cos'e' l'Extreme Programming?
+15: Cos'e' Scrum? 
+16: Cos'e' Kanban?
+17: Parlami dell'analisi dei requisiti
+18: Cosa sono i domini e requisiti?
+19: Qual e' la differenza tra requisiti funzionali e non-funzionali?
+20: Descrivi l'analisi dei requisiti in 5 passi
+21: Cosa sono i casi d'uso e user stories
+22: Cos'e' un modello? (sistema) 
+23: Qual e' la differenza tra modello statico e dinamico?
+24: Cos'e' UML?
+25: Cos'e' Diagramma di Casi d'Uso (Use Case Diagram) in UML? Come si costruisce?
+26: Com'e' la costruzione e notazione del diagramma dei caso di uso?
+27: Cos'e' la narrativa di un caso d'uso?
+28: Cos'e' uno scenario di un caso d'uso?
+29: Com'e' la sintassi della sequenza principale di un diagramma di casi d'uso?
+30: Spiega l'estenzione e inclusione di un caso d'uso
+31: Spiega il Diagramma delle classi in UML (Class Diagram)
+32: Cosa sono le relazioni in UML?
+33: Cosa sono le classi di analisi del dominio?
+34: Spiega il diagramma di oggetti in UML
+35: Spiega il diagramma delle attivita' in UML
+36: Spiega le azioni in un Diagramma delle attivita'
+37: Spiega i tipi diversi di nodi nel flusso di controllo
+38: Spiega i segnali ed eventi di un diagramma delle attivita'
+39: Spiega il diagramma di macchina a stati
+40: Cos'e' un evento?
+41: Cosa sono Entry, Exit e do per la macchina a stati?
+42: Cosa e' uno stato composito?
+43: Cosa sono le sottomacchine?
+44: Cosa sono gli pseudo-stati?
+45: Spiegi cos'e' l'archittetura software
+46: Quali sono le tre viste in un'archittetura software?
+47: Cos'e' un compoente software?
+48: Cos'e' uno stile architetturale?
+49: Cos'e' una vista strutturale?
+50: Cos'e' una vista di deployement?
+51: Spieghi il diagramma di sequenza
+52: Cos'e' la manutenzione di un software?
+53: Cos'e' information hiding
+54: Cos'e' il principio di astrazione
+55: Cos'e' la coesione
+56: Cos'e' il disaccopiamento (decoupling)?
+57: Spiega la collezione di principi SOLID
+58: Spiega la collezione di principi GRASP
+59: Qual e' la differenza tra delega ed eredita'?
+60: Cos'e' un pattern nel software?
+61: Qual e' la classificazione dei design patterns? (GoF)
+62: Spiega il design pattern strategy
+63: Spiega lo state design pattern
+64: Cos'e' un pattern creazionale
+65: Spiega il facotry design pattern
+66: Cos'e' il factory method pattern
+67: Cos'e' l'abstract factory pattern
+68: Cos'e' il pattern singleton
+69: Come si usa un singleton in un'applicazione multi-threaded?
+70: Cos'e' il principio open closed?
+71: Cos'e' il pattern decorator?
+72: Cos'e' il pattern adapter?
+73: Cos'e' il pattern Proxy?
+74: Spiegi il problema della terminazione
+75: Cos'e' la verifica e validazione? (V&V)
+76: Cosa sono il malfunzionamento, diffetto ed errore?
+77: Parla dei limiti del testing e delle techniche possibili
+78: Spiega il metodo di testing desk-check
+79: Cosa sono i metodi formali per la validazione?
+80: Cos'e' la test obbligation?
+81: Cosa sono le batterie di prove (test suite)?
+82: Cos'e' il metodo black-box di testing?
+83: Cos'e' il metodo white-box per il testing?
+84: Coso'e il test mutazionale?
+85: Cos'e' l'oracolo per i test?

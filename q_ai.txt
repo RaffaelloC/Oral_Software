@@ -1,0 +1,23 @@
+1: Cos'e' un agente? 
+2: Cosa sono funzone agente e programma agente?
+3: Cos'e' un agente razionale?
+4: Cosa sono gli ambienti e come sono specificati e quali sono le sue proprieta'?
+5: Com'e' strutturato un agente?
+6: Come puo' essere rappresentato l'ambiente dall'agente?
+7: Cos'e' un algoritmo di ricerca?
+8: Cos'e' un albero di ricerca e la frontiera?
+9: Cos'e' la ricerca best-first?
+10: Quali sono le strategie per la ricerca non informata?
+11: Come funziona la ricerca informata?
+12: Cos'e' la ricerca A* (A star A stella)?
+13: Cosa sono l'euristica ammissibile, euristica consistente, inconsistente e inammissibile?
+14: Come funziona la ricerca a memoria limitata?
+15: Cos'e' la dominazione in euristica?
+16: Cos'e' la massimizzazione nell'euristica?
+17: Cos'e' il database di pattern disgiunti?
+18: Cosa sono gli algoritmi di ricerca locale?
+19: Cos'e' la ricerca hill climbing?
+20: Come si puo' migliorare l'algoritmo di hill climbing?
+21: Cos'e' il simulated annealing?
+22: Cos'e' la ricerca local beam?
+23: Cosa sono algoritmi evolutivi?

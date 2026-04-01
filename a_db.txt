@@ -1,0 +1,978 @@
+1: Una base di dati e' una raccolta di dati permanenti, gestito da un elaboratore elettronico suddivisi in: 
+    1. Metadati (schema):
+        Raccolta di definizioni che descrivono la struttura dati, restrizioni sui valori ammissibili, relazioni esistenti tra insiemi, operazioni eseguibili tra i dati
+            Definiti prima di creare i dati 
+    2. Dati: rappresentazione di fatti conformi allo schema 
+        Organizzati in insiemi strutturati ed omogenei in cui sono definiti delle relazioni 
+        Sono gestiti in memoria magazzinata 
+        Sono permanenti (continuano ad esistere finche sono esplicitamente cancellati) 
+        Accessibili mediante transazioni 
+        Protetti da utenti non autorizzati e da corruzione dal malfuzionamento software/hardware 
+        Utilizzabili contemporaneamente da utenti diversi 
+//slide 1
+2: Il DBMS e' un sistema centralizzato o distribuito che offre opportuni linguaggi per: 
+    Definire lo schema di una base di dati 
+    Aggiungere le strutture dati per memorizzare e accesso ai dati 
+    Memorizzare, recuperare e modificare i dati interattivamente (query language) o da programmi 
+Un DBMS e' composto delle funzionalita' 
+    Linguaggi per la definizione della base di dati 
+    Linguaggi per l'uso dei dati 
+        Sia un linguaggio per la definizione dello schema (Data Definition Language DDL) 
+        SIa un linguaggio degli operatori del modello dei dati, che permette di accedere ai dati e modifiarli (Data Manipulation Language DML)
+    Meccanismo di controllo delle base dati 
+        Garantisce l'integrita' (mantenimento delle proprieta' specificate in modo dichiarativo nello schema), sicurezza (protezione dei dati da usi non autorizzati) e affidibilita' (protezione dei dati da malfunzionamento hardware e software e da interferenze indesiderate dovuto all'accesso concorrente)
+    Strumento per ammministrare le basi di dati 
+        Linguaggio per la definizione e modifica degli schemi logico, interno ed esterno 
+        Controllo e messa a punto del funzionamento del sistema 
+        Strumenti per stabilire i diritti di accesso ai dati e per ripristinare la base di dati in caso di malfunzionamenti 
+    Strumenti per sviluppare delle applicazioni 
+        Produzione di rapporti, grafici, fogli elettronici
+        Sviluppo di menu, forme, componenti grafici
+3: Ce ne sono 3
+Livello logico: 
+    Descrive la struttura degli insiemi di dati e delle relazioni fra loro, secondo un certo modello dei dati, senza riferimetno alla loro organizzazione fisica 
+Livello fisico: 
+    Descrive come vanno organizzati fisicamente i dcati nelle memorie permanenti e quali strutture dati ausiliare pevedere per facilitarne l'uso 
+Livello esterno: 
+    Descrive come deve apparire la struttura della base di dati ad una certa applicazione 
+Questi livelli garantiscono l'indipendenza logica (i programmi applicativi non devono essere modificati in seguito a modifiche dello schema logico) e indipendenza fisica (i programmi applicatvi non devono essere modificati in seguito a modifiche dell'organizzazione fisica dei dati) 
+//slide 1
+4: Una transazione e' una sequenza di lettura e scrittura in memoria pemanente e di elaborazioni di dati in memoria temporanea con le proprieta' 
+    Atomicita': le transizioni che terminano prematuramente sono trattate dal sistema come se non fossero mai iniziate 
+    Persistenza: Le modifiche sulla base di dati di una transizione terminata sono permanenti 
+    Serializzabilita': nel caso di esecuzioni concorrenti di piu transazioni, l'effetto complessivo e' quello di una esecuzione seriale 
+//slide 1
+5: La progettazione di una base di dati e' divisa in 4 fasi 
+1)Analisi dei requisiti 
+    Definisce i bisogni del commitente
+2)Progettazione concettuale 
+    Traduce la specifica dei requisit in un progetto, struttura concettuale dei dat, vincoli e operazioni
+3)Progettazione logica
+    Traduce lo schema concettuale nello schema logico che e' espresso nel modello dei dati del sistema scelto per la realizzazione della base 
+4)Progettazione fisica 
+    Produce lo schema fisico che arricchisce lo schema logico con informazione relativa all'organizzazione fisica dei dati 
+//slide 2
+6: Le entita' sono cio' di cui interessa rappresentare alcuni fatti o proprieta' 
+Le proprieta' sono fatti che descrivono caratteristiche di determinate entita'
+    Una proprieta' e' una coppia di un nome e valore di un certo tipo 
+    Ogni proprieta' ha un associato un dominio (i possibili valori che puo' assumere) 
+Il tipo di entita' e' una descrizione astratta di cio' che accomuna un insieme di entita' omogenee, esistenti o possibili
+Un insieme variabile nel tempo di entita' omogenee (dello stesso tipo) e' detto una collezione 
+L'insieme degli elementi di una collezione in un determinato momento e' detto estensione della colezione
+//slide 2
+7: Un'associazione R(X.Y) fra due collezioni di entita' X e Y e' un insieme di istanze di associazione tra elementi di X e Y che varia in generale nel tempo 
+    Un'istanza di associazione e' un fatto che correla due o piu entita' stabilendo un legame logico tra di loro 
+    E' rappresentato tramite il dominio cartesiano (X x Y) detto dominio dell'associazione
+Un'associazione e' caratterizzata dalle seguenti proprieta' strutturali: molteplicita' e tonalita'
+Molteplicita': 
+    Un'associazione e' R(X,Y) e' univoca rispetto ad X se per ogni elemento x di X esiste al piu un elemento di Y che e' associato ad x
+    Se non vale questo vincolo, l'associazione e' multivalore rispetto ad X 
+    La cardinalita' di un'associazione varia 
+        R(X,Y) e' (1:N) se essa e' multivalori su X ed univoca su Y (uno a molti)
+        R(X,Y) e' (N:1) se e' univoca su X e multivalore su Y (molti a uno) 
+        R(X,Y) e' (N:M) se e' multivalore su entrambi (molti a molti)
+        R(X,Y) e' (1:1) se e' univoca ad entrambi (uno ad uno)
+Tonalita' 
+    Un'associazione R(X,Y) e' totale (o surgettiva) su X se per ogni elemento x di X esiste almeno un elemento di Y che e' ad x 
+    Se non vale questo vincolo, allora l'associazione e' parziale rispetto ad X
+Un associazione puo' essere ricorsiva anche:
+    Le associazioni ricorsive sono relazioni binarie fra gli elementi di una stessa collezione
+//slide 2
+8: I vincoli di integrita' sono restrizioni sui valori possibili della conoscenza concreta e sui modi in cui essi possono evolvere nel tempo 
+    Questi impongono restrizioni sui possibili valori della conoscenza concreta
+//slide 2
+9: Il modello entita'-relazione e' il piu popolare modello per il disegno concettuale di basi di dati 
+Non tratta gerarchie di inclusione tra collezioni, non distingue collezioni e tipi e non supporta alcun meccanismo di eredita' 
+Definisce un meccanismo per modellare direttamente le associazioni, non binarie o con proprieta' 
+Prevede due meccanismi di astrazione:
+    Modellare insiemi di entita' con le relative proprieta' 
+    Modellare le associazioni chiamate relazioni 
+Le collezioni sono chiamate tipi di entita' e gli attributi dei loro elementi possono assumere solo valori di tipo primitivo
+//slide 2
+10: Il modello relazione e' definito per una base di dati con l'ennupla e la relazione 
+    Un tipo ennupla T e' un insieme finito di coppie (Attributo, Tipo elementare) 
+    Se T e' un tipo di ennuplica, R(T) e' lo schema della relazione R 
+    Lo schema di una bse di dati e' un insieme di schemi di relazione Ri(Ti) 
+    Un'istanza di uno schema R(T) e' un insieme finito di ennuple di tipo T 
+//slide 5
+11: Uno schema di relazione R(T) e' una coppia formata da un nome di relazione R e un tipo relazione {T} definito da:
+    int, real, boolean e string sono primitive 
+    T = (A1 : T1, ..., An : Tn) e' un tipo ennuplica di grado N, Ti sono tipi primitivi e Ai sono etichette distinte dette attributi 
+    Due tipi ennupla sono uguali se hanno uguale il grado, gli attributi e il tipo degli attributi con lo stesso nome 
+    Se T e' un tipo ennuplica, allora {T} e' un tipo insieme di ennuple o tipo relazione, due tip
+//slide 5
+12: Uno schema relazionale e' costituito da un insieme di schemi di relazione Ri : {Ti}, i = 1, ..., k e da un insieme di vincoli di integrita' relativi a tali schemi 
+    Un'ennupla t = (A1 := V1, ... , An := Vn) di tipo T = (A1 : T1, ..., An : Tn) e' un insieme di coppia (Ai, Vi) con Vi di tipo Ti 
+    Due ennuple sono uguali se hanno lo stesso insieme di coppie (Ai, Vi) 
+    Un'istanza dello schema Ri : {Ti} o relazione e' un insieme finito di ennuple {t1, ..., tk} con ti di tipo Ti 
+    La cardinalita' di una relazione e' il numero delle sue ennuple 
+    Un istanza di uno schema relazione e' una formata da un'istanza di ciascuno dei suoi schemi di relazione
+//slide 5
+13: Il modello relazionale ha una struttura rigida ai dati, pero' ci sono casi di informazione incompleta 
+    Il valore nullo denota l'asenza di valore del dominio (e non e' un valore del dominio)
+    Per ogni attributo A, t[a] e' un valore del dominio dom(A) oppure il valore nullo NULL 
+    Si possono imporre restrizioni sulla presenza di valori nulli 
+//slide 5
+14: Uno schema relazionale e' costituito da un insieme di schemi di relazione e da un insieme di vincoli d'integrita' sui possibili valori delle stenzione 
+Un vincolo di integrita' e' una proprieta' che deve essere soddisfata dalle istanze che rappresentano informazioni corrette per l'applicazione
+    Un vincolo e' espresso una funzione booleana (predicato): associa ad ogni istanza il valore vero o falso 
+Due tipi di vincoli 
+    Vincoli intrarelazionali: vincoli che devono essere rispettati dai valori contenuti nella relazione considerata 
+    Vincoli interrelazionali: vincoli che devono essere rispettati da valori contenuti in relazioni diverse 
+Vincoli intrarelazionali possono essere su valori/dominio o di ennupla (il valore di un attributo e' determinato dai valori di altri attributi)
+//slide 5
+15: Una chiave e' un insieme di attributi che identificano le ennuple di una relazione 
+    Dato un insieme K di attributi per uno schema di relazione r 
+        E' una superchiave se r non contiene due ennuple (distinte) t1 e t2 con t1[K] = t2[K]
+        E' una chiave se e' una superchiave minimale, cioe' non contiene un'altra superchiave 
+La chiave primaria di uno schema di relazione e' una delle chiavi e di solito viene preferita quella con il minor numero di attributi 
+    E' una chiave su cui non sono ammessi valori nulli
+Una relazione non puo' contenere ennuple distinte ma con valori uguali (una relazione e' un sottoinsieme del prodotto cartesiano) 
+    Quindi ogni relazione ha sicuramente come superchiave l'insieme di tutti gli attributi su cui e' definita
+    Quindi ogni relazione ha sempre una chiave!
+//slide 5
+16: Le informazioni in relazioni diverse sono correlate attraverso valori comune
+Un vincolo di integrita' referenziale (foreign key) fra gli attributi x di una relazione R1 ed un'altra relazione R2 impone ai valori su X in R1 di comparire come valori della chiave primaria di R2
+//slide 5
+17: La progettazione logica traduce lo schema concettuale in uno schema logico-relazionale che rappresenti gli stessi dati in maniera corretta ed efficiente
+Si traduce uno schema ad oggetti in uno schema rleazionali con i passi: 
+    1. Rappresentazione delle associazioni uno ad uno e uno a molti 
+    2. Rappresentazione delle associazioni molti a molti o non binarie 
+    3. Rappresentazione delle gerarchie di inclusione 
+    4. Identificazione delle chiavi primarie
+    5. Rappresentazione degli attributi multivalore 
+    6. Appiattiamento degli attributi composti 
+//slide 6
+18: Le associazioni uno a molti sono rappresentate con una relazione rispetto a cui l'associazione e' univoca una chiave esterna che referisce l'altra relazione
+    Se una associazione ha attributi, questi si aggiungono alla relazione esterna
+//slide 6
+19: Le associazioni uno a uno si rappresentano aggiungendo la chiave esterna ad una qualunque delle due relazione che refersice l'altra
+    Si preferisce quella rispetto a cui l'associazione e' totale
+//slide 6
+20: La diretta dell'associazione e' la direzione dell'associazione rappresentata dalla chaive esterna 
+    I vincoli sulla cardinalita' dell'associazione sono 
+        Univocita' della diretta 
+        Totalita' della diretta: vincolo not null sulla chiave esterna 
+        Univocita' dell'inversa e totalita' della diretta: si rappresenta imponendo un vincolo not null ed un vincolo sulla chiave esterna 
+//slide 6
+21: Una rappresentazione molti a molti si rappresenta aggiungendo allo schema una nuova relazione che contiene due chiavi esterne che rifersicono le due relazioni coinvolte
+//slide 6
+22: La gerarchia delle classi non puo' essere rappresentata in uno modello relazionale 
+SI elimino le gerarchie sostituendole con classi e relazioni 
+Relazione unica: 
+    Accorpamento delle figlie della gerarchia nel genitore 
+    Se A0 e' la classe genitore di A1 ed A2, le classi A1 e A2 vengono eliminate ed accorpate ad A0 
+    Ad A0 viene aggiunto un attributo discriminatore che indica da quale classe figlie deriva una certa istanza, e gli attributi di A1 e A2 vengono assorbiti dal genirotre 
+        Assumono valore nullo sulle istanze provenienti da altre classi 
+    Una relazione rleativa a solo una delle classi figlie viene acquisita dalla classe genitore e avra' comunque cardinalita' minima uguale a 0, in quanto gli elementi dell'altra classe non contribuiscono alla relazione
+Partizionamento Orizzontale:
+    Accorpamento del genitore della gerarchia nelle figlie 
+        Se A0 e' genitore di A1 e A2, la classe genitore di A0 viene eliminata e le classi A1 e A2 ereditano le proprieta' della classe genitroe 
+Partizionamento Verticale:
+    La gerarchia si trasforma in due associazioni uno a uno che legano rispettivamente la classe genitore con le classi figlie
+    In questo caso non c'e' un trasferimetno di attributi o associazioni e le classi figlie A1 e A2 sono identificate esternamente dalla classe genitore A0 
+    Nello schema ottenuto vanno aggiunti dei vincoli: ogni occorenza di A0 non puo' partecipare contemporaneamente alle due associazioni 
+        Se la gerarchia e' totale, deve partecipare ad almeno una delle due 
+//slide 6
+23: Dobbiamo definire per ogni relazione un insieme di attributi che funzioni da PK 
+    1. Si considerano le relazioni che corrispondono alle classi dello schema originale che erano prive di superclassi
+    2. Per ogni relazione dello schema che corrisponde ad una sottoclasse dello schema originario, la chiame primaria sara' la stessa della superclasse 
+    3. Per le relazioni che corrispondono ad N:M nello schema originario, la chiave primaria sara' costituita dalla concatenazione delle chiavi esterne
+//slide 6
+24: Una proprieta' multivalore di una classe C si rappresenta eliminando il corrispondente attributo da C e creando una nuova relazione N con una chiave di due attributi 
+    Una chiave esterna che fa riferimento alla chiave primaria di C e 
+    Un attributo che corrisponde all'attributo multivalore da trasformare 
+Un oggetto di C con una chiave primaria K ed in cui l'attributo assieme valore a1, ..., an si rappresenta poi inserendo nella relazione N le coppie (k, a1), ..., (k, an)
+//slide 6
+25: Se un attributo Ai di uno schema di relazione e' di tipo [Ai1 : Ti1, ..., Aij : Tij] si sostituisce con gli attributi Ai1 : Ti1, ..., Aij : Tij 
+    Se Ai faceva parte della chiave primaria dello schema di relazione, si sostituisce Ai con gli attributi Ai1, ..., Aij nella chiave, poi si verifica che non esista un sottoinsieme degli attributi della nuova chiave primaria che e' esso stesso una chiave 
+//slide 6
+26: 
+Ridenominazione
+    Si usa per cambiare il tipo di una relazione (modificare il nome di un attributo modifica il tipo della relazione)
+Unione 
+    R U S - restituisce la relazione ottenuta facendo l'unione delle ennuple di R con quelle di S dove R e S sono relazioni dello stesso tipo 
+Differenza
+    R - S - Restituisce la relazione contenente le ennuple di R non presenti in S 
+Proiezione 
+    Pi_{A1, ..., An}(R) - Restituisce una relazione i cui elementi sono la copia delle ennuple di R proiettate (ristrette) sugli attributi A1, ... An
+    Poiche le relazioni sono insiemi, eventuali ennuple uguali dopo la proiezione appaiono una sola volta nel risultato 
+        Se X e' una superchiave di R, allora pi_X(R) contiene esattamente tante ennuple quanto R 
+        Se non lo e', potrebbero essere valori ripetuti su quegli attributi che vengono rappresentati una volta sola 
+Restrizione o Selezione 
+    rho_{phi}(R) - Restituisce una relazione dello stesso tipo di R i cui elementi sono la copia delle ennuple di R che soddisfono la condizione phi definita come:
+        Ai theta Aj con Ai e Aj attributi di R e theta un operatore di confronto {<, <=, =, !=, >=, >} 
+        Ai theta c, oppure c theta Ai con theta operatore di confronto e c costante nel dominio di Ai 
+        Se phi e f sono formule, allora lo sono anche f e phi, f o phi e ~phi (qui e ed o sono usate come logica proposizionale)
+Prodotto 
+    R x S - Con R e S relazioniu con attributi distinti, R x S e' una relazione con elementi ottenuti concatenando ogni ennupla di R con ogni ennupla di S 
+    La concatenazione di due ennuple e' un'ennupla che ha come coppie tutte quelle delle ennuple che la formano 
+    La relazione risultante ha grado uguale alla somma dei gradi degli operandi e cardinalita' uguale al prodotto delle cardinalita' degli operandi 
+    Il prodotto non si usa da solo di solito, si mettono delle restrizioni nei campi in comune per poter filtrare (nel caso di due relazioni, una con una chiave esterna)
+//slide 7
+27: No! Poiche' non si sta tenendo in conto i valori nulli, che se sono presenti non soddisfano nessuna delle due formule, percio' non faranno parte della restrizione
+//slide 7
+28: 
+Intersezione 
+    R int S = R - (R - S) - Restituisce la relazione ottenuta facendo l'intersezione delle ennuple di R con quelle di S dove R e S sono relazioni dello stesso tipo 
+Giunzione (join o Equi-join o Inner-join)
+    R |><|_{AI = AJ} S = rho_{Ai = Aj}(R x S) - Restituisce la relazione contenete le ennuple del prodotto cartesiano di R x S con i valori uguali per gli attributi Ai e Aj 
+        Questo dove R e S sono relazione di tipo diverso (ovvero con attributi distinti) tra i quale c'e' Ai in R e Aj in S 
+Theta-join
+   R |><|_{thi} S - Caso generale della giunzione, la condizione thi e' una congiunzione di termini logici di confronto A1 & A2 dove & e' un'operazione di confronto 
+Giunzione naturale (Natural join)
+    R |><|_{A = A} S = rho_{A = A}(R x S) - Restituisce la relazione contenente le ennuple di R x S con gli attributi di uguali nomi in R ed S definiti sugli stessi domini 
+        La giunzione naturale e' un'abbreviazione dell'equijoin applicato a relazioni in cui l'associazione fra le ennuple e' descritta con la chiave esterna e la chiave primaria costituite da attributi uguali 
+        Se R ed S non hanno attributi in comune, R |><| S = R x S , se hanno lo stesso schema R |><| S = R int S 
+Semi-Giunzione (Semi Join) 
+    R |>< S = pi_{A1, ..., Am} (R |><|S) = Restitusce le ennuple di R che partecipano alla giunzione naturale di R ed S con A1, ..., Am attributi di R 
+Giunzione Esterna (External join) 
+    Il join esterno estende, con valori nulli, le ennuple che verrebbero tagliate fuori dal join 
+    Tre versioni: 
+        Sinistro (left) - Mantiene tutte le ennuple del primo operando. estendendole con valori nulli, se necessario
+        Destro (right) - Del secondo operando 
+        Completto (full) - di Entrambi gli operandi
+Self join 
+    Possiamo fare R |><|_{Ai = Aj} R per ottenere altre relazioni 
+        Esempio, da una relazione genitore figlio possiamo ottenere una relazione nonno nipote
+//slide 7
+29: Le proprieta' algebriche degli operatori relazionali ci aiutano a trasformare un operazione algebrica relazionale in un'altra equivalente sfruttando certe proprieta' degli operatori 
+    Trasformazioni utili per ridurre di ordini di grandezza il costo di esecuzione delle operazioni (riscrittura algebrica) 
+        Antecipare gli operatori di proiezione e restrizione rispetto al prodotto e la giunzione 
+Le proprieta' sono 
+    1. Ragruppamento di Restrizioni rhoC1(rhoc2(R)) = rho_{C1 e C2}(R) 
+    2. Commutativita' della restrizione e della proiezione 
+    3. Anticipazione della restrizione rispetto al prodotto e alla giunzione 
+    4. Raggrupamento di proiezioni rho{C1 e C2} = rhoC1(R) x rhoc2(S)
+    5. Eliminazione di proiezioni superflue pi_{A}(pi_{A,B}(R)) = pi_{A}(R)
+    6. Anticipazione della proiezione rispetto al prodotto e alla giunzione 
+    7. Commutativita' del prodotto e della giunzione R x S = S x R 
+    8. Associativita' del prodotto e della giunzione R x (S x T) = (R x S) x T 
+    9. Commutativita' degli operatori insiemistici 
+    10. Associativita' degli operatori insiemistici 
+    11. Anticipazione della restrizione rispetto agli operatori insiemistici 
+    12. Anticipazione della proiezione rispetto agli operatori insiemistici
+//slide 7
+30: Quantificatori esistenziale restringono su ennuple che hanno almeno una qualita' (es, voto >= 28)
+    Quantificatori universali restringono su solo quello che abbiamo (es: hanno otenuto solo voti >= 28)
+//slide 7
+31: Gli operatori non insiemistici sono 
+Raggrupamento:
+    {Ai}y{fi}(R) 
+    Gli Ai sono atributi di R e le fi sono espressioni che usano funzioni di aggregazione (max, min, count, sum) 
+    Il valore del raggrupamento e' una relazione calcolata cosi'    
+        Si partizionano le ennuple di R mettendo nello stesso gruppo tutte le ennuple con valori uguali degli Ai 
+        Si calcolano le espressioni fi per ogni gruppo 
+        Per ogni gruppo si restituisce una sola ennupla con attributi i valori degli Ai e delle espressioni fi 
+    Anticipare restrizione rispetto l'aggruppamento rhoC(XyF(R)) = XyF(rhoC(R))
+Proiezione Generalizzata 
+    Estende la proiezione con la possibilita' di usare costanti o espressioni aritmetiche nella lista di attributi 
+    pi_{ e1 AS ide1, e2 AS ide2, ...}(R) 
+    Con e1, e2, ... espressioni aritmetiche ottenute a partire da costanti e attributi di R e ide1, ide2, ... etichetti distinte 
+Proiezione Multi-Insiemistica 
+    pi^b_{Ai}(R) - Come la proiezione ma senza eliminazione dei duplicati 
+Ordinamento 
+    t{Ai}(R) - Ordina le ennuple di R in ordine crescente o decrente rispetti gli attributi di Ai 
+        Entrambi le proiezioni Multi-Insiemistica e l'ordinamento danno come risultato multi-insiemi e pertanto possono essere usati solo come radice di un albero logico 
+//slide 7
+32: SQL (Structured Query Language) e' un linguaggio universale per la definizione dell'uso delle basi di dati relazionali 
+Query sono i comandi di interrogazione. Permettono di effettuare una ricerca dei dati nel database che soddisfano particolari condizioni richieste dall'utente
+Composto da due parti 
+    Direct SQL per l'uso interattivo 
+    Embedded SQL per l'uso con linguaggi di programmazione 
+E' composto da 
+    DML (Data Manipulation Language): linguaggio per ricerche e modifiche tramite interrogazioni o query di istanze di basi di dati 
+    DDL (Data Definition Language): linguaggio per la definizione deklo schema e l'amministrazionen della base di dati  
+Nella terminologia SQL: 
+    Relazione = tabella 
+    Attributi delle ennuple = Colonne 
+    Ennuple = Righe = Record 
+Le tabelle sono un multinsieme (non insieme), sono solo un inseme se hanno un attributo chiave 
+//slide 8
+33: 
+FROM 
+    Ha lo scopo di scegliere quali sono le tabelle del databse da cui vogliamo estrare le nostre informazioni 
+    Se ci sono piu di due tabelle nella clausola from, viene realizzato il prodotto cartesiano R x S 
+    Includendo la clausola WHERE si inserisce la condizione di giunzione per stabilire quali righe delle due tabelle acoppiare implementando il theta join R |><|_{phi} S 
+SELECT
+    Serve a scegliere alcuni degli attributi della tabella o delle tabelle considerate 
+    Implementa l'operazione di proiezione pi_{A1,A2,...} dell'algebra relazionale 
+    Si puo' anche cambiare il dato utilizzando delle espressioni algebriche accanto al nome (es: SELECT Cognome, Stip * 120/100)
+AS 
+    L'alias serve a dare a una colonna un nome diverso rispetto a quello che e' utilizzato nella tabela 
+    Implementa l'operatore rho (Ridenominazione) dell'algebra relazionale 
+    Puo' essere usato AS o le virgolette (SELECT figlio AS Figlio_M, SELECT Figlio 'Figlio_M')
+    Puo' essere usato anche dentro del SELECT
+WHERE
+    Serve a scegliere le righe della tabella che soddisfano una condizione 
+    Implementa la selezione rho_{phi} dell'algebra relazionale 
+        Opzionale, se si omette, si selezionano tutte le righe della tabella specificata 
+
+//slide 8
+34: Possiamo aver anche espressioni che calcolano valori a partire da insieme di ennuple che ritornano tabelle costituite da un singolo valore scalare 
+Ha la restrizione che se un argomento e' null, allora e' tutta l'intera espressione 
+    (Ergo Sum(Prezzo + IVA) e' diversa da Sum(Prezzo) + Sum(IVA) se l'attributo Prezzo e' NULL per alcune delle ennuple)
+Possono essere usate delle specifiche 
+    (*): Tutte le righe selezionate 
+    ALL: Tutti i valori non nulli delle righe selezionate (default)
+    DISTINCT: Tutti i valori non nulli distinti delle righe selezionate
+Sono usati tramite SELECT, non possono essere usati con una proiezione su alcuni attributi che non usano operatori aggregati nella stessa tabella senza la clausola GROUP BY
+Gli operatori aggreganti sono: 
+COUNT 
+    Restituisce il numero di righe della tabella o il numero di valori di un particolare attributo 
+MAX e MIN 
+    Calcolano rispettivamente il maggiore e il minore degli elementi di una colonna 
+    L'argomento delle funzioni max e min possono anche essere un'espressione aritmetica
+AVG 
+    Calcola la media dei valori non nulli di una colonna 
+    Le specifiche ALL e DISTINCT servono a calcolare la media fra tutti i valori o fra tutti i valori distinti
+    Valori nulli non vengono consideratia
+//slide 8
+35: Gli operatori restrizione sono utilizzati tramite WHERE
+Servono per restringere i records che veranno selezionati 
+Hanno 
+    Operatori di confronto: =, <, >, <> o !=, <=, >= 
+    Connettori logici AND, OR, NOT 
+    Operatori BETWEEN, IN, LIKE, IS NULL 
+BETWEEN: 
+    Consente la selezionen di righe con attributi in un particolare range (WHERE Stip BETWEEN 1000 AND 1500)
+IN: 
+    Seleziona righe che hanno un attributo che assume valori contenuti in una lista (WHERE Corso IN ('BD1', 'BD2', Algoritmi', 'Sistemi')
+LIKE: 
+    Usato per effettuare ricerce regex, % denota zero o piu caratteri, _ denota un carattere 
+        (es: WHERE Nome LIKE '%a' seleziona quelli che il nome finisce con A, WHERE Sequenza LIKE '%G___G%' seleziona le sequenze in cui ci sono due simboli 'G' che distano 3 caratteri) 
+    Nel caso si vogliono cercare % o _, si usa il simbolo ESCAPE, utilizzando un simbolo come ESCAPE che non e' permesso 
+        (se si vuole cercare i modello il cui nome inizia per C_F, WHERE nome_modello LIKE 'C#_F%' ESCAPE '#')
+IS NULL:
+    Verifica se il contenuto di un operando e' NULL 
+//slide 8
+36: La logica booleana in SQL ha un terzo valore indicato come S detto come Unknown, usato per l'assenza di informazione nel caso NULL 
+Le tabelle logiche funzionano un po diversamente in questi casi 
+    OR: Restituisce TRUE se un operando e' TRUE, altrimenti se ci sono NULL restituisce UNKNOWN 
+    AND: Restituisce FALSE se un operando e' FALSE, altrimetni se ci sono NULL restituisce UNKNOWN 
+    Nelle clausole WHERE e HAVING per il recupero di informazioni, NULL conta come FALSE 
+    IN, ALL, ANY: Se l'insieme non contiene un NULL si comportano come nella logica, se l['insieme contiene almeno un NULL allora se l'operatore puio' restiture un risultato certo restituiscono TRUE, altrimento UNKNOWN 
+//slide 8
+37: L'ordinamento in SQL e' usato insieme al risultato della SELECT 
+    Utilizzando ORDER BY attributo1 [ASC/DESC], attributo2 [ASC/DESC], ...
+        L'ordinamento si puo' effetuare in base ad uno o piu attributi, crescente o decrescente 
+        Le righe vengono ordinate in base al campo Attributo in maniera crescente o decrescente secondo la specifica ASC o DESC (ASC default) 
+        Secondo il tipo dell'attributo, l'ordinamento e' quello piou' naturale su quel dominio
+//slide 8
+38: Il raggrupamento e' fatto tramite
+    SELECT ...
+    FROM ...
+    WHERE ...
+    GROUP BY A1, ..., An 
+    [HAVING Condizione]
+    Esegue le clasuse FROM - WHERE 
+    Partiziona la tabella risultante rispetto all'ugualianza su tutti i campi A1... AN 
+    Elimina i gruppi che non rispettano la clausola HAVING 
+    Da ogni gruppo estrare una riga usando la clausola SELECT 
+GROUP BY 
+    Raggruppa per un attributo in commune 
+HAVING
+    Utilizzato per applicare condizioni sul valore aggregato per ogni gruppo 
+    Se la SELECT contiene sia espressioni aggregate che attributi non aggregati, deve usare una clausola GROUP BY
+    Le clausole HAVING e SELECT citano solo 
+        Espressioni su attributi di raggrupamento
+        Funzioni di aggregazione applicate ad attributi non di raggrupamento
+//slide 8
+39: La giunzione nell'algebra relazionale, risulta nel prodotto cartesiano delle due tabelle, e' fatta mediante a 
+    SELECT A.*, B.*
+    FROM A, B 
+Per realizzare una theta join, si Utilizza la clausola WHERE per creare la funzione per la giunzione, 
+    SELECT *
+    FROM Studenti, Esami 
+    WHERE Studenti.Matricola = Esami.Matricola
+Abbiamo pero' la clausola JOIN che fra due tabelle restituisce una terza tabella le cue righe sono tutte e solo quelle ottenute dal prodotto cartesiano delle righe  delle due tabelle di partenze 
+    I cui valori delle colonne espresse dalla condizione JOIN sono uguali 
+Esempio 
+    SELECT Attributi 
+    FROM Tab1 JOIN Tab2 ON CondizioneDiJoin 
+    [WHERE]...
+Possiamo anche usare NATURAL JOIN per la giunzione naturale 
+    SELECT listaattributi 
+    FROM Tab1 NATURAL JOIN Tab2
+//slide 9
+40: La clausola USING e' quando vogliamo operare una join in cui la condizione riguarda solo una o alcune degli attributi presenti 
+    Utile quando abbiamo due tabelle con attributi dello stesso nome 
+Esempio 
+    SELECT Nomde_Mod 
+    FROM Modelli JOIN Veicoli 
+    USING (Cod_mod)
+    WHERE targa="ZX2345"
+//slide 9
+41: L'OUTER JOIN e' una clausola per fare join dove non si scartano valori che verrebbero scartati con l'equi-join
+Si puo' scegliere tra LEFT, RIGHT o FULL 
+    {LEFT | RIGHT | FULL} [OUTER} JOIN + ON <predicato>
+    {LEFT | RIGHT | FULL} [OUTER} JOIN + USING <predicato>
+//slide 9
+42: Una subquery e' un comando SQL chiuso tra parentesi tonde inserito all'interno di un commando SQL 
+    Le subquery possono essere usate al posto della join 
+    Possono anche creare commandi piu complessi, dove la clausola WHERE usa una funzione SQL per ottenere il risultato 
+        Usando funzioni di gruppo dentro della subquery
+//slide 9
+43: I Quantificatori servono per togliere l'ambiguita' in certe interrogazioni su associazzioni di multivalori 
+Abbiamo degli Operatori Scalari (ANY|ALL) e il quantificatore esistenziale (EXISTS subquery) 
+EXISTS
+    E' possibile verificare se il risultato di una subquery restituisce almeno una tupla 
+    Facendo NOT EXISTS il predicato e' vero se la subquery non restituisce alcuna tupla 
+    Utilizzato insieme a SELECT A1 FROM D1 WHERE EXISTS (subquery)
+    Utile sempre con associazioni di multivalori 
+    Possibile anche fare la giunzione tramite l'esistenza senza creare multi-insiemi (ennuple ripetute)
+ANY
+    Il predicato e' vero se almeno uno dei valori restituiti da una subquery soddisfano la condizione 
+    I quantificatori =ANY e' equivalente ad IN e si puo' essere usato per fare intersezione nell'algebra relazione 
+ALL 
+    Il predicato e' vero se tutti i valor restituiti da una subquery soddisfano la condizione
+    <>ALL e' equivalente a NOT IN e si puo' essere usato per fare la differenza dell'algebra relazionale 
+//slide 10
+44: Abbiamo certi costrutti per fare certe operazioni che con SELECT non riusciremo a fare 
+UNION 
+    Realizza l'operazione di unione definita nell'algebra lineare 
+    Utilizzata come operandi le due tabelle risultanti da comand select e restituisce una terza tabella che contiene tutte le righe della prima e seconda tabella 
+    Nel caso di righe duplicate, union tiene solo una copia nel caso non sia specificato l'opzione ALL Che indica la volonta di manetere i dupplicati 
+        SELECT ...
+        UNION [ALL] 
+        SELECT ...
+INTERSECT 
+    Sempre tra due SELECT, usa come operandi due tabelle ottenuta e ha come risultato una nuova tabella che e' l'intersezione tra le due 
+    Toglie i duplicati, se si vuole usa ALL 
+EXCEPT (MINUS in oracle)
+    Sempre tra due SELECT, usa come operandi due tabelle ottenute e ha come risultato una nuova tabella con tutte le righe della prima tabella che non appaiono nella seconda 
+    Toglie i dupplicati, se si vuole usare ALL 
+//slide 10
+45: LA DML e' il lingauggio SQL che serve per interrogare il database, ossia estrarre i dati, ma anche per inserire, modificare e cancellare 
+INSERT
+    Serve per inserire nuovi dati in una tabella 
+    Ai valori non attributi viene assegnato NULL a meno che non venga specificato un valore di Default, l'inserimento falisce se NULL non e' permesso negli attributi mancanti
+    INSERT INTO Tabella 
+    [(listaattributi)] VALUES (ListaDiValori) | SQLSelect
+DELETE L 
+    Cancellare righe dalla tabella
+    DELETE FROM Tabella
+    Per eliminare un elemento bisogna individuare quale, stabilito tramite WHERE che individua l'elemento o gli elementi da cancellare 
+    Spesso un particolare elemento puo' essere individuato mediate il suo valore nella chiave primaria 
+    Puo' essere usato SELECT come una subquery in WHERE per poter cancellare elementi basato su informaizoni da alatre tabelle 
+    [WHERE Condizione] 
+UPDATE 
+    Aggiornare dati 
+    UPDATE Tabella 
+    SET Attributo = Espr 
+    WHERE Condizione
+//slide 10 
+46: Le tabelle sono create mediante l'istruzione CREATE TABLE, definisce uno schema di relazione e crea un'istanza vuota e specifica attributi 
+    CREATE TABLE <nome tabella>
+    (   nome_colonna_1 tipo_colonna1 clausola_default_1 vincolo_di_domanda_1, 
+        nome_colonna_2 tipo_colonna_2 clausola_default_2 vincolo_di_domanda_2, 
+        ...
+        nome_colonna_n tipo_colonna_n clausola_default_n vincolo_di_domanda_n,
+        vincoli di tabella
+    )
+    Si possono anche creare tabelle usando il risultato di una query di una esistente 
+        CREATE TABLE Supervisori 
+            SELECT Codice, Nome, Qualifica, Stipendio 
+            FROM Impiegati 
+            WHERE Supervisore IS NULL
+//slide 12
+47: I tipi piu comuni per gli attributi sono 
+    CHAR(n) per stringhe di caratteri di lunghezza fissa n 
+    VARCHAR(n) per stringhe di caratteri di lunghezza variabile di al massimo n caratteri 
+    INTEGER per interi con la dimensione uguale alla parola di memoria standard dell'elaboratore 
+    REAL per numeri reali con dimensione uguale alla parola di memoria standard dell'elaboratore 
+    NUMBER(p,s) per numeri con p cifre, di cui s decimali 
+    FLOAT(p) per numeri binari in virgola mobile, con almeno p cifre significative 
+    DATE per valori che rappresentano istanti di tempo (come in Oracle) oppure solo date (insieme a TIME per indicare ora, minuti e secondi) 
+//slide 12
+48: Il commando ALTER TABLE rende possibile modificare le tabelle in molti modi 
+ADD [COLUMN]
+    ADD [COLUMN] nome_col tipo_col default_col vincolo_col [FIRST/AFTER <nome_colonna>]
+    Aggiunge una nuova colonna, in mancanza di specifiche viene messo alla fine 
+    Altrimenti FIRST per aggiungerla come prima/AFTER colonna subito dopo la colonna indicata 
+DROP COLUMN
+    DROP COLUMN nome_colonna {RESTRICT/CASCADE}
+    In standard SQL le opzioni RESTRICT/CASCADE sono alternative ed e' obbligatorio specificare una o l'altra 
+        RESTRICT: se un'altra tabella si ha un vincolo di integrita' referenziale con questa colonna, l'esecuzione drop fallisce 
+        CASCADE: eleminando la colonna, vengono eliminate tutte le dipendenze logiche di altre colonne dello schema da questa 
+MODIFY 
+    ALTER TABLE nome_tabella MODIFY 
+    nome_colonna tipo_col default_col vincolo_col 
+    Se si vogliono modificare le caratteristiche di una colonna dopo averla definita 
+SET DEFAULT 
+    ALTER TABLE nome_tabella 
+    ALTER [COLUMN] nome_colonna
+    SET DEFAULT valore_default 
+    Impone un valore di default 
+DROP DEFAULT
+    ALTER TABLE nome_tabella 
+    ALTER [COLUMN] nome_colonna
+    DROP DEFAULT 
+    elimina il vincolo di default da una colonna 
+ADD CONSTRAINT 
+    ADD CONSTRAINT nome_vincolo vincolo_di_tabella
+DROP CONSTRAINT 
+    DROP CONSTRAINT nome_vincolo {RESTRICT/CASCADE}
+    Elimina un vincolo di tabella 
+    RESTRICT non permette di eliminare vincoli di unicita' e di chiave primaria su una colonna se esistono vincoli di chiave esterna che si riferiscono a tale colonna 
+    CASCADE non opera questa restrizione 
+    Per eliminare un vincolo esso deve essere definito con un identificatore
+DROP TABLE 
+    DROP TABLE nome_tabella {RESTRICT/CASCADE}
+    Per eliminare tutta la tabella
+    RESTRICT se la tabella e' utilizzata nella definizione di altri oggetti dello schema, la sua eliminazione viene impedita 
+    CASCADE: vengono eliminate tutte le dipendenze degli altri oggetti dello schema da questa tabella
+//slide 12
+49: I vincoli d'integrita' intrarelazionali consentono di limitare i valori ammissibili per una determinata colonna della tabella in base a specifici criteri
+UNIQUE 
+    Usato nella definizione di un attributo indica che non ci possono essere due valori uguali nella stessa colonna 
+    E' una chiave della relazione, ma non una chiave primaria 
+    UNIQUE puo' anche essere referito ad una coppia di attributi se inserito nei vincoli della tabella 
+        UNIQUE(lista di attributi)
+PRIMARY KEY 
+    E' simile a UNIQUE, ma definisce la chiave primaria di una relazione, ossia un attributo che individua univocamente un dato 
+    Implica sia il vincolo UNIQUE che NOT NULL 
+    Serve ad identificare univocamente i soggetti del dominio 
+    Definito sia nella definizione di un attributo o inserito nei vincoli della tabella 
+NOT NULL 
+    Definisce che un certo attributo non puo' essere nullo 
+CHECK 
+    Richiede che una colonna o una combinazione di colonne soddisfi una condizione per ogni riga della tabela 
+    Il vincolo CHECK deve essere una espressione booleana che e' valutata usando i valori della colonna che vengono inseriti o aggiornati nella riga 
+    Puo' essere vincolo di riga o tabella 
+//slide 12 
+50: I vincoli interrelazionali sono vincoli che vengono imposti quando gli attributi di due diverse tabelle devono essere messi in relazione 
+Questo serve per togliere redondanza ed aver dati sincronizzati 
+REFERENCES e FOREIGN KEY per mettono di definire vincoli di integrita' referenziale per singoli attributi o su piu attributi (vincolo di colonna e tabella) 
+Le reazioni alle violazioni sono modi in SQL di gestire modificazione di dati condivisi tra due tabelle 
+    Vengono dichiare al momento della definizione dei vincoli di FOREIGN KEY tramite i commandi ON DELETE/ ON UPDATE 
+    4 tipo di reazioni DELETE
+        NO ACTION: Blocca il DELETE delle righe dalla tabella riferita quando ci sono righe che dipendono a essa (default)
+        CASCADE: Cancella tutte le righe dipendenti dalla tabella quando la corrispondente riga e' cancallata dalla tabella riferita 
+        SET NULL: Assegna NULL ai valori della colonna che ha il vincolo FOREIGN KEY nella tabella quando la riga corrispondente viene cancellata dalla tabela riferita 
+        SET DEFAULT: Assegna il valore default ai valori della colonna che ha il vincolo FOREIGN KEY nella tabella quando la riga corrispondente viene cancellata dalla tabela riferita 
+    4 tipo di reazioni UPDATE 
+        CASCADE: Le righe della tabella referente vengono impostati ai valori della tabella riferita 
+        SET NULL: I valori della tabella referente vengono impostati a NULL 
+        SET DEFAULT: I valori della tabella referente vengono impostati al valore di default 
+        NO ACTION: Rifiuta gli aggiornamenti che violino l'integrita' referenziale
+//slide 12
+51:Le viste logiche/viste/view sono tabelle virtuali in cui i dati sono riaggregazioni dei dati contenuti nelle tabelle fisiche presenti nel database 
+Le taballe fisiche sono gli unici veri contenitori di dati 
+Le viste non contengono dati fisicametne diversi dai dati presenti nelle tabelle, ma forniscono una diversa visione, dinamicamente aggiornata, di questi dati 
+Sembra una tabella normale all'utente, dove si puo' fare interrogazioni o modificare dati (dipendento dai suoi privilegi)
+    I suoi vantaggi consentono di proteggere la database, consentono la conversione di misura e creare nuovi formati. convenienti per query complesse 
+    Limitazione: Non si puo' usare ORDER BY, a seconda del DBMS non e' possibile utilizzare gli operatori UNION, INTERSECT e EXCEPT, INTERSECT ed EXPECT possono essere usato solo tramite una select
+//slide 12 
+52: contiene i seguinti commandi
+CREATE VIEW
+    CREATE VIEW NomeVIsta [(listaattributi)] AS SelectSQL 
+    [ with [ local | cascaded] checked option] 
+        SelectSQL in questo caso e' un commando SQL su una database (pero' puo' essere anche un commando su un'altra view)
+    L'eliminazione di una vista e' data da 
+DROP VIEW 
+    DROP VIEW nome_view {RESTRICT/CASCADE} 
+    RESTRICT: La vista viene eliminata solo se non e' riferita nella definizione di altri oggetti 
+    CASCADE: Oltre che essere eliminata la vista, vengono eliminate tutte le dipendenze da tale vista 
+//slide 12 
+53: Le viste per se stesse non sono modificabili, se occorre una modificazione, essa succede dentro della tabella che la view trasmette 
+    Se una vista e' definita da una subquery, aggiornata la tabella non si mostra alla vista
+All'aggiornatre una vista, possiamo usare l'opzione WITH per poter assucirare che la vista soddisfe la clausola WHERE della subquery 
+Abbiamo due opzioni 
+    WITH CASCADE CHECK OPTION: data una vista V! creata da una vista V2, il DBMS verifica che la nuova tupla t inserita soddisfi sia la definizione di V! che quella di V2 
+    WITH LOCAL CHECK OPTION: Si alterna soltanto V1 col DBMS che controlla soltanto le viste da cui V1 dipende per cui e' stata specificata la clausola WITH CHECK OPTION 
+//slide 12 
+54: Non possiamo usare operatori aggregati a cascate, con una view, possiamo creare una usando una subqyery col primo aggregatore usando GROUP BY e poi dalla view usare il secondo aggregatore 
+//slide 12
+55: Un Trigger definisce un'azione che il database deve attivare automaticamente quando si verifica un determinato evento 
+Possono esserci trigger a livello di riga (accade ogni volta una riga viene modificata) usando la clausola FOR EACH ROW nell'istruzione di create il trigger 
+    Trigger a livello di istruzione che viene eseguito una sola volta per ciascuna transazione, e' il tipo predefinito con CREATE TRIGGER 
+Un trigger puo' essere attivo se in corrispondenza di certi eventi modifica lo stato della database o passivo se serve a provocare il fallimento di una transazione corrente sotto certe condizioni
+//slide 12
+56: CREATE TRIGGER nome 
+        BEFORE|AFTER INSERT|DELETE|UPDATE OF Attributi {, ...}
+        ON Tabella [WHEN Condizione] 
+        [FOR EACH {ROW | STATEMENT} //STATEMENT default 
+        Azione
+
+-BEFORE e AFTER: I trigger possono essere eseguiti prima o dopo l'utilizzo di INSERT, UPDATE, DELETE 
+    All'interno di un trigger si possono usare i valori vecchi e nuovi coinvolti nella transazione 
+        Se e' BEFORE UPDATE: i valori vecchi sono quelli presenti nella tabella che vogliamo modificare, i nuovi sono quelli che vogliamo inserire al posto dei vecchi 
+        Se e' AFTER UPDATE: i valori vehcchi sono quelli che erano nella tabella prima dell'update, i nuovi sono quelli presenti nella tabella alla fine della modifica 
+C'e' anche l'opzione INSTEAD OF per specificare che cosa fare invece di eseguire le azioni che hanno attivato il trigger (possibile sulle viste, solo a livello riga)
+//slide 12 
+57: Ogni componente dello schema puo' essere protetto (tabelle, attributi, viste) 
+Il possessore della risorsa (quello che crea) assegna dei privilegi ad altri utenti 
+Un utente predefinito rappresenta l'amministrazione del BD ed ha completo accesso alle risorse, unico che puo' fare CREATE, ALTER, DROP 
+Chi crea una tabella stabilisce i modi in cui altri possono fare uso con 
+    GRANT privilegi ON Oggetto TO Utenti [WITH GRANT OPTION] 
+I tipi di privilegi sono 
+    SELECT: lettura dei dati 
+    INSERT [(Attributi)]: inserire record (con valori non nulli negli attributi) 
+    DELETE: cancellazione del record 
+    UPDATE [(Attributi)]: Modificare record o attributi 
+    REFERENCES [(Attributi)]: Definire chiavi esterne in altre tabelle che riferiscono gli attributi 
+WITH GRANT OPTION: QUello che ha ricevuto il grant puo trasferire privilegi ad altri utenti 
+Per togliere privilegi si usa 
+    REVOKE [GRANT OPTION FOR] Privbileges ON Resource FROM Users [RESTRICT | CASCADE]
+    Tolto privlegio da U, lo si toglie anche a tutti color che lo hanno avuto solo da U 
+    RESTRICT (default) specifica che il comando non deve essere eseguito qualora la revoca dei privilegi all'utente comporti qualche altra revoca 
+    CASCADE invece forza l'esecuzione del commando 
+//slide 12
+58: La teoria della normalizzazione si occupa di definire criteri formali per giudicare l'equivalenza di schemi e la qualita' di tali schemi 
+    Serve anche per definire algoritmi per trasformare uno schema in un altro primo di anomalie 
+    Studia cosa sono le anomalie e come eliminarle 
+Il suo obiettivo e' di fornire strumenti formali per la progrettazione di database che non prestiono anomalie senza prendere in considerazione il costo delle operazioni 
+Studia 
+    Equivalenza di schemi: definire quando due schemi sono equivalenti 
+    Qualita' degli schemi: defionire criteri di bonta' per schemi 
+    Trasformazione degli schemi: trovare metodi algoritmici per ottenere dau no schema uno schema migliore ed equivalente
+//slide 14
+59: 
+Semantica degli attributi 
+    Progettazione di schemi relazional iin modo tale che sia semplice spiegarne il significato evitando di unire attributi provenienti da piu tipi di classi e tipi di associazione in una unica relazione 
+Ridondanza 
+    Progettazione di schemi relazionali in modo che nelle relazioni non siano presenti anomalie di inserimenti, cancellazione o modifica 
+    Presenti delle anomalie che si vogliono mantenere, le si rilevi chiaramente e ci si assicuri che i programmi che aggiornano la base di dati operino correttamente 
+Valori Nulli 
+    Evitare di porre in relazione di base attributi che possono essere frequentemente nulli
+    Se inevitabile, assicurarsi che essi si presentino solo in casi eccezionali e non occorrono nella maggioranza delle tuple 
+Tuple Spurie 
+    Progettazione di schemi relazionali in modo tale che essi possono essere riuniti tramite giunzioni con condizioni di ugualianza su attributi che sono o chiavi primarie o chiavi esterne in modo di garantire che non vengono create tuple spurie 
+    Evitare rleazioni che contengono attributi di giunzione diversi dalle combinazioni chiave esterna-chiave primaria 
+//slide 14
+60: La dipendenza funzionale ci dice 
+    Dato uno schema R(T) e X, Y sottoattributi di T, una dipendenza funzionale (DF) e' un vincolo su R del tipo X -> Y
+    X determina (funzionalmente) Y o Y e' determinato da X se per ogni istanza valida di R un valore di X determina in modo univoco un valore di Y 
+        Per ogni r istanza valida di R 
+        Per ogni t1, t2 ennuple di r, se t1[X] = t2[X] allora t1[Y] = t2[Y]
+La dipendenza funzioonale e' intrarelazionale, succede solo tra attributi della stessa relazione 
+Sono proprieta intensionali legato al signfiicato dei fatti che si rappresentano (non si puo' inferirle dall'osservazione di alcune istanze dalla relazione) 
+Si dice che 
+    Un'istanza r0 di R soddisfa la DF X -> Y (r0 |= X -> Y) 
+        Se la proprieta' vale per r0: ogni t1, t2 in r0 se t1[X] = t2[X] allora t1[Y] = t2[Y]
+    Un'istanza r0 di R soddisfa un insieme F di DF se 
+        per ogni X -> Y in F, vale che r0 |= X -> Y
+//slide 14
+61: Data una dipendenza funzionale X -> A1....An si puo' scomporre nelle dipendenze funzionali X -> A1, ..., X -> An 
+    Le dipendenze funzionali del tipo X -> A sono dipendenze funzionali atomiche
+//slide 14 
+62: Le regole di inferenza delle dipendenze funzionali vengono dagli assiomi di armstrong 
+    Indicano come derivare DF implicate logicamente da F, usando queste regole  
+        Riflessivita': se Y e' un sottoinsieme di X, allora X -> Y 
+        Arricchiamento: Se X -> Y e Z e' un sottoinsieme di T, allora XZ -> YZ 
+        Transitivita': Se X -> Y, Y -> Z allora X -> Z 
+Da questo derivamo le formule 
+    Unione; {X -> Y, X -> Z} |- X -> YZ 
+    Decomposizione: {X -> YZ} |- X -> Y
+    Indebolimento: {X -> Y} |- XZ -> Y 
+    Identita': {} |- X -> X 
+//slide 14 
+63: Dasto un isneiem F di DF, la chiusura di F (F+) e' F+ = {X -> Y | F |- X -> Y} 
+    Ossia la chiusura F+ di F e' l'insieme di DF X - Y derivabili da F 
+La chiusura di X rispeto a F dove X e' sottinsieme di T in R(T,F) denotata con X+ e' 
+    X+ = {Ai in T | F |- X -> Ai} 
+//slide 14
+64: Dato lo schema R(T, F) un insieme di attributi W sottoinsieme di T e' una superchiave di R se W -> T in F+ 
+    E' una chiave di R se W e' una superchiave e non esiste un sottoinsieme stretto di W che sia una superchiave in R 
+    Un attributo e' primo se e solo se appartiene ad una chiave (altrimenti non primo)
+//slide 14 
+65: L'algoritmo per trovare una chiave si basa in due proprieta' 
+    1. Se un attributo A di T non apparre a destra di alcuna dipendenza in F, allora A appartiene ad ogni chiave di R (altrimenti non puo' essere determinato) 
+    2. SE un attributo A di T appare a destra di qualche dipendenza in F, ma non appare a sinistra di alcuna dipendenza non banale, allora A non appartiene ad alcuna chiave
+//slide 14
+66: La copertura canonica: Sia F un insieme di DF 
+    1. Data una X -> Y in F, si dice che X contiene un attributo estraneo Ai sse (X - {Ai}) -> Y in F+, cioe' F |- (X - {Ai}) -> Y 
+    2. X -> Y e' una dipendenza ridondante sse (F - {X -> Y})+ = F+, equivalente a F - {X -> Y} |- X -> Y 
+    3. F e' detta una copertura canonica sse 
+        La parte destra di ogni DF in F e' un attributo, ovvero tutte le DF sono atomiche 
+        Non esistono attributi estranei 
+        Nessuna dipendenza in F e' ridondante
+Per ogni insieme di dipendenze F esiste una copertura canonica (algoritmo per calcolarla) 
+    Trasformare le dipendenze nella forma X -> A (dipendenza atomica) 
+    Eliminare gli attributi estranei (verificare se esistono attributi eliminabili dal primo membro) 
+    Eliminare le dipendenze ridondanti (per ogni dipendenza si verifica se puo' essere eliminata)
+//slide 15
+67: Le ridondanze possono essere di due tipi 
+    Ridondanza concettuale: non ci sono duplicazioni dello stesso dato, ma sono memorizzae informazioni che possono essere ricavate da altre gia' contenute nel DB 
+    Ridondanza logica: esistono duplicazioni sui dati che possono generare anomalie nelle operazione sui dati 
+//slide 15
+68: La decomposizione degli schemi e' l'aproccio per eliminare anomalie da uno schema mal definito decomponendolo in schemi piu piccoli che gonodo di particolari proprieta', ma sono schemi equivalenti allo schema originale 
+Formalmente: Dato uno schema R(T), rho = {R1(T1), ..., Rk(Tk)} e' una decomposizione sse T1 U ... U Tk = T 
+Le decomposizioni desiderabili hanno la conservazione dei dati e conservazione delle dipendenze 
+    Conservazione dei dati: dato rho = {R1(T1), ..., Rk(Tk)} e' una decomposizione di uno schema R(T) che preserva i dati sse per ogni istanza valida r di R 
+        r = (pi_{T1} r) |><| ... |><| (pi_{Tk} r) (ogni istanza valida r deve essere uguale alla giunzione naturale della sua proiezione sugli attributi Ti)
+    Conservazione delle dipendenze: Dato lo schema R(T,F) la decomposizione rho = (R1, ..., Rn} preserva le dipendenze sse l'unione delle dipendenze in pi_{Ti}(F) e' equivalente ad F 
+        Se rho = {Ri(Ti, Fi)} una decomposizione di R(T,F) che preservi le dipendenze e tale che un Tj sia una superchiave di R, allora rho preserva i dati 
+Una decomposizione e' senza perdite se l'inmsieme degli attributi comuni alle due relazione (X1 intersezione X2) e' una chiave per almeno una delle due relazioni decomposte 
+    DIM: Supponiamo r sia una relazione sugli attributi ABC e consideriamo le sue proiezioni r1 su AB e r2 su AC 
+        Supponiamo che r soddisfi la dipendenza funzionale A -> C. ALlora A e' chiave per r su AC e quindi non ci sono in tale proiezione due tuple diverse sugli stessi valori di A 
+        Il join costruisce tuple a partie delle tuple delle due proiezioni  
+        Sia t = (a,b,c) una tupla del join di r1 e r2
+        t e' ottenuta mediante una join da t1 = (a,b) di r1 e t2 = (a,c) di r2 
+        Allora per la definizione di proiezione, esistono due tuple in r t'1 = (a,b,*) e t'2 = (a, *, c) dove * sta per valore non noto 
+        Poiche' A -> C, allora esiste un solo valore in C associato al valore a. Dato che (a,c) comparee nella proiezione, questo valore e' proprio c 
+        Ma allora nella tupla t'1' il valore incognito deve essere proprio c, quindi (a,b,c) appaie in r 
+//slide 15
+69: Una forma normale e' una proprieta' di una base di dati relazionale che ne garantisce la qualita' (assenza di determinati diffetti)
+    Una relazione non normalizzata presenta ridondanze e si presta a comportamenti poco desiderabili durante gli aggiornamenti 
+//slide 16
+70: Una relazione r e' in BCNF se, per ogni dipendenza funzionale non banale X -> Y definita su di essa, X contiene una chaive K di r (ovvero X e' una superchiave)
+Collorario: R(T,F) con F in copertura canonica e' in BCNF sse per ogni DF atomica non banale X -> A in F, X e' una superchiave (ovvero una chiave) 
+//slide 16
+71: L'algoritmo di analisi serve per controllare se uno schema di relazione e' in BCNF 
+Ad ogni iterazione una relazione R(T,F) e' decomposta in Ra(Ta{X,Y}, Fa) e Rb(Tb={X,Z},fb) e su di ese si ripete il procedimento, costo esponenziale 
+    Input: R(T,F) con F copertura canonica 
+    Output: rho = {R1, R2, ..., Rm} decomposizione in BCNF che preserva i dati 
+    rho = {R1(T1, F1)}
+    while esiste in rho una Ri(Ti,Fi) non in BCNF per la DF X -> A 
+    do 
+        n = n + 1 //incrementa contatore relazioni 
+        Ta = X+ //chiusura di X 
+        Fa = pi_{Ta}(Fi) //proiezione DF rispetto a Ta 
+        Tb = Ti - Ta + X //rimozione da attributi non in X ma nella sua chiusura 
+        Fb = pi_{tb}(Fi) //proiezione DF rispetto a Tb 
+        rho = rho - Ri + {Ri<Ta,Fa>, Rn<Tb, Fb>} //rimuovere R non BCNF per X -> A e inserisce quelle correte 
+    end 
+Preserva i dati, ma non necessariamente le dipendenze 
+//slide 16
+72: La terza forma normale 3NF e' un target di normalizzazione che consente di ottenere automaticamente 
+    Decomposizioni senza perdita 
+    Decomposizioni che preservano tutte le dipendenze
+Definizione: R(T,F) e' in 3FN se per ogni X -> A in F+ con A non in X, X e' una superchiave o A e' primo 
+    3NF ammette dipendenze non banali e non-da-chiave se gli attributi a destra sono primi (possibili anomalie) 
+    La BCNF non ammette mai una dipendenza non banale e non-da-chiave 
+Ogni schema R(T,F) ammette sempre una decomposizione che preserva i dati, preserva le dipendenze ed e' in 3NF (preso i ntempo poliomiale)
+//slide 16
+73: L'algoritmo di sintesi e' un algoritmo per trovare la versione in 3NF di uno schema relazione R(T,F) 
+Input: Un insieme R di attributi e un insieme F di dipendenze su R 
+Output: Una decomposizione rho = {Si}i = 1, ..., n di R tale che preservi dati e dipendenze e ogni Si sia in 3NF rispetto alle proiezioni di F su Si 
+begin 
+    Passo 1. Trova una copertura canonica G di F e poni rho = {}
+    Passo 2. Sostituisci in G ogni insieme X -> A1, ..., X -> Ah di dipendenze con lo stesso determinante, con la dipendenza X -> A1....Ah 
+    Passo 3. Per ogni dipendenza X -> Y in G, metti uno schema con attributi XY in rho 
+    Passo 4. elimina ogni schema di rho contenuto in un altro schema di rho 
+    Passo 5. Se la decomposizione non contiene alcuno schema i cui attributi costituiscano una superchiave R, aggiungi ad essa lo schema con attributi W, con W una chiave di R 
+end
+//slide 16
+74: Poi che la memoria e' strutturata gerarchicamente da una piramide (dove in sopra e' piu costoso ma veloce, mentre di sotto piu economico ma costoso) 
+    (cache - main memory - flash memory - magnetic disk - optical disk - magnetic tapes) (i due primi volatili)
+Un DB risede normalmente su dischi (ed anche altri dispositivi), i dati devono essere trasferiti in memoria centrale per essere elaborati 
+Il trasferimento non avviene in termini di singole tuple, bensi' di blocchi detto pagine 
+Poiche' le operazioni I/O sono il bottleneck, rende necessario ottimizzare l'implementazione fisica del DB attraverso: 
+    Organizzare efficiente delle tuple su disco, strutture di accessi efficienti, gestine efficiente dei buffer in memorie, strategie di esecuzione efficienti per le query 
+//slide 18 1 
+75: Un hard disk (HD) e' un dispostiivo elettro-meccanico per la conservazione i informazioni sotto forma magnetica, su supposto rotante a forma di piatto su cui agiscono delle testine di lettura/scrittura 
+Contiene una pila di dischi mettalici che ruota a velocita' costante ed alcune testine di lettura che si muovono radialmente al disco 
+Una traccia e' organizzata in settori di dimensione fisica; i settori sono raggrupati logicamente in blocchi, che sono l'unita' di trasferimento 
+//slide 18 1
+76: Una pagina o un blocco e' una sequenza contigua di settori su una traccia e costituisce l'unita di I/O per il trasferimetno di dati da/per la memoria principale 
+    Dimensione di solito tra 4-64KB 
+    Pagine piccole comportano un maggior numero di operazioni di I/O 
+    Pagine grandi tendono ad aumentare la frammentazione intera (pagine parzialmente riempite) e richiedono piu spazio in memoria per essere caricate 
+Il tempo di trasferimento di una pagina (Tt) da disco a memoria centrale dipende dalla dimensione della pagina (P) e dal transfer rate (Tr)
+Una pagine e' strutturata in due parti  
+    Stuttura fisica: un insieme di caratteri di dimensione fissa 
+    Struttura logica: informazioni di servizio, un'area che contiene le stringhe che rappresentano i record 
+//slide 18 1
+77: Un'organizzazione seriale (heap file) e' dove i dati sono memorizzati in modo disordinato uno dopo l'altro 
+    Semplice e a basso costo di memoria, pero' poco efficiente, va bene per pochi dati 
+    E' l'organizzazione standard di ogni DBMS
+//slide 18 1
+78: Un'organizzazione sequenziale i dati sono ordinati sul valore di uno o piu attributi 
+    Ricerche piu veloci, pero' nuove iserzioni fanno perdere l'ordinamento
+Le strutture sequenziali facilitano le operazione SQL di ordinamento/raggrupamento/ricerca sugli attribbuti su cui e' definito l'ordinamento 
+    Sono pero' piu complesse da gestire in operazioni di aggiornamento/cancellazione/inserimento 
+    In questi casi, e' necessari procedere periodiche riorganizzazioni della struttura 
+Il costo di ricerca e' log2b accessi a blocco/pagine poi che si puo' fare ricerca binaria 
+    Se il file contiene bi blocchi, la localizzazione di un record richiede log2bi + 1 accessi a blocco/pagina
+//slide 18 1
+79: L'organizzazione per chiave prova a trovare il record di una tabella con qualche accesso al disco (idealmente 1 accesso) 
+Questo puo' usare un metodo procedurale (hash) o tabellare (indice), con organizzazione statica o dinamica 
+Utilizzando i hash file (procedurale) 
+    In un hash file i record vengono allocati in una pagina il cui indirizzo dipende dal valore di chiave record: key -> H(key) -> page address 
+    Una comune funzione hash e' il resto della divisione intera H(k) = k mod NP 
+    Si puo' applicare anche a chiavi alfanumerici dopo averle convertite 
+    Le collisioni sono di solito gestite con liste concatenate 
+    L'organizzazione piu efficiente per l'accesso diretto bassato su valori della chiave con condizione di ugualianza (accesso puntale) 
+    Non e' efficiente per ricerche basate su intervali 
+    Funzionano solo con file la cui dimensione non varia col tempo 
+    Non e' efficiente per le operazioni che coinvolgo attributi che non sono chiavi, non e' efficiente per le query su un range di valori 
+    Se il numero di blocchi e' troppo piccolo ci sono troppi overflow, se e' troppo grande rispetto al databse si ha un fattore di riempimento di blocchi troppo basso
+Metodo tabellare: 
+    Il metodo taelare usa un indice , ovvero un insieme ordinato di coppie dove (k, r(k)) dove 
+        k e' un valore della chiave, r(k) e' un riferimento al record con chiave k 
+    L'indice e' gestito di solito con un'opportuna struttura albero detta B+-albero, la struttura piu usata e ottimizzata dai DBMS 
+    Gli indici possono essere multi-attributi 
+        Indice: struttura che contiene informazioni sulla posizione di memorizzazione delle tuple sulla base del valore del campo chiave 
+        La realizzzazione di indici avviene tipicamente attrverso l'utilizzo di struttre ad albero multi-livello
+///slide 18 1
+80: Un B-tree di ordine p soddisfa le condizioni 
+    Ogni nodo interno del B-albero ha forma: <P1, <K1, Pr1>, P2, <K2, Pr2>, ...., <Kq-1, Prq-1>, Pq> con q <= p 
+        Pi e' un tree pointer (puntatore ad un altro nodo del B-albero) 
+        Ki e' la chiave di ricerca 
+        Pri e' un data pointer (puntatore ad un record il cui campo chiave di ricerca e' uguale a Ki o alla pagina che contiene tale record) 
+        Per ogni nodo, si ha che Ki < Kj per ogni i < j
+    Ogni nodo ha al piu p tree pointer
+    Per tutti i valori X della chiave di ricerca appartenenti al sottoalbero puntato da Pi, si ha 
+        Ki-1 < X < Ki per 1 < i < q 
+        X < Ki per i = 1 
+        Xi-1 < X per i = q
+    La radice ha almeno due tree pointer, a meno che non sia l'unico nodo dell'albero 
+    Ogni nodo (escluso la radice) ha almeno p/2 tree pointer 
+    Un nodo con q tree pointers, q <= p ha q-1 campi di chiave di ricerca e q-1 data pointer 
+    Tutti i nodi foglia sono posti allo stesso livello (i nodi foglia hanno la stessa struttura dei nodi interni, ad eccessione dei puntatori Pi che sono nulli)
+Il B+-tree e' un B-albero in cui i data pointers sono memorizzati solo nei nodi foglia dell'albero 
+    La struttura dei nodi foglia differisce dal B-tree quindi da quella dei nodi interni 
+Se il campo di ricerca e' un campo chiave, i nodi foglia hanno per ogni valore del campo di ricerca una entry e un puntatore ad un record 
+Se un campo non e' un campo di chiave, i puntatori indirizzano un blocco che contiene i puntatori ai record del file di dati, rendendo necessario un passo aggiuntivo per l'accesso dei dati 
+    Nel B+-tree i nodi interni sono organizzati come 
+        <P1, K1, P2, K2, ..., Pq-1, Kq-1, Pq> con q <= p ogni Pi e' un tree pointer ed ogni Ki < Kj per i < j 
+        Ogni nodo interno ha al piu' p tree pointer 
+        Per tutti i valori X della search key nel sottoalbero puntato da Pi, si ha che X <= Ki per i = 1, K i-1, Ki < X <= Ki per 1 < i < q, Ki-1 < X per i = q 
+        Ogni nodo interno ha almeno p/2 tree pointer 
+        Un nodo interno con q tree pointer ha q-1 campi di ricerca 
+    I nodi foglia del B+-tree 
+        Ha la forma <<K1, Pr1>, <K2, Pr2>, ..., <Kq, Prq>, Pnext> dove q <= pleaf e per ogni nodo, si ha che Ki < Kj per i < j 
+        Pnext e' un tree pointer che punta al successivo nodo foglia del B+ tree 
+        Ogni Pri e' un data pointer che punta al record con valore del campo di ricerca uguale a Ki o ad un blocco contenente tale record 
+        Ogni nodo foglia ha almeno pleaf/2 valori 
+        Tutti i nodi foglia sono dello stesso livello 
+    Gli indici del B+-tree per trovare in pocchi accessi a partire dal valore v i record R in cui il valore A e' in una relazione con v 
+    Ci sono due tipi di tipologia 
+        Indici statici: La struttura ad albero viene creata sulla base di dati presenti nel DB e non piu modificata (o periodicamente) 
+        Indici dinamici: La struttura ad albero viene aggiornanta ad ogni operazione sulla base di dati di inserimento o di cancellazione, memorizzati, preservando le prestazioni senza bisogno di riorganizzazioni 
+//slide 18 1
+81: Gli indici sono strutture che contengono informazioni sulla posizione di memorizzazione delle tuple sulla base del valore del campo chiave 
+Tali strutture velocizzano l'accesso casuale via chiave di ricerca 
+Possiamo distinguere: Indice primario (la chiave di ordinamento del file seqeunziale coincide con la chiave di ricerca dell'indice) e secondario (la chiave di ordinamento e ricerca sono diverse) 
+    Un indicie puo' essere definito su un insieme di attributi A1...An 
+//slide 18 1 
+82: I DBMS usano principalmente il Z-way Merge sort, un merge sort a z vie 
+Dato un input di un file di NP pagine e di aver a disposizione NB < NP buffer in memoria centrale 
+L'algoritmo opera in due fasi: 
+    Sort interno: si leggono una alla volta le pagine del file, i recordi di ogni pagina vengono ordinati facenedo uso di un algoritmo di sort interno 
+        Ogni pagina cosi' ordinata, detta anche run, viene scritta su disco un file temporaneo 
+    Merge: oprando uno o piu passi di fusione, le run vengono fuse, fino a produrre un'unica run 
+La complessita' dato che abbiamo un buffer NB, si possono rodinare NP pagine alla volta, col costo 2 * NP * (log2(NP/NB) + 1) operazioni I/O 
+//slide 18 1
+83: I nested loops sono utilizzati principalmente nella giunzione di due tabelle in una base di dati 
+La sua velocita' per due tabelle R e S con un bufer qualcuna e' 
+    Npag(R) + Nrec(R) * Npag(S) I/O 
+    Si legge una volta R e Nrec(S) volte S, ovvero tante volte quante sono le tuple della relazione esterna 
+    La scelta di R e S come esterna ed interna se Nrec(R) * Npag(S) < Nrec(S) * Mpag(R) ossia le tuple di R sono piu grandi di quelle di S 
+Ci sono 3 tipi di Nested Loop (uno non) per la giunzione 
+NestedLoop a pagine (PageNestedLoop) 
+    Rinunciano il preservare l'ordine della relazione esterna, risulta piu efficiente in quanto esegue il join di tutte le tuple in memoria prima di richiedere nuove pagine della relazione interna 
+        Per ogni pagina pR di R 
+            Per ogni pagine pS in S 
+                Esegue join di tutte le tuple in pR e pS 
+Nested Loop con indice (IndexNestedLoop) 
+    La scansione completa della relazione interna S puo' essere sostituita da una scansione basata su un indice costruito sugli attributi di join di S 
+        Foreach record r in R 
+            Foreach record s in get-through-index(ISi = ri) 
+                aggiungi <r,s> al risultato 
+    Porta in generale a ridurre di molto i costi di esecuzione del Nested Loops join 
+Sort-Merge 
+    E' applicabile quando entrambi le tabelle input sono ordinate sugli attributi di join 
+    Per R(S) cio e' possibile se: 
+        R(S) e' fisicamente ordinata sugli attributi di join 
+        Esiste un indice sugli attributi di join di R(S)
+    SortMerge 
+    r = first(R), s = first(S) 
+    while r in R and s in S do 
+        if ri = si 
+            avanza r e s fino a che ri e si siano uguali, aggiungendo ciascun <r,s> al risultato 
+        else if ri > si avanza r dentro R 
+        else if ri < si avanza s dentro S 
+//slide 18 2 
+84: Un piano di accesso e' un'espressione algebrica in cui gli operatori logici sono sostituiti da operatori fisici 
+Le interrogazioni vengono ottimizzate, scegliendo il piano di costo minimo fra possibili piani alternativi 
+Un operatore puo' essere realizzato con algoritmi diversi codificati in opportuni operatori fisici 
+Ogni operatore fisico e' un itteratore, un oggetto con metodi 
+    open: inizializza lo stato dell'operatore, alloca buffer per gli input e l'output, richiama ricorsivamente gli open sugli operatori figli, viene anche usato per passare argomenti 
+    next: usato per richiedere un'altra tupla del risoultato dell'operatore 
+    close: usato per terminare l'esecuzione dell'operatore col rilascio di risorse 
+    isDone: indica se ci sono ancora valori da leggere
+//slide 18 2
+85: Una transazione e' un'unita' logica di elaborazione che corrisponde a una serie di operazioni fisiche elementari (letture/scritture) sul DB 
+Rappresentano l'unita' di lavoro elementare che modificano il contenuto della base di dati 
+    Sintaticamente una transazione e' contornata dai commandi begin transaction e end transaction, all'interno possono comparire i comandi di commit work e rollback work 
+Sono scritture/lettori in memoria permanetne e elaborazione in memoria temporanea, ha le seguenti proprieta' 
+    Atomicita': Le transazioni che terminano prematuramente non lasciano effetti sulla base di dati ed eventuali effetti sono anullati -> Gestore affidibilita' 
+    Serializzabilita': Nel caso di esecuzioni concorrenti di piu transazioni, l'effetto complesso e' quello di una esecuzione seriale -> Gestione concorrenza 
+    Persistenza: Le modifiche sulla base di dati di una transazione terminata sono permanetni, non alterabili da eventuali malfunzionamenti -> Gestione affidibilita'
+Proprieta' ACID delle transazioni (Atomicita', Consistenza, Isolamento, Persistenza (Durability))
+    A -> Transazione eseguita con la regola tutto o niente 
+    C -> Transazione lasca il Db in uno stato consistente, vincoli di integrita' non violati 
+    I -> L'esecuzione di una transazione e' indipendente dalle altre 
+    D -> L'effetto di una transazione conclusa non deve esser perso 
+//slide 19
+86: Il gestore dell'affidibilita' garantisce le proprieta' di atomicita' e persistenza delle transazioni 
+Responsabile per implementare i commandi: begin transaction, commit, rollback 
+Ha 4 tipi di algoritmi per la scrittura nel DB e la terminazione delle transazioni 
+    Disfare-Rifare 
+    Disfare-NonRifare 
+    NonDisfare-Rifare
+    NonDisfare-NonRifare 
+Disfare: Una politica della modificca libera: le modifiche possono essere portate nel DB stabile prima che la T termini 
+Rifare: Poltiica di commit libero, una T puo' essere considerata terminata normalmente prima che tutte le modifiche vengono riportate nella BD stabile (occorre rifare)
+E' responsabile di ripristinare il sistema dopo malfunzionamenti software (ripresa a caldo) e hardware (ripresa a freddo)
+//slide 19
+87: Il file di log e' unn giornale dove sono indicate tutte le operazioni svolte dal DBMS 
+Si presenta come file sequenziale con suddiviso in due tipo di record 
+    Record di transazione -> Tengono traccie delle operazioni svolte da ciascuna transizione sul DBMS, per ogni transazione c'e' un record di Begin (B), Insert (I), Delete (D), Update (U) e un record di Commit (C) o Abort (A) 
+    Record di sistema -> Tengono traccia delle operazioni di sistema (Dump/checkpoint)
+Dump e' un'operazione che produce una copia completa della base di dati, effetuata in mutua esclusione con tutte le altre transazioni quando il sistema non e' operativo 
+    La copia viene memorizzata in memoria stabile (back up)
+    Al termine del dump viene scritto nel log un record di dump 
+Due tipi di regola di scrittura del log 
+    Write Ahead Log -> La parte before state di ogni record di log deve essere scritta prima che la corrispondente operazione venga effettuata 
+    Commit Precedente -> La parte after state di ogni record di log deve essere scritta nel log prima di effettuare il commit della transazione
+88: Un checkpoint e' un modo di saper quali transazioni nel log effettivamente non sono stati fatte nella tabella 
+Periodicamente si scrive la marca CKP sul log per indicare che tutte le operazione che precedono sono state effettivamente effettuate sulla DB 
+Fatto come 
+    Si sospende l'attivazione di nuove transazioni 
+    Si completano le precedenti, si alliena la base di dati (ovvero riportano sul disco tutte le pagine sporche dei buffer) 
+    Si scrive nel log la marca CKP 
+    Si riprende l'esecuzione delle operazioni
+Il checkpoint e' una transazione atomica su altri checkpoint: non si puo' iniziare un checkpoint prima che quello in corso e' terminato
+//slide 19
+89: Entrambi garantiscono atomicita' e persistenza delle transazioni 
+Caldo: 
+    Trova l'ultimo checkpoint (ricorrendo al log) 
+    Construisce gli insiemi UNDO (transazioni di disfare) e REDO (transazioni da rifare)
+    Ripercorre il log all'indietro fino alla piu vecchia azione delle transazioni in UNDO, disfacendo tutte le azioni delle transazioni in UNO 
+    Ripercorre al log in avanti rifacendo tutte le azioni delle transazioni in REDO 
+Freddo: 
+    Si ripristinano i dati a partie dal backup 
+    Si eseguono le operazioni registrate sul giornale fino all'istante del guasto 
+    Si esegue una ripresa a caldo 
+//slide 19 
+90: Un'esecuzione di un insieme di transazioni {T1, ..., Tn} si dice seriale se per ogni coppia Tij e Tj, tutte le operazioni di Ti vengono eseguite prima di qualsiasi operazione di Tj e vice versa 
+Un'esecuzione e' serializzabile se produce lo stesso effetto sulla BD di quello ottenibile eseguendo serialmente, in qualche ordine, le sole transazioni terminate normalmente
+//slide 20 
+91: I DBMS implementano tecniche di controllo di concorrenza che garantiscono direttamente la serializzabilita' delle transazioni concorrenti 
+Due classi 
+Protoccoli pessimistici/conversvatori: Metodi bassati sul lock e timestamp, tendono a ritardare l'esecuzione di transazioni che potrebbero generare conflitti rispetto alle transazione corrente 
+Protocolli ottimisti, permettono l'esecuzione sovvraposta e non sincronizzata di transazioni ed effettuano un controllo di possibili conflitti, basato su 3 fasi 
+    Fase di lettura: ogni transazione legge i valori degli oggetti della DB su cui operare e memorizza in varaibili (copie) locali dove sono effettuati eventuali aggiornamenti 
+    Fase di  validazione: vengono effettuati dei controlli sulla serializzabilita' nel caso che gli aggiornamenti locali delle transazioni dovessero essere propagati sulla base di dati 
+    Fase di scrittura: Gli aggiornamenti delle transizioni che hanno superato la fase di validazione sono propagati definitivamente sugli oggetti della DB 
+//slide 20
+92: Il gestore della concorrenza (serializzatore) dei DBMS ha il compito di stabilire l'ordine secondo il quale vanno eseguite le singole operazioni per rendere serializzabile l'esecuzione  di un insieme di transazioni 
+Esse usa il protoccolo del blocco a due fasi stretto (Strict Two Phase Locking) 2PL definito da 
+    1. Ogni transazione, prima di effettuare un'operazione, acquisisce il blocco corrispondente 
+    2. Transazioni diverse non ottengono blocchi in conflitto 
+    3. I blocchi/lock si rilasciano alla terminazione della transazione (al commit) 
+Possono generare situazioni di stallo (se due transazioni provano ad acquisire il lock dei suoi rispettivi oggetti mentre sono gia' in lock)
+I deadlock sono gesttite in tre modi 
+    1. Uso di timeout -> ogni operazione di una transazione ha un time out entro il quale deve essere completata, pena annullamento (abort) nella transizione stessa) 
+    2. Deadlock Avoidance -> Previnire le configurazioni che potrebebro portare ad un ddead lock (Lock/Unlock di tutte le risorse allo stesso tempo, utilizzo di time-stamp o di classi di priorita' tra tranasazioni, starvantion: quando una transazione e' impossibilitata a proseguire la sua esecuzione per un periodo di tempo indefinito, mentre le altre transazioni del sistema proseguono tranquillamente) 
+    3. Deadlock Detection -> Utilizzare algoritmi per identificare eventuali situazioni di deadlock ep revedere meccanismi di recovery dal deadlock 
+        Grafo delle richieste/risorse utilizzato per identificare la presenza di cicli corrispondenti a deadlock, in caso di ciclo si fa abort delle transazioni coinvolte nel ciclo in modo da eliminare la mutua dipendenza 
+Inoltre 2PL usa il time-stamp delle transazioni 
+    Ad ogni transazione si associa un timestamp che rappresenta il momento di inizio della transazione 
+    Ogni transazione non puo' leggere o scrivere un dato scitto da una transazione con timestamp precedente 
+    Ogni transazione non puo' scrivere su un dato gia' letto da una transazione con timestamp precedente
+//slide 20

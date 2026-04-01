@@ -1,0 +1,1080 @@
+1: Il processo software e' il modo in cui produciamo software
+    Comincia quando iniziamo ad esplorare il problema e finisce quando il prodotto viene ritirato dal mercato
+    E' strutturato in fasi: 
+        Analisi dei requisiti
+        Specifica
+        Progettazione
+        Implementazione
+        Integrazione
+        Mantenimento
+        Ritiro
+    Riguarda tutti gli strumenti, techniche e professionisti coinvolti nelle fasi 
+//slide 1
+2: L'ingegneria del software e' un approccio sistematico per sviluppo, operativita' e ritiro di software 
+    Lo scopo e' quello di produrre un software che sia: fault-free, consegnato ai tempi previsti, rispetti il budget iniziale, soddisfi le necessita' del committente, sia facile da modificare
+//slide 1
+3: La robustezza/resistenza ai guasti e' la capacita' di un software di mantenere il suo corretto funzionamento anche quando viene sottoposto a condizioni anomale, errori nell'input dell'utente o situazioni impreviste, un software robbusto e' capace di gestire errori, eccezioni e input non validi senza interrompere il suo funzionamento o causare danni irreversibili ai dati o all'utente
+    Contribuisce a garantire che il sistema sia affidabile e che possa continuare a operare in modo accettabile anche in situazione critiche o inaspettate
+//slide 1
+4: La fault tolerance/tolleranza ai guasti e' la capacita' di un software di rilevare, gestire e riprendersi da errori o guasti senza causare interruzioni significative nell'erogazione dei servizi o la perdita permanente di dati critici 
+Un software fault tolerant continua/riprende a funzionare in modo affidabile anche in presenza di guastic, la tolerranza ai guasti mira a minimizzare l'impatto negativo di eventuali malfunzionamenti, mantenendo la continuita' operativa e la disponibilita' del sistema
+La differenza di fault tolerance e robustezza e' che robustezza ci da che il software e' resiliente ad errori esterni e non si interrompe, fault tollerant implicca che nel caso di un problema, il software riesce a riprendersi senza difficolta' e non perde dati critici 
+//slide 1
+5: Il modello di un processo software fornisce una rappresentazione astratta del processo stesso
+    Suddivisione in attivita' (cosa fare, quando, chi e cosa si ottiene)
+    Organizzazione delle attivita' (ordinamento, criteri per terminare un'attivita' e passare alla successiva)
+    Alcuni modelli di ciclo di vita del software 
+        Build and fix (un non modello) 
+    Modelli prescrittivi (Cascata, Modello a V, Rapid Prototyping, Modello Incrementale, Modello a spirale) 
+    Unified Process 
+    Modelli agili (Extreme Programming, Scrum, Continuous Delivery)
+//slide 2
+6: E' un non modello di sistema di software sviluppato senza specifica/progettazione 
+    Lo sviluppatore scrive un programma che poi e' modificato piu volte finche' non soddisfa il committente 
+        Build first version -> Modify until costumer is satisfied <-> Maintenance -> Retirement
+    Non e' addeguato per progetti veri (forse in progetti personali) 
+//slide 2
+7: Requirements definition -> Software and system design -> Implementation and unit testing -> Integration and system tesitng -> Operation and System maintenance 
+E' stato il primo modello a distinguere e definire le fasi di un processo software, importanza di analisi e progettazione prima della codifica 
+Passaggio a nuova fase possibile solo dopo complementato della precedente
+    Ogni fase produce un docuimento che deve essere approvato da un gruppo di valutatori prima di passare alla fase successivo, chiamato anche document driven 
+I suoi problemi (rigidamente a cascata):
+    Eccessiva produzione di documenti
+    Manca l'interazione con cliente, spesso c'e' una sostanziale differenza tra come il cliente immagina un prodotto e la sua realizazzione, in quel caso si inizia da 0 
+Royce (il suo creatore) aveva gia' visto i problemi di questo modello ed ha proposto un feedback loop da una fase alla precedente 
+//slide 2
+8: Il modello a V prende la meta' inferiore del modello a cascata e la piega verso l'alto in forma di V 
+    Le attivita' di dx verificanoe convalidano i prodotti delle attivita' a sx 
+    SX: attivita' di analisi che scompongono le esigenze degli utenti in partre piccole e gestibili 
+    DX: attivita' di sintesi che aggregano (e testano) tali parti per verificare che il sistema soddisfi le esigenze degli utenti 
+    Centro: Progettazione dei test per da svolgere della parte dx 
+        Evidenzia come sia possibile progettare i test durante le fasi di sviluppo (prima della codifica) 
+        Attivita' di progettazione del test come parte del processo software
+    Prima idea di test-driven development
+//slide 2
+9: Rapid Prototyping consiste in costruire velocemente un prototipo per permettere al committente di sperimentarlo
+    Aiuta il cliente a meglio descrivre i requisiti 
+    Si passa poi alla fase di specifica 
+    Utile se i requisiti non sono chiari
+//slide 2
+10: Il modello incrementale e' dove il sistema e' costruito iterativamente aggiungendo nuove funzionalita' 
+    I requisiti del progetto sono definiti inizialmente, il sistema e' implementato, integrato e testato con passaggi incrementali 
+Pro: 
+    Consente di ritardare la realizzazione di componenti che dipendono criticamente da fattori esterni 
+    Si reisce ad uscire rapidamente con prime versioni del sistema 
+        Sistema utilizzabile in tempi brevi (seppure con funzionalita' ridotte)
+        Permette di ottenere feedback dai clienti sul lavoro di sviluppo svolto 
+        Riduce il costo per soddisfare cambiamenti di esigenze/requisiti 
+Contro: Processo software poco visibile 
+    Se non implementato bene, diventa build-and-fix (la struttura del sistema tende a degradarsi con i nuovi cambiamenti, necessario spendere tempo e risorse in refactoring)
+//slide 2
+11: Il modello a spirare e' un modello astratto da istanzare cosa fare in ogni iterazione ed ogni fase, applicabile ai cicli tradizionali 
+Evidenzia gli aspettti gestizionali: Pianificazione delle fasi, modello risk-driven, ispirato dal plan-do-check-act cycle, prevede maggior comunicazione con confronto il commitente 
+//slide 2 
+12: Le fasi sono:
+    Specifica 
+    Progettazione 
+    Sviluppo 
+    Validazione
+    Evoluzione 
+Fase di specifica: stabilisce quali servizi sono richiesti ed i vincoli sul funzionamento del sistema 
+    Processo di ingegneria dei requisit: Estrazione ed analisi dei requisiti, specifica dei requisiti, convalida dei requisiti 
+Fase di progettazione: Definizione di una struttura software che realizzi la specifica 
+    Archittectural design: identificazione della struttura del sistema 
+    Database design: definizione delle strutture dati e della loro rappresentazione in database 
+    Interface design: Definizione delle interface tra i componenti del sistema 
+    Component design: Definizione dei comportamenti del sistema (riutilizzando componenti esistenti quando possibile)
+Fase di sviluppo: La struttura software progettata nella fase di design e' realizzata implementando uno o piu programmi e configurando sistemi applicativi esterni (sia programmazione e debugging)
+Fase di valutazione: Verifica e validazione (V&V) hanno lo scomo di dimostrare che un sistema e' conforme alle sue specifiche e soddisfa i requisiti del cliente 
+    Spesso fatta mediante testi del sistema, il test del sistema prevede l'esecuzione del sistema con casi di test derivati dalla specifica dei dati reali che devono essere elaborati dal sistema 
+    Sono fatti in quest'ordine 
+        Component Testing (i componenti sviluppati vengono testati indipendentemente) -> System Testing (il sistema e' testato nella sua interezza) -> Costumer Testing (Il sistema e' testato utilizzando dati forniti dal cliente per verificare che rispetti le necessita' del cliente stesso) 
+Fase di evoluzione: Cambiamenti ed evoluzioni 
+    I cambiamenti comportano rework (costoso in termini di tempo e risorse) (ripretizione dell'analisi dei requisiti e loro aggiornamento, progettazione e sviluppo di nuove funzionalita', sviluppo di adattamenti di funzionalita' esistenti)
+    Necessita' di anticipare i cambiamenti per ridurre i costi del rework (change tolerance: il processo software puo' organizzare le attivita' in modo che i cambiamenti siano implementabili a costi contenuti)
+//slide 2
+13: Il modello agile per processo software e' un modello dove l'analisi dei requisiti avviene contemporaneamente con la progettazione ed implementazione 
+Tiene in considerazione principalmente 
+    Costumer involvement: I clienti devono essere coinvolti durante il processo di sviluppo 
+    Incremental Delivery: Il sistema software e' sviluppato in versioni incrementali col cliente che specifica i requisiti da soddisfare in ciascuna versione 
+    People not process: le abilita' dei team di sviluppo devono essere riconosciute e sfruttate, lasciando i team di sviluppo libneri di sviluppare a modo loro 
+    Embrace change: Accettare che i requisit del sistema cambieranno nel tempo e progettare il sistema in modo da favorire tali cambiamenti 
+    Maintain simplicity: Focalizzarsi sulla semplicita' del software sia nel software sviluppato che nel processo di sviluppo (eliminando complessita' nel sistema quando possibile) 
+Interpretazione dei principi:
+    Comunicazione: persone e interazioni piu importanti di processi e risorsa del progetto (tutti possono parlare con tutti, e.g. backend dev col cliente) 
+        Collaborazione diretta con i clienti 
+    Semplicita': Mantenere una descrizione formale del sistema piu semplice e chiara possibile, avere un sistema funzionante e' piu importante di una sua documentazione estensiva
+        Codice semplice ed avanzato tecnicamente 
+    Feedback: Rilasciare nuove versioni del software ad intervalli frequenti, sin dal primo giorno si testa il codice 
+        Dare in uso il sistema il prima possibile e implementare i cambiamenti richiesti man mano, rispondere ai cambiamenti invece di pianificare all'inizio
+//slide 2 
+14: Extreme Programming (XP) e' un approccio agile ed iterativo allo sviluppo del software
+    Nuove versioni del sistema sviluppate piu volte in un giorno 
+    Versioni incrementali rilasciate al cliente ogni 2 settimane 
+    Tutti i test sono eseguiti per ogni build e una build e' accettata solo se tutti i test sono passati con successo 
+Ciclo di rilascio 
+    Select user stories for this release -> Break down stories to tasks -> plan release -> Develop/Integrate/Test software -> Release software -> Evaluate system -> Repeat 
+Pratiche comuni 
+    Release piccole: Prima versione minimale che fornisca le funzionalita' di base del sistema, release frequenti e incrementali di nuove funzionalita' 
+    Design semplice: Progettazione volta a soddisfare solamente i requisit correnti, comprensibile a tutti 
+    Test-first development: Casi di test prima del codice, spesso generati con framework per unit test automatici 
+    Refactoring: Refactoring continue da fare non appena ci si accorge di possibili miglioramenti, codice semplice, mantenibile e auto-esplicativo
+    Pair programming: gli sviluppatori lavorano in coppia 
+    Collective ownership: le coppie di sviluppatori lavorano su tutte le aree del software 
+    Sustainable pace: no al troppo lavoro straordinario 
+    On-site costumer: un rappresentante del cliente deve essere disponibile/parte del team xp. responsabili per fornire prioritizzare nuovi requisiti del sistema 
+//slide 2
+15: Scrum e' un metodo agile per lo sviluppo iterativo e incrementale di un sistema software 
+Tre figure coinvolte
+    Product Owner: individuo o piccolo gruppo col compito di identificare le carattteristiche del prodotto software da sviluppare 
+        Eleca e prioritizza i requisiti, revisiona il product backlog per garantire che iul progetto continui a rispettare quanto necessario al business 
+    Scrum Master: figura responsabile di assicurare che il processo Scrum sia eseguito e portato avanti in modo efficare 
+        Garantisce le condizioni ambientali e le motivazioni necessarie ad eseguire al meglio il lavoro commissionato 
+        Si interfaccia col resto della compagnia per assicurarsi che il team non soffra di interferenze esterne 
+        Non viene percepito come project manager (e non ha autorita sul team)
+    Development Team: gruppo autogestito di sviluppatori software 
+        Non piu grande di 7 unita', responsabili dello sviluppo del software e documenti essenziali 
+Le fasi di Scrum: 
+1) Pre-game phase (pianificazione di massima) 
+    Planning sub phase: Definizione del sistema che deve essere sviluppato, in termini di product backlog (contiene tutti i requisiti attualmente conosciuti) 
+    Archittecture sub phase: Design di alto livello del sistema, inclusa l'archittetura, in base agli elementi contenuti nel product backlog 
+2) Game phase (sviluppo) 
+    Il sistema viene sviluppato attraverso una serie di srpint (cicli iterativi nei quali vengono sviluppate o migliorate una serie di funzionalita')
+    Uno sprint si svolgie nel intervalo di tempo che va da una settimana ad un mese 
+    Ciascuno sprint include le tradizionali fasi di sviluppo del software 
+    L'archittetura del sistema evolve durante lo sviluppo negli sprint 
+Gli sprint hanno durata prefissiata (2-4 settimane) 
+Si parte dal product backlog che contiene la lista dei requisiti TBD (to be done), ovvero quello che deve essere ancora aggiunto al progetto 
+La fase di selezione coinvolte tutto il team che lavora al progetto e il cliente (selezione di cosa sviluppare durante lo sprint) 
+Si prosegue con la pianificazione dello sprint (gestito dal product owner, creazione dello sprint backlog)
+    Da questo momento isolamento: lo scrum master li protegge da distrazioni esterne 
+Inizia lo sprint 
+    Lo scrum master organizza brevi meeting giornalieri (detti scrum) con condivisione di informazioni: Cosa ho fatto ieri, cosa faro' oggi, Quali problemi ho riscontrato e sto affrontando? 
+    Il tempo rimanente e' dedicato allo sviluppo 
+Al termine dello sprint, il prodotto viene revisionato 
+    Incontro di quattro ore, in collaborazione tra team e clienti/utenti 
+    Feedback: E' questo il prodotto che voglia costruire? Cosa penserebbero gli utenti finali del prodotto, e' ancora il prodotto che ci e' stato richiesto? ci sono cambiamento o idee? 
+    Poi sprint successivo 
+Tra sprint viene organizzatto un evento di retrospettiva (3 ore), l'intero team scrum riflette, impara e si adatta per lo sprint successivo 
+    Obiettivo: Contribuire al miglioramento continuo e alla crescita continua del team scrum 
+3) Post-game phase (chiusura definitiva del release) 
+    Conclude il processo di sviluppo e il prodotto viene preparato per il rilascio 
+    Include integrazione, test, documentazione per l'utente, formazione e preparazione del materiale di marketing 
+I vantaggi di scrum e' che il prodotto e' partizionato in un insieme di pezzetti gestibili e facilmente comprensibili, i requisit non ancora stabiliti non impegnano/richiedono relativi progressi, l'intero team ha visibilita' di tutto e di conseguenza la communicazione migliora 
+I clienti ottengono increment periodici, avendo la possibilita' di provare il prodotto e dare feedback 
+Si stabilisce una fiducia tra clienti e sviluppatori 
+//slide 2
+16: Kaban e' un metodo di organizazzione di un progetto con l'obiettivo di ridurre il tesmpo richiesto dall'inizio alla fine 
+    Visualizazzione tramite board, diviso in tre parte (to do, doing, done) 
+    Limitazione del lavoro in corso (WIP work in progress) 
+    Ottimizzazione dell'efficienza 
+Il limite al WIP consentono di completare piu velocemente i singoli task (riduzione di task switching, piu facile indiduare i colli di bottiglia nei processi di lavoro prima che diventino un blocco)
+//slide 2
+17: L'analisi dei requisiti e' il processo di studio e analisi delle esigenze del commitente e dell'utente per giungere alla definizione del dominio del problema e dei requisiti del sistema, la prima parte del processo software
+Si lavora su cosa fare, non come 
+    identificare i confini del sistema e il mondo in cui deve interagire con l'ambiente
+    Definire e analizzare i requisiti di qualita
+    Negoziare le priorita' con gli stakeholder 
+    Elaborare i requisiti in modo che i manager possono fornire stime realistiche e gli sviluppatori possono progettare, implementare e testare 
+    Classificare le informazioni su requisiti in varie categorie e assegnare i requisiti ai sottosistemi
+    Individuare e risolvere eventuali difetti nei requisiti 
+//slide 3 
+18: Sono entrambi prodotti dell'analisi dei requisiti 
+    Il dominio del sistema da realizzare 
+    I requisiti del sistema per gli utenti 
+
+Per definire il dominio: si costruisce un glossario 
+    Collezione di definizioni di termini relativi ad un dominio specifico 
+    Il team di analisti lo costruisce mentre studia il dominio 
+    Si arricchisce via via che si incontrano nuovi termini 
+    Puo' essere riusato in progetti successivi nello stesso dominio 
+Si definiscono due modelli: modello statico e modello dinamioco
+Il modello di dominio di applicazione di un sistema software occorre in: entita', relazioni, processi e comportamenti che esistono independentemente dal sistema software, esso opera sul dominio e forse lo controlla, ma il dominio esisteva gia' da prima 
+
+Il requisito e' una condizione o capacita' necessaria a un utente per risolvere un problema o raggiungere un obbettivo o una capacita' posseduta/soddisfata da un sistema per soddisfare un contratto, standard, specifica o altri documenti formali
+//slide 3
+19: I requisiti funzionali descrivono funzionalita' che il sistema deve realizzare, in termini di azioni che il sistema deve compiere. come il sistema reagisce a certi input e come si comporta in situazioni particolari
+I requisit non-funzionali descrivono le proprieta' del sistema software (carattteristiche di qualita', processo di sviluppo, esterne, e requisit fisici)
+//slide 3
+20: l'Analisi dei requisiti in 5 passi sono: 
+    1) Acquisizione 
+    2) Elaborazione 
+    3) Convalida 
+    4) Negoziazione 
+    5) Gestione 
+
+Acquisizione: 
+    L'acquisizione puo' essere fatta tramite interviste con i committenti, dove si ottengono cosa il cliente vuole dal progetto 
+    Puo' essere fatto anche tramite questionari a risposte multiple, costruzione di prototipi, osservazione di futuri utenti al lavoro o lo studio di documenti 
+    Protoipi anche sulla carta vanno bene 
+
+Elaborazione: 
+    I requisiti vengono espansi e raffinati, viee scritta la prima bozza del documento di requisiti 
+    La struttura del documento dei requisiti
+        1. Introduzione (perche il sistema e' desiderabile e come si inquadra negli obbiettivi del cliente)
+        2. Glossario (i termini e concetti tecnici usati)
+        3. Definizione dei requisiti funzionali (servizi richiesti) 
+        4. Definizione dei requisiti non-funzionali (vincoli operativi del sistema e del processo di sviluppo)
+        5. Archittetura (strutturazione in sottosistemi)
+        6. Specifica dei requisiti del software e del sistema (specifica dettagliata dei requisiti funzionali) 
+        7. Modelli astratti del sistema (modelliu formali o semi-formali)
+        8. Evoluzione del sistema (previsione di successivi cambiamenti hw o di requisiti) 
+        9. Appendici
+        10. Indici
+    Requisiti ben posti sono scritti nella forma "il <sistema> deve <funzionalita'/proprieta'>"
+
+Convalida:
+    Evitare certi diffetti come 
+        Ommissioni (cinompletezze) 
+        Inconsistenze (contraddizione tra i vari requisiti o dei requisiti rispetto all'ambiente operativo) 
+        Ambiguita' (requisiti con significati multipli) 
+        Sinonimi e omonimi (termini diversi con medesimo significato o termini uguali con diversi significati)
+        Presenza di dettagli tecnici 
+        Ridondanza 
+    Le tecniche di convalida possono essere fatte tramite 
+        Walkthrough: lettura sequenziale dei documenti 
+        Ispezione: lettura strutturata dei documenti (uso i termini del gloassari con puntatori ai requisiti che li nominano)
+        Uso di strumenti di analisi del linguaggio naturale (chatgpt, quARs, TIGER-PRO)
+        Protoptipi 
+
+Negoziazione:
+    Assegnare le priorita' dei requisit in base alle esigenze del committente ed analisi dei costi e tempo di produzione 
+    Le priorita' si usano per decidere se alcuni requisiti possono essere cancellati o sviluppati dopo 
+    MoSCoW: Must Have, Should Have, Could Have, Want to have
+
+Gestione:
+    Assegnare ad ogni requisito un identificatore unico (numero sequenziale, una coppia <categoria;numero>)
+    Assegnare ad ogni requisito che ne indicano stato, priorita', effort, rischio, stabilita' e versione destinazione 
+    Aver tracciabilita' (capacita' di descrivere e seguire la vita di un requisito del processo di sviluppo) 
+        Maoppa tra requisiti e componenti del sistema, codice e test
+    Documento di requisiti prece il contratto ed e' parte intregante
+//slide 3
+21: Casi d'uso e' un modo in cui un utente puo' usare il prodotto, un modo di acquisire i requisiti 
+    Si prospetta al committente insieme al risultato atteso e si aspettano i commenti 
+    La tecnica delle user stories viene usata nei processi Agile e sono descriti nella forma 
+        As a <user role>, I want <goal> so that <benifit>
+        Facile da usare, rende possibile aggruppare le card al muro e sul tavolo per aver consistenza, favorisce visibilita' 
+        Non sono scalabili, sono vaghe e incomplete e raramente includono dettagli sulle presentazioni o sui requisiti non funzionali
+//slide 3
+22: Un modello e' un'astrazione del sistema o dominio usato per specificarne struttura e/o comportamento (astrae dai dettagli ed e' espresso con un formalismo che ne rende facile l'uso e comprensione) 
+    E' uno strumento di documentazione, comunicazione e discussione 
+    Un modello puo' essere statico o dinamico dato da un linguaggio formale o semi-formale 
+    Un modello puo' essere: 
+        Bozza (sketch): modello non completto, usato per descrizioni iniziali, si possono rendere visibili soluzioni alternative 
+        Progetto detagliato (blueprint): contiene dettagli sufficient per sviluppare un ready-to-run system senza prendere decisioni di progettazione 
+        Eseguibile: talmente completo e preciso da permettere di generare il codice automaticamente
+//slide 4
+23: Un modello statico descrive le entita' e relazioni (concetto del dominio, componenti archittetura classi di relazione) ed hha assenza degli aspetti di tempo
+Un modello dinamico modella il comportamento delle entita' descritte nel modello statico 
+//slide 4
+24: UML (Unified Modeling Lnaguage) e' un linguaggio di modellazione che supporta descrizione e progettazione di sistemi software 
+Famiglia di notazioni grafice (descrivi modelli da diversi punti di vista, sonno correlate, sono facile da capire da utenti e clienti)
+Ha sia una descrizione strutturare (statica) e una descrizione di comportamento (dinamica) 
+Supporta 14 tipi diversi di diagrammi
+//slide 4
+25: Il diagramma dei casi d'uso descrive i requsiti funzionali del sistema 
+    cattura le funzionalita' che un sistema deve offrire 
+    Prospettiva esterna: compiti che un utente puo' realizzare con l'aiuto del sistema
+Un attore e' un'entita' esterna al sistema che interagisce direttamente con esso in un determinato ruolo 
+    Tre tipi di attori: utente uomano in un determinato ruolo, altro sistema, tempo (attore speciale) 
+Un caso d'uso e' una funzionalita' o un servizio offerto dal sistema a uno o piu attori
+//slide 4
+26: La modellazione usando il diagramma dei casi d'uso prevedono i seguenti passi 
+    1. Individuare il confine del sistema
+    2. Individuare gli atori
+    3. Individuare i caso d'uso
+    4. Individuare le relazioni attore-caso d'uso 
+    5. Specificare il caso d'uso con una descrizione testuale (narrativa)
+Il diagramma e' composto da
+    Attori. hanno un nome (Classe)
+    Casi d'Uso. hanno un nome (e' un verbo che denota il compito)
+    Relazioni. relazioni significative tra gli attori e casi d'uso
+    Confine del sistema. Un retangolo disegnato intorno ai casi d'uso per identificare il confine del sistema oggetto del modello
+L'associazioni attori-casi d'uso e' molti a molti (un attore associati a multipli casi d'uso, un caso d'uso associato a multipli attori)
+Un caso d'uso e' sempre iniziato da un solo attore detto principale
+
+//slide 4
+27:La narrativa di un caso d'uso e' il documento che descrive il modello dinamico (gli scenari rilevanti di un caso d'uso dal punto di vista degli attori)
+Tabella:
+    Nome                                    Nome del caso d'uso
+    ID                                      Identiifcatore univoco del caso d'uso
+    Breve Descrizione                       Due righe riassuntive
+    Attore Primario                         Attore che avvia il caso d'uso
+    Attori secondari                        Altri attori che interagiscono col caso d'uso
+    Precondizioni                           Devono valere prima dell'esecuzione del caso d'uso
+    Sequenza degli eventi principale        Sequenza di passi
+    Postcondizioni                          Devono valere dopo la sequenza principale
+    Sequenze alternative degli eventi       Errori, ramificazioni e interruzioni nella sequenza principale
+
+//slide 4
+28: Uno scenario e' un'istanza di un caso d'uso (sequenza di passi che produce un risultato osservabile da uno o piu attori)
+Gli scenari descritti dallas equenza principale degli eventi portano dalla precondizione alla postcondizione
+Siano le preconndizionie che le postcondizioni si esprimono con predicati o formule logice
+    Valgono vero o falso, non sono MAI azioni
+Un flussoi di una narrativa funziona come le triple di Hoare
+    {precondizioni} sequenza principale {postcondizione}
+Per ogni stato o che soddisfa la precondizione, l'esecuzione di un caso di uso a partire da o termina producendo uno stato o' ed o' soddisfa la postcondizione
+    Tranne in caso di imprevisiti come nella sequenza alternativa, in questo caso la postcondizione non e' garantita 
+Nella sequenza principale degli eventi 
+//slide 4
+29: La sequenza principale degli eventi (SPE) elenca la sequenza di passi che compongono il caso d'uso 
+    La sequenza e' enumerata
+    Ogni passo dovrebbe avere la struttura <numero>. <soggetto> <azione> <complimenti>
+    Il primo passo (attivazione) e' sempre compiuto dall'attore principale
+    Nelle SPE si possono descrivere condizione e cicli
+//slide 4
+30: L'inclusione di un caso d'suo e' quando un caso d'uso incorpora l'interazione descritta dal caso d'uso 2
+La relazione include punta al caso d'uso che viene incluso 
+E' simile alla chiamata di una funzione (la narrazione del caso 1 invoca l'esecuzione del caso 2)
+<<include>> e' uno stereotipo:
+    Gli stereotipi sono parole chiave tra << >> che annotano elementi di un diagrama 
+    Precisano il significato dell'elemento annotato
+    In questo caso, la relazione di dipendenza e' un'inclusione
+L'inclusione nella narrativa succede che uno dei passi della SPE e' Include (nome caso incluso)
+
+L'estensione di un caso d'uso e' quando un caso d'uso incorpora l'altro 
+Usa la relazione extend ed il caso 1 puo' invocare l'esecuzione del caso 2 
+Extend e' anche uno stereotipo
+//slide 4
+31: Un diagramma delle classi descrive 
+    Il tipo degli oggetti che fanno parte di un sistema software o del suo dominio
+    Le relazioni statiche tra essi
+Mostra anche le proprieta' e le operazioni di una classe
+Una classe e' rappresentata con un retangolo organizzato in tre compartment 
+    Nome (maiuscolo e sempre al singolare)
+    Attributi (tipizzati)
+    Operazioni (tipizzate)
+Gli attributi hanno modificatori di visibilita' (+ pubblico | - privato | # protected | ~ package)
+Un diagramma delle classi puo' essere usato per descrivere il dominio o progettazione in dettaglio
+Per descrivere un dominio:
+    Solo attribvutili a caratterizzare l'elemento del dominio
+    Le operazioni si omettono
+    I modificatori di visibilita' si ommettono
+Operazioni ed attributi statici sono sottolineati
+//slide 6/7
+32: Una relazione rappresenta il legame tra due o piu oggetti (tipicamente istanze di classi diverse) 
+Ci sono relazioni tra classificatori 
+    Associazione (aggregazione e composizione)
+    Generalizzazione 
+    Realizzazione 
+E relazioni tra oggeti
+    Collegamento (Aggregazione e composizione)
+
+Associazione
+    Rappresentata con una linea retta caratterizzata da 
+        Nome, Ruoli e verso di lettura 
+    La descrizione del dominio usa associazioni. nel codice diventano attributi
+    Un'associazione puo' coinvolere piu oggetti usando il vincolo di moltiplicita' 
+        (es: una societa' puo' avere molti dipendenti, un impiegato puo' essere in relazione solo con un oggetto Societa')
+    I vincoli di molteplicita' sono indicati con un numero positivo, un simbolo indefinito *, o un intervallo con estremo inferiore e superiore (inferiore 0 o numero positivo, superiore numero positivo o *)
+    Ci possono essere piu di una associazione tra due classi
+    Le accossazionio possono essere riflessive (una classe ha relazione con se stessa)
+    Ci sono due tipi principali di associazione
+        Aggregazione: Le classi parte hanno significato anche senza la classe tutto (relazione debole)
+        Composizione: Le classi parte hanno significato solo se legate alla classe tutto (relazione forte)
+
+Generalizazzione
+    Relazione tra un elemento generico G e uno piu specializzato S 
+        S e' consistente con G ma contiene piu informazione 
+        S puo' essere usato al posto di G (Principio di sostituizione di Liskov)
+    E' una superclasse che generalizza le sue sotto classi 
+    Le sottoclassi ereditano caratteristiche dalla superclasse (attributi operazioni relazioni vincoli)
+    Le sottoclassi possono aggiungere caratteristiche e ridefinire le operazioni 
+
+Realizazzione/Dipendenze
+    Una dipendenza e' una relazione tra una classe cliente e una classe fornitore
+        Il cliente depende dal fornitore
+        Una modifica nel fornitore puo' influenziare il cliente
+
+Collegamento
+    Istanzia un'associazione nel diagramma delle classi 
+        Collega due o piu oggetti, non ha nome, puo' indicare ruolo, molteplicita' sempre 1:1
+
+//slide 6/7
+33: Le classi di analisi corrispondono a concetti concretti del dominio (concetti descriti nel glossario)
+    E' una astrazione di uno specifico elemento del dominio
+    Hanno un numero ridotto di responsabilita' (funzionalita')
+    E' meglio evitare di definire classi onnipotenti (sistema, controllore), funzioni travestite da classi, gerarchie di eredita' profonde (>= 3)
+    Meglio che abbiano solo operazioni ed attributi e usare il documento come blueprint
+    Le classi di analisi possono essere divise prendendo due approcci
+        Data-driven: si identificono dati del sistema e si dividono in classi (tipico nella fase di analisi)
+        Responsability-driven: si identificano responsabilita' e si divono in classi
+//slide 6/7
+34: Un oggetto si rappresenta in uml con due sole sezioni
+    Il nome dell'oggetto e della classe che istanza, sottolineati
+    Lista di attributi (nome attributo, tipo attributo, valore attributo)
+//slide 6/7
+35: Un diagramma di attivita' modella un workflow/flusso di lavoro (algortimo o processo)
+Descrive come coordinare un insieme di azioni
+    Sequenzem scelte condizionali, iterazioni, concorrenza 
+Modella un'attivita' relativa a una o piu' entita
+    una o piu classe che collaborano in comune 
+    uno o piu attori che interagiscono col sistema
+    un'operazione offerta da una classe
+Un'attivita' in UML ha un nome ed e' contenuta in un retangolo con gli angoli smussati 
+Il contenuto di un'attivita' e' un grafo diretto
+    I nodi rappresentano componenti dell'attivita (azioni e nodi di controllo)
+    Gli archi rappresentano il control flow, inteso come i possibili cammini eseguibili
+//slide 8
+36: Le azioni sono descrite come verbi (azioni)
+    Sono atomiche e non interrompibili
+    Ogni azione ha un solo arco entrare e un solo arco uscente
+    Quando un'azione e' completata, scatta una transizione automatica all'azione che segue
+La semantica puo' essere descrita con un token game
+    Un'azione viene eseguita quando riceve il token, al terminare, il token paassa all'azione successiva
+//slide 8
+37: Ci sono 7 tipi di nodi nel control flow 
+    Nodo iniziale 
+    Nodo finale
+    Nodo di fine flusso
+    Nodo di decisione (con guardie su archi uscenti)
+    Nodo di fusione
+    Nodo di fork (biforcazione)
+    Nodo di join (sincronizzazione) 
+
+I token di decisione e fusione servono per il controllo di flusso, portando creare due cammini
+    Le condizioni di flusso x e y devono coprire tutti i casi possibili (x v y = true)
+    Le condizioni di guardia si esprimono tra parentesi quadre, devono coprire tute le possibilita' e' bene se sono mutuamente esclusive
+    Le guardie di flusso possono essere utilizzate anche per fare loop (come in assembly)
+
+I token di fork e join funzionano per il parallelismo/concorrenza
+    La fork moltiplica i token (dato un token di ingresso, ne produce uno per ogni freccia uscente)
+    La join consuma i token (attente un token per ogni freccia entrante, consuma tutti i token e ne esce solo uno)
+    Non e' necessaria una join per ogni fork
+
+La differenza tra il nodo finale e il nodo di fine flusso e' che 
+    Il nodo finale finisce appena il primo raggiungendolo, termina l'intera' attivita
+    Il nodo di fine flusso termina solo il flusso corrispondente (non l'intera attivita')
+//slide 8
+38: Sono nodi specializzati che consentono l'invio di segnali ed eventi
+    Uno manda un segnale, l'altro accetta un evento
+    C'e' anche l'accetazione di un evento temporale 
+    I nodi di accettazione eventi esterni/temporali non necessitano di archi entranti 
+        Se assente, quando si verifica un evento si genera un token
+        Se presente, l'azione e' abilitata quando arriva il token e si attende l'evento per farlo transitare
+    Si utilizzano segnali/accettazione di eventi quando si communica con un'entita' esterna
+    Azioni sono usate quando effettuata dalla/e entita' di cui si sta descrivendo il comportamento
+//slide 8
+39: I diagrammi di macchina a stati sono grafi stati-transizioni che descrivono il comportamento delle istanze di una classe
+    Stati significativi in cui si puo' trovare un oggetto durante la sua vita
+    Come da ciascuno di questi stati l'oggetto puo' transire ad un altro 
+    Le transizioni si attivono in risposta ad un evento (messaggi inviati da altri oggetti, eventi generati internamente)
+La transizione uscente di uno stato 
+    Definisce risposta dell'oggetto all'occorenza di un evento
+    Viene presa solo se la condizione e' vera quando occore l'evento
+    Comporta l'esecuzione delle azioni specificate
+//slide 9
+40: Un evento e' un caso nei diagrammi di stati che occorre istantaneamente e va introdotto solo se ha degli eventi 
+    Occore in uno stato che 
+        non ha piu trasizioni per quell'evento (viene ignorato)
+        ha piu transizioni per lo stesso evento, ne viene scelta in un modo non-deterministico
+    Ci sono tipi di evento
+        Operazione o ssegnale: Ricezione di una chiamata di metodo o un segnale con parametri e tipi compatibili
+        Evento di variazione <<when(exp)>>: L'espressione exp diventa vera
+        Evento temporale <<after(f)>>: l'oggetto e' stato fermo per un tempo t nello stato di partenza
+//slide 9
+41: Entry: azione di entrata, eseguita all'ingresso in uno stato
+    Do: azione interna, eseguita in modo continuato mentre l'oggetto si trova in quello stato 
+        Non atomica e non necessita di eventi scatenanti, consuma del tempo e puo' essere interrotta
+    Exit: azione di uscita, eseguita all'uscita di uno stato
+//slide 9
+42: Di un diagramma di macchina a stati, include un'ulteriore macchina a stati 
+    Ingresso: transizione che arriva nello stato
+       Se arriva sul bordo, si prosegue dallo stato iniziale della macchina interna, se arriva su uno stato interno, si prosegue da quello stato
+    Uscita: transizione che esce dallo stato
+        Una transizione (etichettata) che parte dal bordo e' attivabile da qualsiasi stato interno
+        Dallo stato finale della macchina interna, si prosegue nella transizione di un completamento (che non ha evento)
+        Transizione uscenti da stati interni possono attraversare il bordo
+Possono essere sequenziali o paralleli
+Nel parallelo
+    Ingresso: transizione (default entry) che arriva sul bordo e prosegue in tutti i sottostati iniziali
+    Uscita: transizione che esce dallo stato 
+        (transizione di completamento attivata se si riaggiungono tutti i sottostati finali)
+        (se parte da un sottostato, e' attivabile solo li' e fa uscire da tutti i sottostati
+        Se parte dal bordo, e' attivabile sempre e fa uscire da tutti i sottostati
+//slide 9
+43: Le sottomachine consentono di descrivere uno stato composito in un diagramma a parte (migliore leggibilita' e descrizione)
+    Le sottomacchine hanno un nome (tipo) 
+    Si definiscono gli entry/exit point per collegare le sottomachine alle transizioni della macchina principale
+//slide 9
+44: I pseudo-stati si trovnao in situazione con piu di una possibilita, questa sono la giunzione, scelta e history
+La scelta e' bsata su condizione valutate dinamicamente 
+    La disgiunzione delle guardie deve essere sempre vera (if else)
+    E' ammesso il non-determinismo
+La giunzione e' quando escono e entrato due o piu transizioni
+    Eventuali condizioni valutabili staticamente 
+    Prima degli eventi che attivano le transazioni di ingresso 
+    Consentono di modellare piu transizioni che condividono lo stesso evento di attivazione
+La giunzione e' statica, guardie valutate prima dio uscire dallo stato di partenza
+La scelta e' dinamica, le guardie valutate quando ocorre l'evento
+History e' una che usa lo stato rimanente dell'ultima volta prima di uscire
+//slide 9
+45: L'archittetura software e' la struttura del sistema, constituita dalle parti del sistema, delle relazioni e le loro proprieta' visibili
+    Fornisce un'astrazione de lsistema mediante un artefatto complesso
+//slide 11
+46: Le tre viste in un'archittetura software sono
+    Vista comportamentale
+    Vista struttuale
+    Vista di deployment/logistica
+
+Vista comportamentale
+    La vista comporamentale (component-and-conector C&C) descrive un sistema software come una composizione di componenti software
+        Componenti e le loro interfacce
+        Caratteristiche dei connettori
+        Struttura del sistema in esecuzione 
+    Serve per consentire l'analisi delle caratteristiche di qualita' a tempo di esecuzione e di documentare lo stile dell'archittetura
+
+Vista Strutturale
+    Descrive la struttura di un sistema software come un insieme di unita' di realizazzione/codice (classi e pachetti)
+    Serve per analizzare le dipendenze tra pachetti, progettare test di unita' e di integrazione, valutare la portabilita'
+
+Vista logistica
+    Descrive l'allocazione del software su ambienti di esecuzione
+    Permette di valutare prestazioni e affiabilita'
+//slide 11
+47: Un componente software e' un'unita' di software indipendente e riutilizzabile
+    Unita' concettuale di decomposizione di un sistema a tempo d'esecuzione 
+    Incapsula un insieme di funzionalita' e/o di dati di un sistema
+    Restringe l'accesso a quell'insieme tramite delle interfacce definite
+    Ha un proprio contesto di esecuzione
+    Puo' essere distribuito e installato in modo indipendente da altri componenti
+Un sistema software e' una composizione di componenti software (basata sulla connessione di piu componenti relaizzata con interfacce di componenti e connettori)
+Un componente e' un classificatore, hanno porti agli estremi che identificano i punti di interazione di un componente
+    Un porto fornisce o richiede una o piu interfacce (omogenee), i porti possono avere nome e/o moltiplicita'
+I porti possono aver interfacce offerte o richieste 
+Hanno connettori anche, canali di interazione che collegano porti di componenti per rappresentare protocolli, flussi di informazione, accessi ai depositi (su UML sono rappresentati come associazioni)
+I conettori sono descriti con stereotipi o indicando i ruolo dei componenti
+//slide 11
+48: Uno stile architetturale caratterizza una famiglia di architetture con caratteristiche in comune 
+    Funzionalita' e interazioni fra componenti spesso seguino stili standard 
+Tipi diversi di stile 
+
+Pipes & Filters
+    I componenti sono di tipo Filter 
+        Transformano uno o piu flussi di dati dai porti d'ingresso in uno o piu flussi sui porti d'uscita
+    I conettori sono di tipo pipe
+        Canale di comunicazione unidirezzionale bufferizzato
+        Preserva l'ordine dei dati dal ruolo d'ingresos a quello d'uscita
+
+Client-Server
+Sistema formato da due componenti 
+Il server offre un servizio
+    Aspetta le richieste di un cliente ad un porto
+    Piu clienti servibili dallo stesso porto
+Il client innvia richieste al server e attende una risposta
+Un server e' realizzato tramite un RequestListener in attesa di richieste (anche multi-threaded)
+Per ogni richiesta, un RequestHandler per gestirla
+    Elabora la richiesta e invia la risposta al client
+    Se stateless, gestisce ogni richiesta in modo indipendente
+    Se stateful, consente richieste composite che consistono di piu richieste attomiche 
+        Mantiene un record delle richieste di un client, chiamato sessione)
+
+Master-Slave
+    Client-server che risponde ad esigenze precise 
+    Il servente (slave) serve un solo cliente (master)
+
+P2P
+    Caso di Client e server 
+    Tutti i componenti agiscono come client e server contemporaneamente
+    Scambio di servizi alla pari 
+
+Publish-Subscribe
+    Mittenti (publisher) e destinatari (subscriber) dialogno attraverso un tramite (broker)
+        Publisher: si limitta a pubblicare messaggi sul broker
+        Subscriber: si abbona al broker per determinati messaggi
+        Broker: inoltra ogni messaggio da un publisher ai subscriber interessati 
+    I publisher non sanno quanti/quali subscriver ci siano e vice versa (sacabile)
+    Due modi di inoltrare i messaggi: push o pull
+        Push: il broker invia attivamente i messaggi ai consumatori 
+            Controlla la frequenza con cui i dati vengono trasferiti
+            Deve decidere se inviare un messaggio immediatamente o se accumulare piu dati e inviare
+            Complicato trattare con diversi tipi di consumatore
+        Pull: consumatore si assume la responsabilita' di recuperare messaggi dal broker
+            Il consumatore deve teneree traccia del prossimo messaggio successivo
+            Migliora scalabilita' e flessibilita' 
+            Se non ci sono messaggi nel broker, consumatori potrebbero comunque essere occupati in attesa del loro arrivo
+
+Model-View-Controller
+    Model: Nucleo funzionale, implementa la business logic dell'applicazione, rappresenta i dati su cui opera l'applicazzione stessa
+    View: Presentazione del model all'utente, ci possono essere piu viste per un modello
+    Controller: Controllo dell'input dell'utente, traduce eventi in richieste/operazioni da eseguire su model
+    Funzionalita' 
+        Utente interagisce con view
+        Il controller riceve e interpreta le azioni dell'utente
+        Il controller chiede al model di cambiare stato
+        Il model notifica view quando cambia stato
+        La view chiede lo stato al model
+
+Process Coordinator
+    Un componente funziona da coordinatore, mentre gli altri sono passivi
+    I componenti (tranne il coordinatore) non conoscono il loro ruolo nel processo complessivo
+    Ogni componente fornisce un insieme di funzionalita'
+    Il coordinatore e' responsabile della sequenza di passi necessari a realizzare un processo
+        Riceve la richiesta
+        Invoca le funzionalita' offerte degli altri componenti secondo un ordine prefissato
+        Fornisce una risposta
+//slide 11
+49: La vista strutturale e' utile per 
+    Costruzione: Schema del codice, directory, file sorgente
+    Analisi: tracciabilita' dei requisiti, impatto di eventuali modifiche 
+    Comunicazione: Se gerarchica, offre presentazioen top-down per suddivisione di responsbilita'
+    Progettazione di test di unita' e integrazione
+E' un diagramma con elementi e relazioni
+    Elementi = moduli, unita' di software che realizzono un insieme coerrente di responsabilita' (classi, collezioni di classi, package)
+    Relazioni tra elementi: partre di, eredita da, dipende da
+C'e' anche la relazione use, dove un modulo A usa il Modulo B se dipende dalla presenza di B per soddisfare i suoi requisiti 
+//slide 11
+50: La vista di deployment e' utile pre analisi delle prestazione e guida per l'installazione di un sistema
+    Diagramma contiene
+        Artefatti prodotti da un processo di sviluppo software o dal funzionamento di un sistema
+        Nodi hardware (ambienti di esecuzione)
+    Relazione tra elementi
+        Dislocazione di artefatti negli ambienti di esecuzione
+        Interconnessioni tra gli ambienti di esecuzione
+//slide 11
+51: Un diagramma di sequenza descrive le interazioni (scambio di messaggi e dati) tra oggetti, organizzandoli in una sequenza temporale
+In fase di analisi per casi d'uso
+    Scambio di messaggio tra attori e sistema per realizzare il caso d'uso
+    Formalizzano la sequenza principale degli eventi
+In fase di progettazione
+    Scambio di messaggi tra compoentni 
+    Illustrano come l'archittetura realizza i requisiti
+Un diagramma di sequenza in UML e' organizzato tramite linee di vita per rappresentare oggetti partecipanti (come client-server in una connessione TCP)
+Indicano le frecce le interazioni tra oggetti
+Contiene certe proprieta' 
+Frame sono scatole dentro la connessione temporale che indicano condizioni per far partire quel pezzo di interazione
+    Frame opzionale: indicato tramite opt, interazione eseguite solo se la guardia e' vera, altrimente salta il frame
+    Frame condizionale: Tramite alt, i subframe possono essere etichettati con guardie
+        Senza guardia -> true, piu guardie vere -> non determinismo, tutte guardie false -> frame saltato
+    Frame iterativo: Tramite loop, da min a max volte finche la condizione e' vera
+    Frame parallelo: interazioni nei sotto-frammenti eseguite in parallelo
+    I frami possedono gate: un punto di ingresso/uscita sul bordo di un diagramma o frame
+        Consente la recezione/spedizione di messaggi, ha un nome che lo identifica, utile quando si rifersicono altri diagrammi con ref
+Vincoli di durata permettono di specificare quando avviene un evento (at(orario), now) e quanto tempo intercorre tra due eventi (effettivo, min o max)
+//slide 12
+52: La manutenzione di un software include tutti i cambiamenti ad un prodotto software dopo che e' stato rilasciato in produzione
+Ci sono diversi tipi 
+    Corretiva: ruomere gli errori/bug lasciando invariata la specifica
+    Manutenzione perfettiva: Modifiche applicate per migliorare la qualita' del software, fornire nuove funzionalita' o migliorare quelle esistenti
+    Manutenzione adattativa: Modifiche a seguito di cambiamento del contesto del software (cambiamenti legislativi, hardware, SO)
+//slide 13
+53: Information hiding e' una tecnica di progetazzione di software dove si separano l'interfaccia e corpo di un'unita' di progettazione
+    L'interfaccia visibile esprime cio' che l'unita' offre/richiede
+    Il corpo nsascosto implementa gli elementi dell'intarfaccia e ralizza la semantica dell'unita'
+Vantaggi: piu comprensibile (non devono saper i dettagli), mantenibile (si puo' cambiare il corpo senza modificare le altre), lavoro in team (corpi di unita' diversi per team diversi), sicurezza (dati di un'unita' modificabili solo dal corpo della stessa)
+Information hdiing usa accessors e mutators (getters and setters) per poter prendere e dare informazioen ad un oggetto
+    Nasconde la rappresentazione dei dati, acesso solo mediante l'interfaccia getter-setter 
+        Getter -> restituisce un attribuot come valore senza side effects
+        Setter -> modifica lo stato dell'oggetto, cambiando il valore dell'attributo 
+//slide 13
+54: Il principio di astrazione si applica a controllo e dati 
+    La procedura come modulo di astrazione del flusso di controllo (nasconde l'algoritmo utilizzato organizzate in classi di moduli, libreria)
+    Struttura dati astratta per rappresentare dati regolamento accesso/modifica 
+        Interfaccia stabile acnhe se cambia l'implementazione della struttura dati
+        Non puramente funzionale
+//slide 13
+55: La coesino e' quanto strettamente sono correlate siano le funzionalita' offerte da un modulo/componente
+Grado con cui un'unita' di progettazione realizza uno e un solo concetto
+    Funzionalita' vicine devono stare nella stessa unita'
+    Un sistema e' coeso se tutti gli elementi di ogni unita' di progettazione sono strettamente collegati tra loro
+Ci sono tipi di coesino
+    Coesione funzionale: gli elementi collaborano per realizzare una funzionalita (ideale)
+    Coesino comunicattiva: Gli elementi operano sugli stessi dati in input e/o contribuiscono agli stessi dati in output (non favorisce riuso, non e' un buon modo di riaggruppare)
+    Coesione procedurale: gli elementi realizzano i passi di una proceddura (debolmente coese e difficilmente riutilizzabili)
+    Coesione temporale: gli elementi sono azioni che devono essere fatte in uno stesso arco di tempo (azioni sono debolmente coese e difficilmente riutilizzabili)
+    Coesione logica: gli elementi sono correlati logicamente ma non funzionalmente (operazioni correlate ma funzioni diverse, operazioni debolmente connesse ee difficilmente riutilizzabili)
+    Coesione accidentale: gli elementi non sono correlati ma piazzati assieme (peggior forma di coesione)
+//slide 13
+56: Il disaccopiamento sono quanto slegate sono le unita' di progettazione
+Con accopiamento si indente
+    Il grado con cui un'unita' di progettazione e' legata ad un'altra
+Meglio sempre creare sistemi disaccopiati
+La ragione per creare sistema disaccopiati e'
+    High coupling: modifiche a variabili utilizzate su varie componenti diventa un cambiamento a tutti i componenti che l'utilizzano
+        (poco mantenibile)
+    Low coupling: l'impatto modifiche limitato per ogni componente (migliore manutenibilita')
+L'ideale e' high cohesion e low coupling
+    Facilita riuso e manutenibilita', riducile le interazione tra sottosistemi, migliora la comprensibilita'
+//slide 13
+57: Solid e' una collezione di principi di base per progettazione e sviluppo orientato agli oggetti 
+    Single Responsability: Una classe (o metodo) dovrebbe avere solo un motivo per cambiare
+    Open closed: estendere una cclasse non dovrebbe comportare modifiche alla stessa
+    Liskov Substitution: istanzee di classi derivate possono sostituire istanze della classe base
+    Interface Segregation: Interfacce a grana fine e specifiche per ogni cliente
+    Dependency Inversion: programmare guardando le innterfacce non l'implementazione
+
+Single responsability principle
+    Una classe (un modulo, un metodo) dovrebbe avere solo un motivo per cambiare
+    Un cambiamento deve impattare solo la classe che realizza la funzionalita'
+    Due diversi motivi per modificare una classe implicca che dobbiamo dividerla in due classi
+    Se dovessimo fare un cambiamento in una classe che ha piu responsabilita', le modifiche potrebbero influenziare un'altra classe
+    Un esempio: una classe di modem che maneggia la connessione e i dati dovrebbe essere separata in due classi, una per conessione ed una per dati
+
+Open Closed Principle 
+    Le entita' software devono essere aperte per estensione ma chiuse per modifiche 
+    Quando i requisiti cambiano, estenderne il comportamento aggiungendo nuovo codice (invece di cambiare quello funzionante)
+    Disegnare classi in modo che sia possibile estenderle ma senza cambiarle
+    Possibile sfrutando classi astratte e classi concrete, delega, plugin (aggiungere codice senza ricompilare l'esistente)
+    Aperti alle estensioni -> usare astrazioni (interfacce, classi astratte)
+    Chiusi al camibamento -> usare delega e astrazioni
+
+Liskov Substitution Principle
+    Le classi derivate devono poter sostituire le classi base
+    Un sottotipo puo' essere usato senza cambio di comportamento per il supertipo
+
+Interface Segregation Principle 
+    Interfacce a grana fine e specifiche per ogni cliente
+    I client non devono dipendere da interfacce che non usano
+    Mettere solo i metodi necessari
+
+Dependency Inversion Principle
+    Programmare per l'interfaccia non per l'implementazione
+    I moduli di alto livello non devno dipendere da quelli di basso livello
+    Le astrazioni non devono dependere dai dettagli
+//slide 13
+58: GRASP e' un principio per progettazione 
+    General
+    Responsability
+    Assignment
+    Software
+    Patterns
+E' una progettazione guidata dai casi d'uso
+Realizzare un caso d'uso
+    Descrivere com'e' realizzato nel progetto in termini di oggetti collaborativi
+    Si usano diagrammi di interazione e pattern
+    Si assegnano responsabilita' alle classi
+Le responsabilita' sono legate al dominio del problema
+Le responsabilita' sono gli obblighi che un oggetto ha definit in termini di comportamento
+    Due tipi di responsabilita'
+        Fare (fare quaclosa come creare un oggetto e fare un calcolo, iniziare l'azione di altri oggetti, controllare e coordinare le attivita' di altri oggetti
+        Conoscere (conoscere i dati privati, conoscere gli oggetti correlati, conoscere dati che possono derivare o calcolare)
+Grasp assegna le responsabilita' guidata da pattern di assegnazione di responsabilita', cosi' definendo metodi ed oggetti
+//slide 13
+59: Eredita' e' quando una classe A estende il tipo definito dalla classe B 
+        Utillizzando l'interfaccia di B e aggiungendo campi/metodi specifici
+    Delega e' quando la classe A estende il comportamento della classe B
+        Incorporando la funzionalita' di B e usando un'istanza di B e chiamandone i metodi
+    La delega e' utile quando si deve utilizzare l'utilizzo solo parziale della classe delegata
+    Consente di controllare quanmti e quali metodi della classe delegata utilizzare
+    Il costo e' rappresentato da metodi di delega aggiuntivi
+    Lo svantaggio sono
+        Riduce leggermente le prestazioni per l'invocazione di un'operaizone di un altro oggetto
+        La delega non puo' essere utilizzata con classi astratte
+        La delega non impone alcuna struttura disciplinata sul progetto
+60: Un pattern descrive n problema che occorre costantemente e descrive la soluzione che puo' essere usata costantemente
+    I pattern nel software riusano soluzioni che hanno funzionato in passato
+        Maggiore produttivita'
+        Progetti risultanti piu flessibili e riutilizzabili
+    I sistemi ben strutturati hanno modelli ricorrenti come classi e oggetti
+Il design pattern e' usato nella progettazione e raffinamento dei componenti
+//slide 14
+61: Ci sono 23 design patterns suddivisi in base al loro scopo 
+    Pattern creazionali 
+        Riguardano la creazione di oggetti
+        Abstract Factory, Builder, Factory Method, Prototype, Singleton
+    Pattern strutturali 
+        Riguardano la composizione di classi e oggetti
+        Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy 
+    Pattern comportamentali 
+        Riguardano le interazioni tra classi e oggetti
+        Chain of responsability, Command, Interpreter, Iterator, Mediator, Memento, Observer, State, Strategy, Template, Visitor
+//slide 14
+62: Lo strategy consente agli algoritmi di variare indipendentemente dai clienti che li usano 
+    Un programma potrebbe dover fornire piu varianti di un algoritmo/comportamento 
+        Variazioni sono incapsulate in classi separate 
+        Metodo uniforme per l'acesso alle classi 
+    Strategy (Definisce un'interfacia in comune per gli algoritmi)
+    ConcreteStrategy (Ogni strategia concreta implementa un algoritmo) 
+    Context (Contiene un riferimento ad un oggetto Strategy, puo' definire un'interfaccia che consente alla strategia di accedere ai dati di interesse) 
+    Lo strategy pattern e' utile 
+        Quando piu classe correlate differiscono per un solo comportamento 
+        Quando servono piu varianti diverse di un algoritmo 
+        Quando un algoritmo usa dei dati che i clienti non forniscono
+        Per evitare di esporre strutture dati complesse e algorithm-specific
+//slide 14
+63: Lo state design pattern si tratta di un pattern comportamentale 
+    Consente ad un oggetto di alterare il suo comportamento quando cambia lo stato (interno) 
+    Il contesto 
+        Definisce l'interfaccia di interesse per i client 
+        Mantiene un'istanza di ConcreteState che definisce lo stato corrente 
+    Lo stato (state)
+        Incapsula il comportamento associato a un particolare stato del contesto 
+        Puo' anche essere una classe: Lo state design pattern si tratta di un pattern comportamentale 
+            Consente ad un oggetto di alterare il suo comportamento quando cambia lo stato (interno) 
+            Il contesto 
+                Definisce l'interfaccia di interesse per i client 
+                Mantiene un'istanza di ConcreteState che definisce lo stato corrente 
+            Lo stato (state)
+                Incapsula il comportamento associato a un particolare stato del contesto 
+                Puo' anche essere una classe concreta con un'implementazione predefinita
+            Gli stati concreti sono sottoclassi dello stato che implementano il comportamento associato allo stato che rappresentano
+    Gli stati concreti definiscono la transizione di stato 
+    Ogni volta che si cambia stato si crea un nuovo oggetto per rappresentare lo stato raggiunto 
+    Gli oggetti di tipo Color hanno una variabile (final) context
+    Utile quando il comportamento di un oggetto dipende dal suo stato 
+    Utile quando le operazioni hanno dichiarazioni condizionali complesse
+//slide 14
+64: Un pattern creazionale astragge il processo di istanzazione degli oggetti 
+    Nascondono l'effettiva creazione degli oggetti 
+    Rendono il sistema indipendente da come i suoi oggetti sono create e composti 
+    Semplificano la costruzione di oggetti complessi
+//slide 15
+65: Il factory e' un design pattern creazionale, e' una classe che ha solo il compito di creare e restituire istanze di altre classi
+    Creare un oggetto mediante una classe factory riduce linee di codice e complessita', consentono di creare/inizializzare rapidamente oggetti
+    Usare new per creare oggetti viola il principio code to an interface
+//slide 15
+66: Il pattern factory method delega alle sottoclassi la decisione di quali classi istanzare
+    Un ConcreteProduct implementa l'interfaccia di Product 
+    ConcreteCreator sovrascrive il factory method per restituire un'istanza del ConcreteProduct 
+    Creator dichiara il factory method (usati da altri metodi) 
+    Consente di disaccoppiare una classe dalle classi degli oggetti che crea ed utilizza 
+    Delega alle sottoclassi la specifica degli oggetti da creare 
+    Benefici 
+        Il codice reso e' piu flessibile e riutilizzabile 
+        Code to an interface 
+    Svantaggi 
+        Necessario estendere la classe Creator anche solo per istanzare un particolare ConcreteProduct 
+    I creator possono essere astratti o concreti (con metodo default) 
+    Se usato per creare diversi tipi di prodotto, il factory method deve avere un parametro per decidere quale tipo di oggetto Creare
+/slide 15
+67: L'abstract factory pattern delega ad altre classi la decisione di quali classi istanzare
+    Definisci un'interfaccia per creare famiglie di oggetti senza specificare le classi concrete 
+Factory method -> Delegata a sottoclassi sfruttando l'eredita'
+Abstract Factory -> Delegata ad altri oggetti mediante composizione 
+    Delegaa la responsabilita' di creare le componenti ad un oggetto 
+//slide 15
+68: Il singleton Pattern garantisce che una classe abbia una sola istanza fornendo un punto di accesso globale a tale istanza 
+    Le classi singleton sono rare 
+    La maggior parte degli oggetti in un'applicazione ha un'unica responsabilita' assegnata 
+Un oggetto che ha solo un'istanza in tutto il progetto non e' un singleton
+Come si istanza un oggetto singleton 
+    Si rende il costruttore della classe privato 
+    Si aggiunge un oggetto statico privato che conterra' l'unica istanza disponibile
+    Si rende l'unica istanza disponibile accessibile attraverso un metodo statico 
+Si puo' usare l'iniziazzione lazy, creando l'oggetto soltanto quando e' necessario 
+    (il codice di getObject controlla se il riferimento all'oggetto e' nullo, se lo e' lo crea e ritorna, se non lo e' solo ritorna)
+    L'inizializzazione lazy e' utile quando non abbiamo informazioni sufficienti per il singleton staticamente all'inizio del codice 
+    Il singleton puo' essere resource intensive e non necessario 
+Nel caso voglia estendere un singleton 
+    Possiamo usare l'istanza unica protected e chiamare la sottoclasse per prendere l'istanza 
+    La sottoclasse creera' un'istanza della sua classe, non della superclasse 
+//slide 15
+69: Per usare un singleton in un'applicazione multuithreaded, usiamo i double-checked locking
+    L'istanza del singleton e' volatile, cosi' i thread controllano direttamente dalla memoria l'istanza, non dalla cache 
+    Il metodo per prendere il singleton e' sincronizzato 
+//slide 15
+70: Il principio open closed dice che le entita' software devono essere aperte ad estenzione ma chiuse per modifiche 
+    Quando i requisiti cambiano, estenderne il comportamento aggiungendo nuovo codice senza cambiare quello esistente 
+    Disegnare classi in modo che sia possibile estenderle ma senza cambiarle 
+    Vale piu la pena farlo in area dove i cambiamenti sono piu probabili (su tutto il codice e' troppo costoso) 
+//slide 16
+71: Il pattern decorator (o wrapper) aggiunge dinamicamente responsabilita' ad un oggetto in modo che rispetti il principio open closed
+Abbiamo un component (interfaccia degli oggetti decorati) 
+ConcreteComponent (Oggetti decorabili con nuova responsabilita')
+Decorator (Interfaccia conforme a quella comune, mantiene un riferimento ad un oggetto di tipo Component, estende Component) 
+ConcreteDecorator (Aggiunge nuove responsabilita')
+I vantaggi sui decorator: 
+    Maggiore flessibilita' rispetto all'eredita' classica 
+    Piu semplice da usare rispetto all'erdita' multipla 
+    Puo' essere usato per combinare feature e aggiungere la stessa proprieta' due volte 
+    Favorisce l'aggiunta incrementale di feature
+Svantaggi 
+    Se il decorator e' complesso, diventa costoso da usare 
+    Decoratore e component non sono identici (un componente decorato non e' identico al componente stesso, meglio non affidarsi all'identita' degli oggetti quando si usano i decorator) 
+    Si possono ottenere sistemi composti da molti oggetti piccoli (difficile da comprende e debuggare)
+//slide 16
+72: Il pattern adapter converte l'interfaccia di una classe nell'interfaccia di una classe attesa dal cliente 
+Consente l'integrazione di classi che altrimenti non potrebbero essere integrate 
+Funziona con 
+    Target: definisce l'interfaccia application-specific usata dal client 
+    Client: Interagisce con oggetti conforme l'interfaccia target 
+    Adaptee: Definisce un'interfaccia esistente da adattare 
+    Adapater: Adatta l'interfaccia di Adaptee per renderla conforme quella Target 
+    Target ed Adaptee esistono prima di Adapter 
+    In Java, Target puo' essere realizzato come interfaccia 
+    Il binding tra Adapter e Adaptee e' realizzato col meccanismo di delega 
+    Eredita' come meccanismo di specifica dell'interfaccia della classe Adapter 
+//slide 16
+73: Il pattern proxy fornisce un surrogato (o segnaposto) per un altro oggetto per controllarne l'accesso 
+Potrebbe sembrare simile al pattern adapter ma sono diversi 
+    Proxy e l'oggetto originale hanno la stessa interfaccia 
+    Il proxy puo' eseguire pre/post-processing 
+Esistono diversi tipi di proxy
+    Remote proxy: permette l'accesso a un oggetto remoto 
+    Protection proxy: implementa un controllo sugli accessi 
+    Cache proxy: mantiene coppie richiesta-risposta 
+    Synchronization proxy: gestisce gli accessi concorrenti ad un servizio 
+    Virtual proxy: si comporta come l'originale mentre l'originale viene costruito, poi passa le richieste a quest'ultimo
+Un esempio di virtual proxy: 
+    Quando si scarica un URL, il client e' in attessa che si scarichino tutti i file 
+    Nel frattempo, il virtual proxy mostra un messaggio di attesa dicendo che sta scaricando (please wait...)
+    Quando scaricato, il virtual proxy soltanto inoltra i messaggi
+//slide 16
+74: Il problema della terminazione ci dice che esistono propblemi non decidibili, per i quali non esiste alcun algoritmoin grado di dare una risposta in tempo finito su tutte le istanze del problema
+    Dato il programma P che prende input un altro programma Q e un input D per il programma Q, Il programma P verifica se Q termina su D come segue 
+        boolean P(Q,D){return halts(Q(D))}
+    Dato che un programma e' una sequenza di caratteri, si puo' invocare P(Q,Q), possiamo definire K(Q) come 
+        boolean K(Q){
+            if P(Q,Q) while (true) {skip;};
+            else return false;
+            }
+    K con input K termina solo se si entra nel ramo else (restituendo false) 
+    Questo avviene se e solo se P(K,K) e' false 
+    Allora P(K,K) e' falso solo se halts(K(K)) e' falso, ovvero se K con input K non termina 
+    K(K) termina se e solo se K(K) non termina -> contraddizione
+//slide 18
+75: Verifica e validazione e' un'attivita' di software quality assurance 
+    Parte integrante del processo software, da svolgere in ogni fase 
+    Per confermare che processo e prodotto rispettino i requisiti di qualita' 
+Le difficolta' da considerare
+    I requisiti di qualiuta' sono diversi tra loro 
+    Un prodotto software e' in costante evoluzione 
+    I guasti hanno una distribuizione irregolare 
+    V&V sono non-lineare (se una procedura ordinare correttamente X elementi, non e' detto che ordini correttamente anche Y con Y != X) 
+    Approcci diversi producono errori diversi 
+La validazione risponde alla domanda: Stiamo costruendo il sistema che serve all'utente? 
+La verifica risponde alla domanda: stiamo costruendo un sistema che rispetta le specifiche? 
+//slide 18
+76: Un malfunzionamento: il sistema software non si comporta secondo le specifiche a run time 
+    Ha natura dinamica e puo' essere esecutato solo mediante esecuzione (output non atteso) 
+    Causato da un diffeto 
+Diffetto: anomalia, bug, o fault nel codice del sistema software 
+    Appartiene alla struttura statica del programma
+    L'atto di correzione dei difetti e' detto debugging 
+    Puo' causare un malfunzionamento (o piu di uno) 
+    Se non causa malfunzionamenti, si dice che il difetto e' latente (quando e' contenuto in un flusso che non viene quasi mai eseguito o quando sono presenti piu difetti il cui l'effetto totale e' nullo) 
+Errore: la causa di un difetto 
+    Un errore umano nella comprensione o risoluzione di un problema (o nell'uso di strumenti) 
+//slide 18
+77: Il testing e' una tecnifca di verifica ed e' sottoposta al problema dell'indecidibilita' (prova di correttezza per tutti gli input possibili) 
+    Un test esaustivo: eseguire e provare ogni possibile input di un programma richiede tempo infinito se gli input sono infinito o richiede troppo tempo per domini di input finit ma molto grandi 
+Le techiniche di verifica del testing Statica non prevede l'esecuzione del programma
+    Metodi manuali: bassati sulla lettura del codice (desk-check) 
+    Metodi formali o analisi statica supportata da strumenti: 
+        Model checking
+        Esecuzione simbolica
+        Interpretazione astraatta 
+        Theorem proving
+//slide 18
+78: Il desk-check del codice e' un'analisi manuale di programmi software volta a capire cosa facciano e/o ad identificare errori logici che potrebbero occorrere durante la loro esecuzione
+Due possibilita': Inspection e Walkthrough
+Desk-check mediante inspection: 
+    Si esegue una lettura mirata del codice, guidata da una checklist 
+    Obiettivo: rivelare la presenza di difetti 
+    Strategia: Focalizzare la ricerca su aspetti ben definiti (error guessing) 
+    Agenti: Ispettori, diversi dai programmatori 
+    Diviso in quattro fasi 
+        Pianificazione -> Definizione della checklist -> Lettura del codice -> Correzione dei diffetti 
+Desk-Check mediante Walkthrough:
+    Si esegue una lettura critica del codice: 
+    Obiettivo: rivelare la presenza di difetti 
+    Strategia: Percorrere il codice simulandone l'esecuzione 
+    Agenti: Gruppi misti ispettori e sviluppatori 
+    Tre fasi 
+        Pianificazione -> Lettura del codice -> Correzione di diffetti
+//slide 18
+79: I metodi formali sono tecniche basate sulla dimostrazione formale di correttezza di un modello finito e istanziazione del modello 
+Metodi formali sono come: Triple di Hoare (pre-condizione, invariante al k-esimo ciclo, post-condizione)
+B-method
+Model Checking
+//slide 18
+80: Data un caso di prova la tripla <input, output_atteso, ambiente> 
+Una test obbligation e' la specifica di casi di test utili a verificare proprieta' ritenute importanti 
+Criteri per definire l'adeguatezza di un insieme di casi test (test suit) 
+    Un criterio di adeguatezza e' un insieme di test obbligation 
+Un insieme di test soddisfa un criterio di adeguatezza se 
+    Tutti i test hanno successo 
+    Ogni test obbligation e' soddisfata da almeno un caso di test 
+Una test obbligation e' definita 
+    A partire delle funzionalita' indicate nella specifica del software (black box) 
+    A partire dalla struttura, guardando il codice (white box) 
+    A partire dal modello del programma  
+    A partire da fault ipotetici (difetti ipotizzati o bug comuni) 
+//slide 19 
+81: Le batterie di prove (test suite) sono un insieme o sequenza di casi di prova 
+Una procedura di prova sono procedure (automatiche o non) per eseguire, registrare analizzare e valutare i i rusltati di una batteria di prove 
+Per eseguire un test, serve un codice aggiuntivo chiamato test scaffolding, include: 
+    Driver di test (sostituiscono il chiamante) 
+    Stub o mock (sostituiscono funzionalita' chiamante) 
+    TEst harness (sostituiscono parti dell'ambienete di distribuizione) 
+    Tool per gestire l'esecuzione del test e/o registrarne i risultati 
+//slide 20
+82: Il metodo black-box genera dei casi e valori di input basati sulle specifiche 
+La strategia: 
+    Separa le funzionalita' da testare 
+    Derivare un insieme di casi di test per ogni funzionalita' 
+        Per ogni tipo di paramentro di input, si individuano dei valori da testare 
+        Per l'insieme dei parametri, si individuano dei valori da testare 
+        Per l'insieme di parametri, si usano tecniche di testing combinatorio
+Per il metodo statico, dove si individuano i valori, abbiamo modi diversi di sceglierli 
+    Partizione in categorie: 
+        Il dominio degli input e' ripartito in categorie (classi di equivalenza)
+        sono della stessa classe di equivalenza se dovrebbero produrre lo stesso comportamento del programma (non per forza lo stesso output) 
+        Economicamente valido solo se il numero di possibili comportamenti e' sensibilmente inferiore alle possibili configurazioni di ingresso 
+        Basato su un'affermazione generalmente plausibile, ma non vera in assoluto 
+    Partizione in frontiera 
+        Il dominio e' basato su valori limite/estremi 
+            Rispetto alle classi di equivalenza sull'uguaglianza del comportamento del programma 
+            Rispetto al tipo degli input 
+            Si guardano i valori limite perche' spesso e' nell'intorno dei valori limite che si nascondono difetti del codice 
+    Casi non validi 
+        Per ogni input, si definiscono casi non validi 
+        Si deve generare un errore 
+    Random 
+        Generare in modo automatico e casuale un insieme grande a piacere di valori 
+        Generazione a costo zero 
+        Applicabile se costa poco l'esecuzione 
+        Non sempre ripetibile 
+        Non considera i casi limite e puo' essere difficile trovare l'output attesso 
+Test combinatorio: 
+    Al crescere il numero di input, il prodotto cartesiano dei casi di test puo' diventare ingestibile per il fenomeno di esplosione combinatoria
+    Servono strategie per generare casi in modo sistematico 
+    Vincoli 
+        Per limitare il numero di test ottenuti generando tutte le combinazioni di valori possibile 
+        Tre strategie a vincoli per ridurre il numero di possibili combinazioni 
+            Vincoli di errore -> un solo caso di errore (input non valido) per ogni posizione
+            Vincoli di proprieta' -> Definizione di proprieta' comuni per classi di equivalenza diverse 
+            Singoletti -> testare un solo valore per uno o piu parametri 
+    Pairwise testing
+        Generazione di tutte le combinazioni solo per i sottoinsiemi di 2 variabili 
+        Piu in generale, per i sistemi di k variabili, con k < n 
+//slide 20
+83: Il criterio white-box per il testing utilizza la struttura del codice per fare il test (anche detti criteri strutturali)
+I criteri strutturali aiutano ad aggiungere altri test oltre a quelli generati con criteri funzionali 
+I criteri strutturali di progettazione di casi di test (control flow testing) 
+    Sono definit per classi particolari di elementi (comandi, branch, condizioni e cammini) e richiedono che i test esercitino tutti quegli elementi del programma 
+IL grafo di flusso 
+    Identifica le parti e come sono collegate a loro 
+    E' ottenuto a partire del codice 
+    Si identificano i valori di input che esercitino tutti i comandi 
+    L'adeguatezza della copertura dei comandi si misura con (numero di comandi esercitati)/(numero totale di comandi)
+    Conviene cercare di minimizzare il numero di testa a partire della copertura (identificando valori di input che esercitano tutti i rami di ogni condizione)
+    Per le condizioni composte, si deve aver un test percui la condizione sia vera ed uno per cui sia falsa
+//slide 21
+84: Il test mutazionale e' un metodo di test strutturale per verificare/migliorare l'adeguatezza delle suite di test e stimare il numero di difetti nei sistemi sotto test 
+Avendo le pre-condizioni 
+    Aver esercitato un programma P su una batteria di test T 
+    Aver verificato che P sia corretto rispetto a T 
+Si vuole fare una verifica piu profonda sulla correttezza di P 
+    Si introducono diffetti (mutazioni) in P, ottenendo un programma mutante P'
+    Si ripetono i test in T sul programma mutante P'
+    Si verifica se i test manifestano malfunzionamenti
+        Se T non rileva i difetti introdotti, allora la batteria di test non era abbastanza buona
+        Altrimenti se T rileva i difetti introdotti, abbiamo una maggior fiducia sulla batteria di test 
+Dato un programma P e una suite di test T 
+    T uccide il mutante Pi se rileva unn malfunzionamento (ossia si falisce almeno un caso di test) 
+    Il mutante Pi soppravive a T se non cambia l'esito dei test rispetto al programma 
+    L'efficcacia di un test mutazionale si misura con (numero di mutanti uccisi)/(numero totale di mutanti) 
+//slide 21
+85: L'oracolo e' uno strumento o metodologia in grado di generare i risultati attesi di un test suite 
+Un buon oracolo 
+    Fornisce un punto di riferimetno per valutare la correttezza del sistema durante il testing 
+    E' cruciale per garantire la qualita' del sfotware e la corretta individuazione di eventuali difetti 
+Multipli modi di trovare il rilsutato attesso 
+    Risultati ricavati dalle specifiche 
+    Inversione delle funzioni 
+    Versioni precedenti dello stesso codice 
+    Versioni multiple indipendenti
+    Semplificazione dei dati di input 
+    Semplificazione dei risultati 
+//slide 21

@@ -1,0 +1,92 @@
+1: Cos'e' una base di dati?
+2: Cos'e' un DBMS? (Database managment system)
+3: Quali sono i livelli di descrizione dei dati?
+4: Cos'e' una transazione?
+5: Come funziona la progettazione di una base di dati?
+6: Cosa sono le entita', proprieta' e collezione?
+7: Cosa sono le associazioni?
+8: Cos'e' il vincolo d'integrita'?
+9: Cos'e' il modello entita' relazione?
+10: Cos'e' il modello relazionale?
+11: Cos'e' uno schema di relazione?
+12: Cos'e' uno schema relazionale?
+13: Come funzionano i valori vuoti sulle basi di dati?
+14: Come funzionano i vincoli di integrita' per uno schema relazionale?
+15: Cosa sono le chiavi?
+16: Cos'e' un'integrita' referenziale ed un vincolo di integrita' referenziale (foreign key)?
+17: Cos'e' la progettazione logica ed i suoi passi?
+18: Come sono rappresentate le associazioni uno a molti?
+19: Come sono rappresentate le associazioni uno a uno?
+20: Cos'e' la diretta dell'associazione e cosa c'entra con i vincoli su cardinalita delle associazioni 1:M e 1:1?
+21: Come sono rappresentate le associazioni molti a molti?
+22: Come sono rappresentate le gerarchie fra classi?
+23: Come si identificano le chiavi primarie?
+24: Come si rappresentano attributi multivalore?
+25: Come e' fatto un appiamento di attributi composti?
+26: Quali sono gli operatori primitivi dell'algebra relazionale?
+27: La unione delle restrizioni rho_{thi}(R) e rho_{~thi}(R) dara' l'istanza R?
+28: Quali sono gli pperatori derivati dagli operatori primitivi dell'algebra relazionale?
+29: Cosa e quali sono le proprieta' algebriche degli operatori relazionali?
+30: Cosa sono i euqnaitificatori universali e esistenzialoi?
+31: Quali sono gli operatori non insiemistici dell'algebra relazionale?
+32: Cos'e' SQL?
+33: Nomini i commandi in SQL e i suoi rispettivi equivalenti nell'algebra relazionale
+34: Cosa sono le Funzioni di Aggregazione o Operatori Aggregati in SQL?
+35: Cosa e quali sono gli operatori restrizione in SQL?
+36: Come funziona la logica booleana in SQL?
+37: Come funziona l'ordinamento in SQL?
+38: Come funziona il raggruppamento in SQL?
+39: Come viene fatta la giunzione (JOIN) e gli altri tipi di giunzione in SQL?
+40: Cos'e' la clausola USING in SQL?
+41: Come funziona l'OUTER JOIN in SQL?
+42: Cos'e' una subquerry in SQL?
+43: Come funzionano i quantificatori su SQL?
+44: Come funzionano le operazioni booleane sulle tabelle in SQL?
+45: Dammi certi commandi della DML (Data Manipualtion Language) per la modifica di dati in una tabella in SQL
+46: Come si definisce una tabella su SQL?
+47: Quali sono i tipi piu comuni in SQL?
+48: Quali sono i comandi per modificare una tabella in SQL?
+49: Cosa e quali sono i vincoli intrarelazionali su SQL?
+50: Cosa e quali sono i vincoli interrelazionali in SQL e spiega anche la reazione alla violazione?
+51: Cosa sono le viste (view)?
+52: Come sono definite le VIEW su SQL?
+53: Come si modifica una vista in SQL?
+54: Cosa ci possibilita di fare con le view che non potevano fare senza?
+55: Cosa sono i trigger?
+56: Come sono definiti i trigger su SQL?
+57: Come funziona il controllo degli accessi su SQL?
+58: Cos'e' la teoria della normalizzazione?
+59: Quali sono le linee guida per una corretta progettazione?
+60: Cos'e' la dipendenza funzionale?
+61: Cosa sono le dipendenze funzionali atomiche?
+62: Quali sono le regole di inferenza delle dipendenze funzionali?
+63: Cos'e' la chiusura di un insieme di dipendenze funzionali?
+64: Qual e' la definizione di una chiave usando le dipendenze funzionali e cosa e' un attributo primo? 
+65: Come si trova una chiave?
+66: Cos'e' la copertura canonica e qual e' l'algoritmo per trovarla?
+67: Quali sono i tipi di ridondanza?
+68: Cos'e' la decomposizione di schemi? come si fa senza perdita di informazione?
+69: Cos'e' una forma normale?
+70: Spiega la Forma Normale di Boyce e Codd (BCNF)
+71: Qual e' l'algoritmo dell'analisi e cosa fa?
+72: Cos'e' la 3NF (Terza Forma Normale)?
+73: Cos'e' l'algoritmo di sintesi?
+74: Come la regarchia di memoria deve essere tenuta in considerazione dal DBMS?
+75: Come funzionano gli hard drive?
+76: Cos'e' una pagina e com'e' strutturata?
+77: Cos'e' l'organizzazione seriale?
+78: Cos'e' un'organizzazione sequenziale?
+79: Cos'e' un'organizzazione per chiave?
+80: Come funziona un B tree ed un B+ tree?
+81: Come funzionano gli indici per l'ordinamento?
+82: Qual e' l'algoritmo principale per l'ordinamento di chiave usato nei DBMS?
+83: Cosa sono i nested loops e quando sono usati nel DBMS?
+84: Cos'e' il piano di accesso?
+85: Cosa sono le transazioni e come funziona la loro gestione?
+86: Spiega il gestore dell'affidabilita'
+87: Cos'e' il file di LOG
+88: Cos'e' il checkpoint per la gestione dell'affidabilita'
+89: Come funzionano le riprese a caldo e a fredo?
+90: Cos'e' Serialita' e Serializzabilita'? 
+91: Cosa e' il controllo della concorrenza e le sue classi?
+92: Come funziona la gestione di transazioni mediante lock?

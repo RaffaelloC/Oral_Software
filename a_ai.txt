@@ -1,0 +1,244 @@
+1: Un agente e' qualsiasi cosa che percepisce il suo ambiente attraverso dei sensori e agisce su di esso mediante degli attuatori
+Hanno abilita' sociali: sono capaci di comunicare, collaborare, difendersi da altri agenti 
+Data la percezione e la sequenza percettiva (la storia compeltta di tutto che l'agente ha percepito nella sua esistenza) 
+    La scelta dell'aizione di un agente in qualsiasi istante puo' dipendere dalla conoscenza integrata in esso e dalla'intera sequenza percettiva osservata fino a quel momento, ma non da qualcosa che l'agente non abbia percepito 
+//slide 1
+2: Funzione agente Sequenza percettiva -f-> Azione, esprime il comportamento di un agente, descrive la corrispondenza tra qualsiasi sequenza percettiva e una specifica azione 
+Programma agente 
+//slide 1
+    La funzione agente si potrebbe rappresentare sotto la forma di tabella (esterno) 
+    La funzione agente di un agente artificale e' implementata da un programma agente (interno) 
+3: Un agente razionale per ogni sequenza di percezioni compie l'azione che massimalizza il valore atteso della misura delle prestazioni, considerando le sue percezioni passate e la sua conoscenza pregressa
+//slide 1
+    La misura delle prestazione e' fata esternamente, scelta dal progettista a seconda del problema considerando l'effetto desiderato sull'ambiente 
+Un agente razionale non e' onnisciente (non si pretendono perfezione e conoscenze del futuro, ma una massimizzazione del risultato atteso) ne onnipotente (le capacita' dell'agente possono essere limitate)
+Un agente razionale puo' essere autonomo: e' autonomo nella misura in cui il suo comportamento dipende dalla sua capacita' di acquisire esprienza (e non dall'aiuto del progettista)
+//slide 1
+4: L'ambiente (o ambiente operativo) e' un problema di cui un agente razionale rappresenta una soluzione
+Un ambiente e' specificato tramite una descrizione PEAS 
+    Performance
+    Environment
+    Actuators
+    Sensors 
+Ha la seguenti proprieta' 
+Osservabilita': un ambiemten puo' essere completamente osservabile (i sensori di un agente gli danno accesso allo stato completo dell'ambiente. non occorre memorizzare uno stato interno per tenere traccia del mondo) o parzialmente osservabile (sono presenti limiti o inaccuratezze nell'apparato sensoriale) 
+Agente singolo/multi-agente: Un ambiente puo' essere multi-agente competitivo (2+ agenti che cercano di massimizzare una misura di prestazione. ciascuno a scapito degli altri) o cooperativo (2+ agenti con lo stesso obiettivo che comunicano, la massimizzazione delle prestazioni di uno non minimizza necessariamente l'altro) 
+Predicibilita': Deterministico (lo stato successivo e' completamente determinato dallo stato corrente e dell'azione), stocastico (esistono degli elementi di incertezza con assocciata probabilita') e non deterministico (Esistono vari risultati possibili di una stessa azione che si possono elencare, ma non in base ad una probabilita' definita)
+Episodico (l'esperienza dell'agente e' divisa in episodi atomici. in ogni episodio l'agente riceve una percezione ed esegue un'azione, ogni episodio non dipende delle azioni intraprese negli episodi successivi) o Sequenziale (ogni decisione puo' influenziare quelle successive) 
+Statico (L'ambiente non cambia mentre l'agente decide l'azione), Dinamico (l'ambiente cambia nel tempo. va osservata la contigenza, non rispondere in tempo corrisponde a scegliere di fare nulla) o Semidinamico (nel tempo l'ambiente non cambia. ma la valutazione delle prestazione dell'agente si) 
+Discreto/Continuo (Possono essere valori discreti o continui: lo stato, il tempo, le percezioni, le azioni), Combinatoriale (discreto) o infinito (continuo)
+Noto/Ignoto: Dipende se l'agente conosce l'ambiente o se deve fare azioni esplorative per capire l'ambiente 
+//slide 1
+5: Un agente e' strutturato come Archittetura (dispositivo computazionale dotato di sensori ed attuatori fisici) + Programma (implementa la funzione agente) 
+Un programma agente puo' essere fatto in molti modi 
+    Basato su tabella: la scelta dell'azione consiste nell'accedere a una tabella che associa un'azione ad ogni possibile sequenza di percezioni 
+        Poco ottimale, dimensione della tabella cresce troppo velocemente, non ha autonomia 
+    Reattivi semplici: Scelgono le azioni sulla base della percezione corrente. ignorando tutta la storia percettiva precedente 
+        No storia in memoria 
+    Basato su modello: L'agente mantiene uno stato interno che serve per tenere traccia della parte del mondo che non puo' vedere all'istante corrente 
+        Lo stato dipende dalla storia delle percezioni 
+    Agenti con obiettivo: Oltre che la descrizione dello stato corrente, ha bisognno di qualche informaizoni circa il suo obiettivo 
+        La ricerca e' un sotto-ramo dell'IA dedicato a identificare le sequenze di azioni che permettono ad un agetne di raggiungere i propri obiettivi
+    Agenti con valutazione di utilita': Obiettivi alternativi o piu modi per raggiungere l'obiettivo 
+        Necessaria una funzione di utilita' che associa ad uno stato obiettivo un numero reale. la funzione di utilita' tiene conto anche della possibilita' di successo: utilita' attesa 
+    Agenti che apprendono: Qualsiasi tipo di agente detti finora puo' essere costruito come agente in grado di apprendere, diviso in quattro componenti 
+        Elemento di apprendimento: produce cambiamenti al programma agente, migliora le prestazioni addatando i suoi componenti, apprendendo dall'ambiente 
+        Elemento di esecutivo: il programma agente per decidere le azioni 
+        Elemento critico: valuta le prestazioni correnti dell'agente e determina se e come modificare l'elemento esecutivo affinche' in futuro si comporti meglio 
+        Generatore di problemi: sugerisci nuove situazioni da esplorare
+//slide 1
+6: Tre modi 
+    Atomico: ogni stato del mondo e' indivisibile, non ha struttura interna 
+    Fattorizzata: suddivide ogni stato in un insieme fissato di variabili o attributi, ognuno dei quali puo' avere un valore 
+    Strutturata: Suddivide ogni stato in un insieme fissato di varibili o attributi, ognuno dei quali puo' avere un valore e relazioni tra di loro
+//slide 1
+7: Un algoritmo di ricerca riceve in input un problema di ricerca e restituisce in output una soluzione (o indicazione di fallimento)
+Un problema di ricerca e' caratterizzato da Spazio degli stati, stato iniziale, stato/i obiettivo, azioni, modello di transizione, funzione costo 
+//slide 2 part 2 
+8: Un albero di ricerca e' un albero dove 
+    Ogni nodo corrisponde a uno stato nello spazio degli stati 
+    I rami corrispondono alle azioni 
+    La radice corrisponde allo stato iniziale del problema 
+Per ogni nodo che ci troviamo, facciamo la espansione di un nodo 
+    Consideriamo le azioni disponibili nello stato corrispondente 
+    Generiamo un nuovo nodo (figlio) per ognuno degli stati risultanti 
+    Ciascuno dei nodi generati avra' il nodo espanso come padre
+La frontiera e' l'insieme di nodi generati ma non ancora espansi 
+    Stati riaggiunti: stati del grafo per cui esiste un corrispondente nodo generato nell'albero di ricerca 
+//slide 2 part 2
+9: Scegliamo un nodo n che corrisponde al valore minimo di una funzione di valutazione f(n) 
+Scegliamo il nodo sulla frontiera in cui f(n) ha valore minimo 
+Restituiamo il nodo al punto precedente, se lo stato e' uno stato obiettivo, altrimenti generiamo i nodi figli 
+Ogni nodo figlio viene aggiunto alla frontiera se non era gia' raggiunto in precedenza, oppure se era stato riaggiunto, ma con un cammino di costo maggiore 
+Alla fine, l'algoritmo restituisce un'indicazione di fallimento oppure un nodo che rappresenta un cammino che porta a un obiettivo 
+La frontiera e' implementata tramite una coda con le funzioni 
+        vuota?(frontiera) - restituisce True se non ci sono piu nodi nella frontiera 
+        pop(frontiera) - rimuove il nodo in cima alla frontiera e lo restituisce 
+        top(frontiera) - restituisce il nodo in cima alla frontiera senza rimuoverlo 
+        aggiungi(nodo,frontiera) - inserisce un nodo al posto appropriato della coda 
+    Coda di priorita' col costo minimo alla valutazione f(.) nel caso best-first, coda FIFO nella ricerca in ampiezza, coda LIFO usata nella ricerca in profondita' 
+Per cammini ripetuti, possiamo 
+    Memorizzare i cammini che siamo gia passati ed il loro costo 
+    Ignorare se la possibilita' che si arrivi allo stesso stato due volte e' estremamente bassa
+    Usando una catena di puntatori fino ai padri per verificare che lo stato alla fine del camino e' gia' apparso in precedenza 
+//slide 2 part 2 
+10: 
+Ricerca in ampiezza 
+    Aproprieata quando tutte le azioni hanno lo stesso costo 
+    Espandere il nodo radice, poi tutti i suoi successori, poi i successori dei successori, e cosi via 
+        Implementazione ricerca-best-first usa la funzione f(n) = depth(n) 
+        Implementazione usando la coda FIFO per la frontiera, raggiunti puo' essere uno insieme di stati invece di una lookup table, il test obiettivo antecipato che controlla se un nodo e' una soluzione appena viene generato, non quando viene estratto 
+    Ottima rispetto al costo per problemi in cui ogni azione ha lo stesso costo 
+    Costo temporale e spaziale: numero di nodi espansi per profondita' d e' O(b^d) 
+Ricerca a costo unfirome (Dijkstra) 
+    Ricerca best-first con funzione di valutazione = costo del cammino dalla radice fino al nodo corrente
+    Valida solo se i costi di azioni sono > 0
+    Completa: ricerca sistematica (esamina tutti i cammini in ordine di costo crescente, non entra mai in un cammino infinito) 
+    Ottima rispetto al costo (la prima soluzione che trova ha un costo basso almeno come quello di ogni altro nodo sulla frontiera)
+    Ha il costo in tempo e spazio O(b^(1 + C*/e)) dove C* e' il costo della soluzione ottima e e e' il limite inferiore impost al costo di ogni azione 
+        In caso di tutti dello stesso costo, O(b^(1+d))
+Ricerca in profondita'
+    Espannde il nodo a profondita' maggiore nella frontiera 
+    Puo' essere implementata come una ricerca best-fiorst con funzione di valutazione f(n) = -depth)
+    Usa una coda LIFO per la fronteira 
+    Per spazi degli stati finiti che sono alberi e' completa ed efficiente, aciclici puo' arrivare ad espandere lo stesso stato piu volte, ma sistematica 
+    Per spazi degli stati ciclici puo bloccarsi in un ciclo infito, per spazi degli stati infiniti la ricerca non e' sistematica (incompleta)
+    Richiede tempo O(b^m) per m livelli di profondita' dell'albero, ma richiede di memoria solo O(bm) 
+    Due suddivisioni di questo algoritmo 
+        Profondita' limitata: si sceglie un limite l di profondita' per evitare che si perda in un cammino infinito 
+            l scelto a base della conoscenza del problema, se scelto male l'algoritmo non riesce a trovare la soluzione (incompleto) 
+            Complessita' temporale O(b^l), spaziale O(bl)
+        Iterativo: Proviamo tutti i valori di l in iterazione finche non si trova una soluzione oppure la ricerca restituisce fallimento (invece che soglia)
+            Completa su spazi di stati aciclici finiti, o su spazi finiti se controliamo la presenza di cicli risalendo l'intero cammino 
+            Ottima per problemi in cui tutte le azioni hanno lo stesso costo 
+            Complessita' temporale O(b^d) se esiste una soluzione, O(b^m) se non esiste 
+            Complessita' spaziale O(bd) se esiste una soluzione, O(bm) se non esiste 
+Ricerca bidirezionale
+    Possiamo fare due ricerce, una partendo dallo stato iniziale allo stato obiettivo, ed uno dallo stato obiettivo e diminuendo a sotto-goal fino a trovare lo stato iniziale 
+    Si preferisce ricerca all'indietro quando l'obiettivo e' chiaramente definito o si possono formulare una serie limitata di ipotesi 
+    Si preferisce ricerca in avanti quando gli obiettivi possibili sono molti 
+    Occorre tenere due frontiere e due tabelle di raggiunti 
+    Si espandono nodi che hanno il valore minimo della funzione di valutazione (uno solo nodo in una delle due frontiere) 
+    Passiamo all'algoritmo due versioni del problema e della funzione di valutazione 
+    Complesita' temporale O(b^d/2) e spaziale O(b^d/2) 
+//slide 2 part 2
+11: La ricerca informata usa una conoscenza specifica del dominio applicativo per fornire suggerimenti su dove si potrebbe trovare l'oggettivo 
+    Utilizza l'euristica: una funzione euristica h(n) = costo stimato del cammino meno costoso dallo stato del nodo n a uno stato obiettivo 
+Si utilizza la ricerca best-first greedy: espande prima il nodo col valore piu basso di h(n) (quello piu vicino all'obiettivo)
+La ricerca best-first greedy su grafo e' completa in spazi di stati finiti (ma non quielli infiniti), complessita' spaziale e temporale O(|V|) (con buona funzione euristica si riduce a O(b*m)
+//slide 3
+12: La ricerca A* e' una ricerca informata che usa la funzioen di valutazione f(n) = g(n) + h(n) dove g(n) e' il costo del cammino dal nodo iniziale al nodo n e h(n) il costo stimato del camino piu breve da n a uno stato obiettivo 
+    E' completta se tutti i costi di azione sono > 0 e lo spazio degli stati ha una soluzione o e' finito 
+    Ottima rispetto al costo se l'euristica e' ammissibile 
+La ricerca A* puo' essere pesata con f(n) = g(n) + W*h(n) dove W > 1
+    Se la soluzione ottima ha costo C*, trovera' una soluzione di costo compreso tra C* e W*C*
+//slide 3
+13: Una euristica ammissibile e' un'euristica che non sovrastima mail il costo per riaggiungere un obiettivo 
+    Se h*(n) e' il costo minimo di un camino da n fino a un goal, allora h(n) <= h*(n)
+    Se h(.) e' ammissibile allora A* e' ottima rispetto al costo 
+Un'euristica consistente h(n) se per goni nodo n, ed ogni successore n' di n generato da un'azione a risulta: h(n) <= c(n,a,n') + h(n')
+    A* con un'euristica consistente e' ottimo rispetto al costo e la prima volta che raggiungiamo uno stato sara' su un cammino ottimo 
+A* con un'euristica inammissibile (h(n) > h*(n)) puo' essere ottima rispetto al costo se esiste un cammino ottimo rispetto al costo lungo cui h(n) e' ammissibile per tutti i nodi del cammino, o se la soluzione ottima ha costo C* e la seconda soluzione migliore ha costo C2, e se h(n) sovrastima i costi, ma al massimo di una quantita' <= C2 - C*
+A* con una euristica inconsistente puo' trovare piu cammini che raggiungono lo stesso stato, se ogni cammino nuovo ha costo inferiore al precedente, finiremo ad aver piu nodi corrispondenti a quello stato sulla frontiera (aggravio di costo spaziale e temporale)
+//slide 3
+14: La ricerca con memoria limitata utilizza metodi per limitare l'uso della memoria 
+    A* uno stato che si trova sulla frontiera e' memorizzato sia come nodo della frontiera (per poter espandere) sia nella tabella dei raggiunti (sappiamo di averlo gia visitato) 
+Per diminuire la memoria, facciamo 
+    Gli stati sono presenti in una solo delle posizioni (frontiera o raggiunti)
+    Rimuovere gli stati da raggiunti quando si puo' dimostrare che non servono piu 
+        Garantire che le azioni muovano verso l'esterno della frontiera (eliminando quelli che creano cammini ridondanti e contare quante volte uno stato e' stato raggiunto e rimuoverlo dai raggiunti se non ci sono piu modi di farlo)
+Alcuni algoritmi di ricerca informata con memoria limitata 
+Ricerca Beam 
+    Limitare la dimensione della frontiera, mantenendo solo i k nodi con i migliori costi f 
+        Incompleta e subottima 
+        Esplora solo un settore dei confini concentrici 
+        Si puo' mantenere ogni nodo il cui costo f rientra in un fattore th del miglior costo f 
+Ricerca A* ad approfondimento iterativo IDA* 
+    Ricerca ad approfondimento iterativo combinata con A* 
+    La soglia e' sul valore della funzione f = g + h invece che sulla profondita' 
+    Per ogni iterazione: ricerca esaustiva in profondita' fino ad un costo fl 
+    Quando viene trovato un nodo n con costo f(n) > fl, termina l'iterazione e ricomincia la sucessiva con fl = f(n) 
+Ricerca best-first ricorsiva (RBFS) 
+    Ricerca in BF con interruzione quando f supera un valore flimite 
+    flimite = il costo trovato sul miglior cammino alternativo 
+    Se il nodo corrente supera questo limite, la ricorsione torna al cammino alternativo (durante il ritorno, sostitusce il valore f di ogni nodo lungo il cammino col miglior f dei suoi nodi figli) 
+Memory bounded A* (SMA*) 
+    SMA* procede come A* fino ad esaurimento della memoria disponibile 
+    Poi dimentica il nodo peggiore, memorizzando nel nodo padre il valore del nodo dimenticato 
+    A parita' di f: espande la foglia migliore piu recente e cancella la foglia peggiore piu vecchia 
+    Ottimale se il cammino soluzione sta in memoria 
+//slide 3
+15: Date due funzioni euristiche: h2 domina h1 quando per ogni nodo n, risulta h1(n) <= h2(n) 
+    Generalmente e' meglio usare euristiche con valori piu alti, a patto che sia costante (quindi ammissibile) e non richieda troppo tempo di calcolo 
+//slide 3
+16: Se abbiamo h1, ..., hm euristiche ammissibili e nessuna domina le altre 
+    Costruiamo h(n) = max {h1(n), ..., hm(n)} se h1, ..., hm sono ammissibili, anche h lo e' 
+    h domina tutte le altre
+//slide 3
+17: Nel calcolo del costo di una soluzione di un sottoproblema dell'euristica, considero solo il costo delle azioni che coinvolgono i taselli corrispondenti 
+    DB di pattern disgiunti: si possono sommare i costi ottenendo una euristica ammissibile 
+Un altro modo anche e' apprendere dall'esperienza, risolvendo istanze del problema ed imparando dalle soluzioni 
+    Ogni soluzione ottima per un'istanza del problema fornisce una coppia di esempio <obiettivo, cammino> 
+    Da questi esempi si usa un algoritmo di apprendimento per costruire una funzione h che posso approssimare il costo del cammino reale per altri stati che dovessero presentarsi nella ricerca 
+    Avremo h(n) = c1x1(n) + c2x2(n) dove c1, c2 appresi da un algoritmo di apprendimento
+//slide 3 
+18: Gli algoritmi di ricerca locale operano a partire di uno stato iniziale e procedono verso gli stati adiacenti 
+    Non tiene traccia dei cammini e traccia degli stati gia' aggiunti 
+Non sono sistematici, potrebbero non esplorare mai una porzione dello spazio degli stati dove resiede una soluzione 
+    Ma usano pochissima memoria, e riescono a trovare soluzioni ragionevoli in spazi degli stati grandi (anche infiniti) dove non sarebbe praticale usare algoritmi sistematici 
+//slide 4
+19: E' una ricerca locale greedy, l'algoritmo tiene traccia solo dello stato corrente, ed ad ogni iterazione passa allo stato vicino col valore piu' alto 
+    In questo modo trova il massimo locale dell'algoritmo, se volessimo trovare il minimo locale, potremo solo usare la funzione obiettivo il valore negativo di una funzione di costo euristica
+Il problema dell'algoritmo di hill climbing e' che sara' semrpe attrato dal massimo locale, questo invece puo' essere inferiore al massimo globale 
+    Questi problemi sono visti principalmente in creste: sequenza di massimi locali molto difficili da esplorare, poiche riscende e poi sale 
+    o plateau: il massimo locale piatto da cui non e' possibile fare piu progressi
+//slide 4
+20: Alcuni modi di migliorare il hill climbing 
+Mossa laterale: consentire un numero limitato di mosse laterali per affrontare i plateau 
+    L'algoritmo puo' permettere alcuni passi in cui la funzione obiettivo rimane invariata, porre un limite al numero di mosse latterali consecutive (es: 100)
+Hill climbing stocastico: scegliere a caso tra tutte le mosse che vanno nella direzione della funzione crescente 
+    La probabilita' di scegliere ogni mossa puo' essere influenziata dalla pendenza delle mosse, converge piu lentamente ma puo' trovare soluzioni migliori 
+Hill climbing con prima scelta 
+    Generare casualmente i successori dello stato attuale fino a ottenere uno preferibile allo stato corrente (utile quando ogni stato puo' avere molti successori) 
+Hill climbing con riavvio casuale 
+    Condurre una serie di ricerche hill climbing partendo da stati iniziali generati casualmente, fino a che non viene raggiunto un obiettivo 
+        Completo con probabilita' 1, numero atteso di riavvi = 1/p dove p = probabilita' di successo per ogni ricerca hill climbing
+//slide 4
+21: Il simulated annealing e' un algoritmo di ricerca simile a hill climbing, pero invece della mossa migliore, viene scelta una mossa casuale 
+    Se la mossa migliora la situazione viene accettata, altrimenti viene accettata con probabilita' < 1
+La probabilita' di scegliere una mossa che peggiora la soluzione 
+    Decresce esponenzialmente con la cattiva qualita' della mossa AE, decresce conm la temperatura T, che scende costantemente 
+    Le mosse cattive sono accettate piu facilmente all'inizio (T alto) progressivamente con menor probabilita' 
+        Prob = e^-{AE/T} 
+    La temperatura T diminusce con una certa velocita' di raffredamento, se T viene fatta decrescere abbastanta lentamente, l'algoritmo trovera' un massimo globale con probabilita' che tende a 1 
+//slide 4
+22: La ricerca locale beam fa la ricerca locale, tenendo traccia di k stati invece di 1 
+    Si inizia con k stati generati casualmente
+    Ad ogni passi, si generano i successori di tutti i k stati 
+        Se uno qualsiasi e' l'obiettivo, l'algoritmo lo restituisce e termina 
+        altrimenti, sceglie i k successori migliori della lista di tutti i succeessori e ricomincia 
+    Diverso da k ricerche a riavvio casuale in parallelo, abbandona rapidamente ricerche infruttuose e sposta le risorse dove si stanno verificando progressi maggiori 
+    Puo' soffrire di carenza di diversificazione tra k stati, che possono concentrarsi in una piccola area 
+        Variante stocastica: invece di scegliere i migliork successori, si scelgono i successori con probabilita' proporzionale al loro valore 
+//slide 4 
+23: Gli algoritmi evolutivi sono varianti della ricerca beam stocastica, motivata dalla selezione naturale 
+    Una popolazione di individui (stati) 
+    Gli individui piu adatti (valore piu alto) 
+    Producono prole (stati successori) che formano la prossima generazione 
+Gli algoritmi evolutivi differenziano per la dimensione della poplazione e dalla rappresentazione di ciascun individuo 
+    Ogni individuo e' una stringa su un alfabeto finito 
+Hanno un numero di genitori che si uniscono per generare la prole (P) 
+Processo di selezione per scegliere gli individui che saranno genitori della generazione successiva 
+    Selezionarli tra gli individui con probabilita' proporzionale al loro punteggio di adattamento (fitness)
+Per la ricombinazione a p=2 
+    Selezionare un punto di crossover per suddividere ognuna delle stringhe genitori e poi ricombinare le parti per formulare dei figli 
+        Figlio 1: prima parte del genitore 1 e seconda parte del genitore 2 
+        Figlio 2: prima parte del genitore 2 e seconda parte del genitore 1 
+    Tasso di mutazione: determina la frequenza con cui la prole presenta mutazioni casuali dalla loro rappresentazione 
+        Una volta generata la prole, ogni bit che la compone viene invertito con probabilita' = tasso di mutazionne 
+Formazione della nuova generazione: 
+    Puo' essere semplicemenete la nuova prola 
+    Puo' contenere alcuni genitori col migliore punteggio dalla generazione precedente (elitismo) 
+    Si puo' eliminare ogni individuo al di sotto una certa soglia di fitness (abbattimento)
+//slide 4
+24:

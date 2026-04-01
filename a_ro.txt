@@ -1,0 +1,695 @@
+1: Metodologie per problemi decisionali su l'utilizzo di risorse disponibili a quantita' limitata
+// 1.1
+
+2: 1. Individuazione del problema 
+2. Analisi della realta' e raccolta dei dati
+3. Construzione del modello 
+4. Determinazione di una o piu soluzioni
+5. Analisi dei risultati ottenuti
+//1.1
+
+3: Un modello e' una descrizione per mezzi di strumenti di tipo logico-matematico di un problema, sono distinti in 3 classi
+1. Giochi: la difficolta di modellare in modulo matematico il comportamento degli individui 
+2. Modelli di simulazione: si cerca di discrivere in modo piu accurato possibile il comportamento del sistema in metodi matematici
+3. Modelli analitici: tutto il sistema e' descritto per mezzo di relazioni matematiche/logiche tra variabili che rappresentano gli elementi del sistema (le variabili devono soddisfate i vincoli che massimizzano o minimizzano una funzione obiettivo definita)
+//1.1
+
+4: Dato un problema P con un certo numero di parametri e variabili, un'istanza di P e' la domanda che si ottiene specificando i valori per tutti i parametri di P 
+Dato F l'insieme delle possibili soluzioni chiamato Regione Ammissibile con elementi chiamati Soluzioni Ammissibili
+Un problema di ottimizazzione definita da una funzione obiettivo c: F -> R, che fornisce il costo/beneficio
+un problema di minimo e' descritto come (P) min{c(x) : x in F} (analogo problema di massimo)
+z(P) = min {c(x) : x in F} e' il valore ottimo del problema. una soluzione amissibile x* in F tale che c(x*) = z(P) e' detta soluzione ottima per (P)
+//1.1
+
+5: Assumendo problema di minimo 
+Il problema e' vuoto (F = 0 insieme vuoto) in questo caso z(P) = inf 
+Il problema e' inferioramente limitato (o superiormente al massimo) quando esiste un numero reale M esiste una soluzione ammissibile x in F tale che c(x) <= M, in questo caso z(P) = -inf
+Il problema ha valore ottimo finito ed ammette soluzione ottima
+//1.1
+
+6: Un algoritmo A: P -> R che determini una soluzione ottima per qualsiasi istanza del problema e' un algoritmo esatto
+Un algoritmo che determini soltanto una soluzione ammissibile e' detto un algortimo euristico
+Un algoritmo euristico usa Rx = (c(x) - z(p))/z(p) per determinare l'errore della risposta, con z(p) la soluzione ottimale e c(x) l'output dell'algoritmo
+e' detto e-ottimo se Rx <= e, e' detto e-approssimato se produce una soluzione e-ottima per ogni istanza
+Ogni tanto un algoritmo euristico puo' fallire e non riportare nessun risultato ammissibile 
+Si puo' costruire un'approssimazione di z(p) considerando solo certe condizioni, ottenendo una risposta ottima approssimativa
+//1.1
+
+7: Una funzione lineare ha due proprieta': 1. f(x+y) = f(x)+f(y), 2. f(ax) = af(x) tale che f : R^n -> R, dove a in R e x, y in R^n
+g(x) = ax + c e' lineare affine
+Un problema di Programmazione Lineare (PL) e' un problema di ottimizazzione caratterizzato da: 
+    1. un numero finito n di variabili dove x in R^n vettore 
+    2. una funzione obiettivo lineare f(x) = cx dove c in R^n e' il vettore dei costi (fissato)
+    3. un insieme ammissibile definito da un insieme finito di m vincoli lineare del tipo ax = b, ax <= b, o ax >= b dove a in R^n e b in R
+//1.2.1
+
+8: Le variabili quantitative rappresentato oggetti e di solito sono rappresentate come numeri
+Una variabile logiche e' una variabile di tipo booleana dove 0 e' falso e 1 e' vero
+//1.2.2
+
+9: Problemi di programmazione lineare intera o mista sono problemi in cui i binccoli e la funzione obiettivo sono lineari ma tutte le variabili possonno assumere solo valori interi
+//1.2.2
+
+10: Dato un letterale (proposizione elementare) a del calcolo proposizionale indicheremo x(a) come una variabile booleana, x(a) = 1 se a e' vero e x(a) = 0 se a e' falso 
+Negazione. b = ~a implica x(b) = 1 - x(a) con x(b) in {0, 1} 
+Implicazione. a => b usa la desigualianza x(b) >= x(a), x(b) e' forzata ad essere 1 se x(a) = 1 
+Unione (OR). x(c) >= x(a), x(c) >= x(b), x(c) <= x(a) + x(b), con x(c) in {0, 1}, le prime due disigualianze impongono x(c) ad essere 1 se x(a) o x(b) sono 1, la terza impone che x(c) = 0 se x(a) = x(b) = 0
+Unione esclusiva (XOR). x(c) >= x(a) - x(b), x(c) >= x(b) - x(a), x(c) <= x(a) + x(b), x(c) <= 2 - x(a) - x(b), le prime due disigualianze impogono che x(c) prenda 1 solo se una delle variabili vale 1, la terza implica x(c) = 0 se x(a) = x(b) = 0 e l'ultima implica che x(c) = 0 se x(a) = x(b) = 1 
+Intersezione (AND). x(c) <= x(a), x(c) <= x(b), x(c) >= x(a) + x(b) - 1, x(c) in {0,1}, le prime due impongono x(c) a 0 quando una tra x(a) e x(b) e' 0 e la terza impone che x(c) = 1 se x(a) = x(b) = 1
+//1.2.3
+
+11: Dato n possibili casi, assegnamo xi con i in [1, m] dove xi = 1 indica che quello e' il caso specifico e la somma di xi = 1
+//1.2.4
+
+12: Un vincolo di assegnamento e' un metodo per assegnare una relazione tra due insiemi della stessa cardinnalita' utilizzando variabili booleane, quando non hanno la stessa cardinnalita, sono vincoli di semiassegnamento
+//1.2.4
+
+13: Dato F = {F1, F2, ..., Fm} e E un insieme finito di elementi dove Fi sottoinsieme di E per ogni i = 1, ..., m, abusando la notazione definiamo F = {1, 2, ..., m} l'insieme degli indici 
+Ad ogni sottoinsieme Fj j in F, e' associato un costo cj, vogliamo determina una sottofamiglia S sottoinsieme di F che soddisfi particolari vincoli 
+Con x1, ..., xm variabili booleane e xj = 1 se Fj in S altrimenti 0, il costo di S e' definito come la somma di cj*xj per j in F 
+I tre problmei a considerare sono 
+
+Problema di copertura (Set Covering SC): vogliamo che ogni elemento di E sia selezionato almeno una volta, questo puo' essere espresso attraverso un vincolo di copertura 
+    Somma di j:i in Fj Xj >= 1 per i in E 
+Questo garantisce che per ogni i in E esista almeno un indice j per cui Fj in S e i in Fj, allora il problema di copertura (Set covering) e' definito da 
+    min{Sum_{j in F}cj*xj : Sum_{j:i in Fj}xj >= 1 per i in E, x in {0, 1}^}
+Rappresntando la famiglia F mediante una matrice A in R^(m x n) in cui aij vale 1 se i in Fj e 0 altrimenti, il vincolo di copertura diventa 
+    Sum{j in F}aij*xj >= 1 per i in E 
+
+Problema di partizione (Set Partition SPP): In questo caso invece ogni elemento di E deve essere selezionato esattamente una volta, cioe' che appaia in uno solo degli insieme di S formalizzato i vincolo di partizione 
+    Sum{j:i in Fj}xj = 1 per i in E 
+garantiscono che esista un solo indice j per cui i in Fj e Fj in S 
+Il problema della partizione e' 
+    min{Sum_{j in F}cj*xj : Sum_{j:i in Fj}xj = 1 per i in E, x in {0, 1}^}
+
+Il problema di riempimento (Set Packing SPA): In questo caso si voglia che ogni elemento di E sia selezionato non piu di una volta, che appaia al piu uno degli insieme di S. Formalizzata i vincoli di riempimento: 
+    Sum{j:i in Fj}xj <= 1 per i in E 
+garantiscono che per ogni i in E non posso esistere piu di un indice j per cui i in Fj e Fj in S 
+Il problema del riempimento e' definito da
+    min{Sum_{j in F}cj*xj : Sum_{j:i in Fj}xj <= 1 per i in E, x in {0, 1}^}
+//1.2.5
+
+14: Dato un grafo orientato G = (N,A) i nodi producono o consumono tutti uno stesso tipo di flusso che transita dai produttori ai consumatori verso gli archi 
+A ciacunt i in N e' associato un valore reale bi, detto deficit: positivo indica la quantita' che esce dalla rete al nodo i, mentre negativo indica la quantita' di flusso che entra nella rete dal nodo i, 
+I nodi non di origine o destinazione (bi = 0) sono detti di trasferimento
+Dobbiamo aver la condizione
+    Sum{i in N}bi = 0 (tutto prodotto nelle origini vengono consumate nelle destinazioni)
+I principali vincoli del problema sono quelli di conservazione del flusso 
+    Sum{(j, i) in BS(i)}xji - Sum{(i, j) in FS(i)}xij = bi, i in N 
+Dove BS(i) e FS(i) indicano rispettivamente la stella entrante e la stella uscente di i in N e garantiscono che la differenza tra il flusso entrare ed uscente sia pare al deficit
+A ciascun arco (i, j) e' inoltre associata una capacita' massima uij (puo' essere infinita) ed un costo cij (che puo' essere nullo o negativo) che viene pagato per ciascuna unita' di flusso che transita lungo l'arco 
+La formulazione completa del problema MCF e' 
+    min Sum{(i,j) in A}cij*xij 
+    Sum{(j, i) in BS(i)}xji - Sum{(i, j) in FS(i)}xij = bi, i in N 
+    0 <= xij <= uij (i, j) in A 
+//1.2.6
+
+15: Una variabile discreta' e' una variabile binaria utilizzata per codificate certi dati
+Dati x in V = {v1, v2, ..., vk} non continui, possiamo assegnare y1, ..., yk variabili binarie dove yi = 1 se x = vi, altrimenti yi = 0
+In questo nodo abbiamo 
+    x = Sum{i in V}vi*yi , Sum{i in V]yi = 1, yi in {0, 1}, vi in V 
+//1.2.7
+
+16: Le variabili semicontinue sono valori discreti che sono fissati su un valore discreto (di solito 0) o variano in un intervallo continuo fuori dal quel valore
+Possiamo definire x in V = {0} U [l, u] dove 0 < l < u 
+Per modellare i valori di x, aggiungiamo una variabile binaria y che assume il valore 0 se e' fuori dall'intervallo e 1 se dentro
+Possiamo modellare x con 
+    ly <= x <= uy, y in {0, 1}, x in R 
+Se y = 0, x e' costretto ad essere 0, altrimenti se y = 1, sara' nell'intervallo [l,u]
+//1.2.8
+
+17: Una funzione a carico fisso e' un modello che per le varaibili x e y, usa 
+    f(x) = {0      se x = 0
+           {b + cx se 0 < x <= u
+Di solito c rappresenta un prezzo fisso di inizializzazione (come l'investimento iniziale di una produzione
+La funzione puo' anche aver piu di un tratto 
+    f(x) = {0           se x = 0
+           {b1 + c1x    se x in [a1, a2]
+           {b2 + c2x    se x in (a2, a3]
+Il modello di minimizazzione del costo e'
+    Min sum{i = 1 to n}(bi + ci*ai)yi + sum{i = 1 to n}ci*zi
+    x = sum{i = 1 to n}aiyi + sum{i = 1 to n}zi 
+    0 <= zi <= (a(i+1) - ai)yi
+    sum{i = 1 to n}yi = 1
+    yi in {0, 1}
+Dove zi rappresenta il punto specifico all'interno dell'intervallo in cui scegliere x
+//1.2.8
+
+18: Una funzione convessa e' una funzione continua (anche a tratti) che vale 
+    f e' continua, ossia b(i+1) + c(i+1)*a(i+1) = bi + ci*a(i+1) per i = 1, ..., n-1 
+    la derivata di f nei tratti lineare deve essere non decrescente, ossia c(i+1) >= ci per i = 1, ..., n-1
+In caso di una funione convessa, non c'e' bisogno dell'utilizzo di variabili a valori interi
+Se la funzione e' convessa, abbiamo che l <= min{vi : i = 1, ..., k} e u >= max{vi : i = 1, ..., k}
+Possiamo considerare la variabile v come il valore di una funzione lineare affine f(x) = sum{j = 1 to k}aj*xj + b in n altre variabili xj per j in J = {1, ..., n}
+Possiamo pero' eliminare v con l'espressione lineare nell'intero modello, abbiamo che 
+    F = {fi(x) = sum{j in J} a^(i)j*xj + b^(i), i = 1, ..., k}
+avremo che l sara' minore di questa funzione e u maggiore 
+//1.2.9
+
+19:
+Dato un numero finito di vincoli lineari Ai*x <= bi , i = 1, ..., m dove Ai in R^n, vincoli definiti da n funzioni lineari
+Gli insiemi definiti in questo modo sono detti poliedri convessi
+Nel caso in che una soluzione puo' essere la soluzione di una di queste equazioni, non deve rispettare tutte, sono chiamati vincoli disgiuntivi 
+Per rappresentare questi vincoli usiamo delle variabili booleane yi, i = 1, ..., m dove yi = 0 significa che che x appartiene all'insieme i 
+Aggiungiamo anche Mi numeri abbastanza grandi da rendere ridondanti i vinccoli quando una variabile binaria corrisponde il valore 1 
+Formalmente, siano S1, ..., Sp sottoinsiemi di p non necessariamente disgiunti dell'insieme {1, ..., m}, definiamo h = 1, ..., p e l'insieme Xh = {x: Ai*x <= bi, i in Sh} di tutti i punti che soddisfano i vincoli i cui indici sono in Sh 
+Consideramo l'insieme X = X1 U X2 U ... U Xp, se tutti gli insiemi Xh sono limitati possiamo rappresentare X introducendo p variabili binarie 
+X diventa l'insieme che rispetta tutti i vettori x che soddisfgono i vincoli 
+
+    Ai*x - M1*y1 <= bi, i in S1
+    ...
+    Ai*x - Mp*yp <= bi, i in Sp 
+    sum{i = 1 to p}yi <= p-1 
+    y1, ..., yp in {0,1}
+
+Per ogni h = 1, ..., p, Mh e' una costante tale che tutti i vincoli Ai*x <= bi + Mh per i in Sh sono ridondanti per tutti gli insieme Sk, k = h, una tale costante esiste certamente perche' tutti gli insieme Xk sono limitati per ipotesi
+//1.2.10
+
+20: dato un grafo orientato G = (N,A) dove n = |N| e m = |A|, ad ogni nodo i in N e' associato un deficit bi, che puo' essere 
+    Positivo: la quantita' del bene che esce dalla rete al nodo i, bi e' la domanda del nodo, il nodo viene detto nodo di output o destinazione 
+    Negativo: la quantita' del bene che entra nel nodo i, -bi e' allora detto offerta del nodo, il nodo viene detto nodo di input o origine 
+    Nullo: in questo caso i e' un nodo di trasferimento 
+Ad ogni arco ak = (i, j) viene associato un costo cij che viene pagato per ogni unita' di bene che attraversi all'arco
+E' associato anche una capacita' infeeriore lij e superiore uij che indicono rispettivamente il minimo e massimo di unita' di bene che possono passare per un arco (molte volte lij = 0)
+//2.1
+
+21: Date le offerte globale gli insiemi di nodi D = {i in N: bi > 0} e O = {i in N: bi < 0) si ha Sum{i in D}bi = -Sum{i in O}bi
+i bilanci dei nodi deve soddisfate la relazione sum{i in N}bi = 0, una condizione necessaria (ma non sufficiente) affinche esista un vettore x = [xij](i,j) in A in R^m che soddisfa i vinncoli di conservazione di flusso (1.2.6)
+    Sum{(j,i) in BS(i)}xji - Sum{(i,j) in FS(i)}xij = bi, i in N 
+Dove BS(i) e FS(i) sono la stella entrante e la stella uscente di i in N (stella = tutti gli archi) 
+un siffato x si dice un flusso su G ed il valore xij detto flusso dell'arco aij
+Il flusso e' ammissibile se sono verificati i vincoli di capacita' sugli archi 
+    lij <= xij <= uij (i,j) in A 
+Associando adesso ad ogni flusso x un costo dato dalla somma dei flussi degli archi per il loro costo 
+    cx = Sum{(i,j) in A}cij*xij
+Il problema del flusso di costo minimo e' messo come min{cx : Ex = b, l <= x <= u} dove Ex = b rappresenta in forma vettoriale i vincoli di conservazione di flusso 
+Utilizzanto la matrice di incidenza del grafo G e b = [bi]i in N
+//2.1
+
+22: Dato un grafo orientato G = (N, A) un grafo orientato e pesato ad ogni arco (i, j) in A e' associato un costo cij in R 
+Per ogni cammino P in G, il costo C(P) = Sum{(i, j) in P}cij e' dato dalla somma dei costi degli archi che lo costituiscono 
+Dati due nodi r e t, definiamo Prt l'insieme di cammini che connettono r a t, Il problema di cammino minimo da r a t (SP shortest path problem) e' 
+    (SP) min{C(P) : P in Prt}
+Il problema puo' essere generalizzato per ogni nodo del grafo diverso da r 
+    min {Sum{i!=r}C(Pi) : Pi in Pri i != r}
+Aggiugendo ogni cammino nel problema generalizzato in un grafo, otteremo la shortest path tree (SPT)
+//2.2.1
+
+23: Dato di il cammino minimo da r ad i, e dato un arco (i,j) in A di costo cij, dato un cammino dj da r a j
+se di + cij <= dj, allora di + cij e' un cammino minore di dj 
+//2.2.2
+
+24: Mediante una visita dei nodi del grafo O(n) si determina un albero di copertura radicato in r rappresentato dal vettore p[] dei predecessori dei nodi, le relative ettichete di che rappresentano il costo dell'unico cammino dell'albero da r a i 
+Si fa partire un processo iterativo che:
+    Mediante una visita degli archi del grafo, O(m), controlla se esiste un arco (i, j) in A tale che di + cij < dj, se cio' non accadae l'algoritmo termina avendo ottenuto un albero ottimo contenuto in p[] insieme ad un certificato (le ettichette che verificano le condizioni di bellman)
+    Se invece determina in arco (i, j) che viola le condizione di Bellman si modifica l'albero sostituendolo a (p[j], j) ponendo p[j] = i, si calcola il vettore delle etichette corrispondente al nuovo albero e si itera su un nuovo albero di radice j, in cui tutte le ettichette diminuiscono dalla stessa quantita' dj - di - cij > 0
+L'algoritmo in modo procedurale e' definito da 
+
+    Procedure (p, d) = SPT(G, c, r){
+        foreach(i in N)do{p[i] = r; d[i] = m;}
+        d[r] = 0; Q = {r};
+        do{ select i from Q; Q = Q\{i};
+        foreach((i,j) in FS(i)) do 
+            if(d[i] + cij < d[j]) then {
+                d[j] = d[i] + cij; p[j] = i; Q = Q u {j};
+                }
+        } while (Q != Q.isEmpty())
+    }
+
+Dove Q contiene tutti gli archi uscenti da che potrebbero violare le condizioni di Bellman ed un vettore di ettichette d[] in cui d[i] rappresenta un'approssimazione superiore del costo dell'unico cammino dell'abero da r a i
+All'inizio l'albero e' formato da archi fitizzi (r,i) aventi costo M molto elevanto (p[i] = r e d[i] = M per i != r)
+Ogni iterazione SPT controlla se le condizioni di Bellman sono violate (di + cij < dj), se si, modifica il predecessore di j, ponendo p[j] = i e l'ettichetta di j ponendo dj = di + cij
+Dopo di che j viene detto nodo candidato ed inserito in Q, ad ogni interazione controlla se Q e' vuoto 
+Se Q e' vuoto allora termina ed e' una soluzione ottima dove d[] rispetta le condizione di Bellman e contiene le etichette dell'albero T rappresentato dal vettore p[]
+Altrimenti si estrae un nodo i da Q e si controlla se le condizioni di bellman valgono per ciascun arco della sua stella uscente 
+L'algoritmo funziona se non c'e' la presenza di cicli negativi
+Q puo' essere rappresentato come una coda di priorita' o una lista
+//2.2.3
+
+25: Dato un grafo non orientato G = (V, E) con costi ij associati ai lati, si vuole determinare un albero di copertura T = (V, Et) tale che sia minimo il costo di T definito come c(T) = Sum{{i,j} in Et}cij 
+Assumiamo che il grafo sia connesso e di costo positivo 
+Un algoritmo molto generale per la soluzione del problema e' Greedy-MST
+Construiamo un albero incrementalmente mantenendo ad ogni passo 2 insiemi, S insieme di lati gia' inseriti nell'albero, R insieme di lati scartati
+S e R iniziano vuoti e vengono aggiornati per le operazioni:
+    Inserzione: Seleziona in G un taglio (V', V") tale che S intersezione A(V', V") sia nullo, ed aggiunge ad S un lato {u,v} per cui 
+        cuv = min{cij : {i, j} in A(V', V")\R}
+    Cancelazione: Seleziona in G un clico C tale che C intersezione R sia nullo e aggiungi a R un lato {u, v} in C\S per cui 
+        cuv = max{cij : {i, j} in C\S}
+L'algoritmo 
+
+Procedure S = Greedy-MST(G, c) {
+    S.empty(); R.empty();
+    do applica Inserzione o Cancellazione
+    while(S U R in E e S U R != E e |S| < n-1)
+    }
+
+L'algoritmo termina quando nessuna delle due operazioni e' piu' applicabile, quando S U R = E oppure quando sono stati inseriti n-1 lati in S cioe' quando il grafo parzialmente definito da S e' un albero 
+S sara' una soluzione ottima 
+//2.3
+
+26: L'algoritmo di Kruskal e' un algoritmo per la risoluzione del problema di MST (Minimum spanning tree) 
+I lati del grafo vengono ordinati in modo non decrescente, ad ogni iterazione viene selezionato il primo arco {u, v} non ancora esaminato 
+Se {u,v} non forma alcun ciclo con gli archi in S, allora essere viene inserito in S (inserzione)
+Altrimente viene inserito in R (cancelazione) 
+Le due operazioni sono applicate legittimamente 
+    Nel primo caso, la non esistenza di cicli nel grafo parziale (V, S) garatnisce l'esistenza di un taglio (V', V") con u in V' e v in V" tale che {{i,j}: i in V', j in V"} intersezione S sia nullo, inoltre poiche i lati non ancora selezionati hanno un costo non minore di cuv e' vero che {u,v} e' un lato di costo minimo fra quelli del taglio 
+    Nel secondo caso, tutti i lati del ciclo C appartengono ad S tranne {u, v}: quindi {u, v} essendo stato selezionato dopo tutti gli altri di C, e' anche il lato di costo massimo fra tutti quelli in C\S 
+La funzione Sort(E) restituisce l'insieme E ordinato per costo non decresente, e la funzione Component(E, u, v) risponde true se u e v appartengono alla stessa componente connessa del grafo parziale definito da S, cioe' se {u, v} induce un ciclo su tale grafo, altrimenti falso 
+
+Algoritmo di Kruskal
+procedure S = Kruskal(G, C){
+    S.empty(); R.empty(); X = Sort(A);
+    do{ estrai da X il primo lato {u, v};
+        if(Component(E, u, v))
+            then R = R U {{u,v}}; //cancelazione 
+            else S = S U {{u,v}}; //inserzione
+        } while(|S| < n-1);
+    }
+
+L'algoritmo puo' essere implementato in tempo O(mlogn) data le strutture dati opportune
+//2.3.1
+
+27: L'algoritmo di prim e' un algoritmo per risolvere il problema della minimum spanning tree (MST) 
+Effettua soltato l'operazione di inserzione, mentre la cancellazione e' implicita 
+Per l'inserzione, viene costruito ed aggiornato ad ogni iterazione un taglio (V', V") con la caratteristicha che (V', S) e' l'albero di copertura di costo minimo per il grafo indotto da V'
+Ad ogni iterazione viene selezionato ed inserito in S un lato a costo minimo fra quelli che hanno un estremo in V' e l'altro in V", cioe' un lato appartenente all'insieme A(V', V") degli archi del taglio 
+L'insieme V' viene inizializzato con un nodo arbitrario V' = {r} e V" = V\{r}, pertanto S e' vuoto 
+Segnamo per ogni i in V\{r} un lato fitizzo {r, i} di costo grande cri = M 
+Memorizziamo la porzione di albero corrente definita da (V', S) e alla fine per l'albero di copertura T utilizziamo un vettore di predecessori p[]
+Per effettuare l'operazione di inserzione si deve determinare un lato di costo minimo appartenente all'insieme corrente A(V', V"). Al fine di rendere efficiente questa operazione memorizziamo per ogni vertice j in V: sia il lato {i,j} in S(i) intersezione A(V', V") di costo minimo utilizzando il vettore di predecessori p[j] = i che il suo costo utilizzando un vettore di etichette d[] (d[j] = cij), determinando in O(n) il lato di costo minimo in A(V', V") selezionando un vertice u di etichetta minima tra i vertici in V" che viene inserito in V'
+Lo spostamento di u da V" a V' equivale all'inserimento di {p[u], u} in S 
+
+Algoritmo di Prim 
+procedure p = Prim(G, c, r) {
+    for each (i in V) do {p[i] = r; d[i] = M}
+    d[r] = -M; Q = {r}
+    do{ seleziona u in Q tale che d[u] = min{d[j]: j in Q}
+        d[u] = -M; Q = Q\{u};
+        foreach({u,v} in S(u)) do 
+            if(cuv < d[v]) then{
+                d[v] = cuv; p[v] = u;
+                if(v in Q) then Q = Q u {v}
+            }
+    }while(Q.isNotEmpty());
+}
+
+Scegliamo il lato di costo minore tra {u, v} e {p[v], v} controllando se cuv < dv 
+Se vero, {u,v} risulta migliore e viene sostituito ponendo p[v] = u e dv = cuv, altrimenti nessun cambiamento 
+Viene usato un insieme Q dei vertici candidati che contenga tutti e soli i vertici di V' per i quali esista almeno un lato del taglio incidente in essi 
+Per indicare che un vertice i appartiene all'insieme V', e che non devono essere effetuate inserzioni di lati incidenti in esso, si pone d[j] = -M
+//2.3.2
+
+28: Dato un grafo orientato G = (N, A) il vettore u = [uij](i,j) in A di capacita' superiopri degli archim e due nodi distinti s e t, detti rispettivamente origine e destinazione, il problema del flusso massimo ((MF), max flow problem) consinte ne ldeterminare la massima capacita' di flusso che e' possibile di inviare da s a t attraverso G 
+Piu precisamente, si vuole determinare il massimo valore v per cui ponendo bs = -v, bt = v e bi = 0 per ogni i diverso da s e t 
+Questo significa massimizzare il valore v del flusso x che soddisfa 
+                                                      { -v se i = s
+    Sum{(j,i) in BS(i)}xji - Sum{(i,j) in FS(i)}xij = {  v se i = 0
+                                                      {  0 altrimenti 
+Puo' essere visto come un problema di min cost flow (MCF) su un grafo G' ottenuto da G aggiungendo un arco fitizione (t,s) detto arco di ritorno, il cui il flusso xts e' il valore v 
+
+Un algoritmo per risolvere questo problema e' l'algoritmo di cammini aumentati 
+
+proc(x,p) = Cammini-Aumentati(G,u,s,t){
+    for(x = 0; ;){
+        (p, th) = Trova-Cammino(G,s,t,x,u);
+        if(p[t] == 0) then break; 
+        x = aumentta-Flusso(x,p,s,t,th)
+    }    
+}
+
+La procedura Trova-Cammino cerca di determinare un cammino aumentante da s a t, dato il flusso x, visitando il grafo residuo Gx  e fornendo il corrispondente vettore p[] dei predecessori dei nodi nell'albero della visita e la capacita th = th(P, x) del aumentare P individuato tra s e t 
+Se t non viene trovato raggiunto th non e' definito, ma comunque l'algoritmo termina)
+    In questo caso il vettore p[] fornisce un taglio (Ns, NT) di capacaita' minima 
+    Altrimenti si aggiorna il flusso x mediante la procedura Aumenta-Flusso che invia lungo il cammino P la capacita' di flusso th, ossia implementa l'operazione x = x + th*P 
+
+L'operazione x = x + th*P e' definita da 
+              {xij + th se (i,j) in P+
+    xij(th) = {xij - th se (i,j) in P- 
+              {xij altrimenti 
+P e' un cammino (non necessariamente da s a t)
+P+ e P- sono gli insidemi degli archi concordi/discordi di P, che contengono gli archi che andando da sa t vengono attraversati el verso del loro orientamento e gli arch attraversati nel verso opposto a quello del loro orientamento
+//2.4
+
+29: l'algoritmo di Edmonds e Karp e' 
+
+proc(x,p) = Cammini-Aumentati(G,u,s,t){
+    for(x = 0; ;){
+        (p, th) = Trova-Cammino(G,s,t,x,u);
+        if(p[t] == 0) then break; 
+        x = aumentta-Flusso(x,p,s,t,th)
+    }    
+}
+
+Trova-Cammino: determina un cammino aumentate da s a t dato il flusso x visitando il grafo residuo Gx e fornendo il corrispondente vettore p[] dei nodi predecessori dei nodi nell'albero della visita e la capacita' th = th(P,x) del cammino aumentante P individuato tra s e T 
+Se t non viene trovato raggiunto th non e' definito, ma comunque l'algoritmo termina)
+    In questo caso il vettore p[] fornisce un taglio (Ns, NT) di capacaita' minima 
+    Altrimenti si aggiorna il flusso x mediante la procedura Aumenta-Flusso che invia lungo il cammino P la capacita' di flusso th, ossia implementa l'operazione x = x + th*P 
+Aumenta-Flusso: implementata percorrendo il cammino in senso inverso da t a s per mezzo della funzione predecessore p[] e modificando il flusso in accordo con l'operazione xij(th) 
+//2.4.2
+
+30: Dato G = (N,A) grafo orientato, creamo un grafo ampliato G' = (N', A') con N' = N U {s,t} e A' = A U {{(s, j) : j in S} U {(i, t) : i in T} dove S sono tutti i nodi sorgenti e T tutti i nodi pozzi
+I nodi s e t sono una super-sorgente e super-pozzo collegati rispettivamente a tutti i nodi in S e T con archi di capacita' infinita 
+Mettendo questo grafo all'algoritmo originale, riusciremo a trovare il flow massimo per vari sorgenti e pozzi
+//2.4.3
+
+31: Dato lo sbilanciamento di un nodo i rispetto ad un flusso x la quantita' 
+    ex(i) = Sum{(j, i) in BS(i)}xji - Sum{(i, j) in FS(i)}xij - bi 
+Indicamo con Ox = {i in N: ex(i) > 0} e Dx = {i in N : ex(i) < 0} sono gli insiemi di eccedenza/difetto di flusso
+Per aver che la risposta sia valida, dobbiamo aver che ex = 0 e Dx e Ox siano vuoti 
+Se ex(i) = 0 per un nodo i in N, si dice che e' un nodo bilanciato
+Lo sbilanciamento complessivo di x e' dato da g(x) 
+    g(x) = Sum{i in Ox)ex(i) = - Sum{i in Dx}ex(j))) >= 0
+x e' un flusso ammissibile se e solo se g(x) = 0
+Dato un flusso x ammissibile, ogni flusso x(th) = x + th*C per 0 <= th < th(C, x) e' ammissibile
+Il costo di un cammino P e' indicato con c(P) con la formula 
+    c(P) = Sum{(i, j) in P+}cij - Sum{(i, j) in P-}cij
+Abbiamo che cx(th) = c(x + th*P) = cx + th*c(P)
+//2.5.1
+
+32:Un algoritmo per la risoluzione di MCF basandosi sulla cancellazione di cicli
+Si determina un flusso ammissibile e poi si utilizzano cicli aumentanti di costo negativo per ottenere flussi ammissibili di costo inferiore 
+L'algoritmo termina quando non ci sono piu cicli aumentanti di costo negativo
+
+procedure (x, caso) = Cancella-Cicli(G,c,b,u){
+    (x, caso) = Flusso-Ammissibile(G,b,u);
+    if(caso == "vuoto") then return;
+    for(;;){
+    (C, th) = Trova-Ciclo(G,c,u,x);
+    if(th == 0) then break;
+    x = Cambia-Flusso(x,C,th);
+    }
+}
+
+la funzione Flusso-Ammissibile si puo' utilizzare un algoritmo di MF  
+la funzione Trova-Ciclo si usa un algoritmo SPT per determinare un ciclo di costo negativo
+
+La procedura Flusso-Ammissibile determina un flusso amissibile, restituisce o un caso ottimo ed il flusso x o un caso vuoto
+La procedura Trova-Ciclo determinana dato un flusso x se esiste un ciclo aumentatnte rispetto ad x di costo negativo, se si si restituisce il ciclo C col suo verso e la sua capacita' th = th(C,x), altrimentio th = 0
+Complessita:
+Sia u_ = max{uij : (i,j) in A} la massima capacita' degli archi, che assumiamo finita e sia c_ = max{|cij| : (i, j) in A} il massimo valore assoluto degli archi 
+Allora il valore massimo assoluto del costo della soluzione ammissibile e' compreso tra m*u_*c_ e -m*u_*c_
+Siccome th >= 1 ad ogni iterazione il valore della funzione obiettivo diminuisce di almeno un'unita', e quindi non possono essere eseguite piu di O(mu_c_) operazini 
+La proceduira Trova-Ciclo poiche SPT.L.queue permette di determinare unn ciclo di costo negativo in O(mn) l'algoritmo Cancella-Cicli puo' essere implementato in complessita' O(nm^2u_c_)
+//2.5.2
+
+33:Basandosi su cammini minimi successivi, che mantiene ad ogni passo uno pseudoflusso minimale x e determina un cammino aumentato di costo minimo da nodo s in Ox a un nodo t in Dx per diminuire, al minor costo possibile, lo sbilanciamento di x
+Con un'opportuna scelta di th, l'operazione di composizione tra lo pseudoflusso x ed il cammino P permette di diminuire lo sbilanciamento complessivo
+Abbiamo che 
+    th = min{th(P,x), ex(s), -ex(t)} > 0
+e' uno speudoflusso minimale con sbilanciamennto complessivo g(x(th)) = g(x) - th < g(x)
+Questa scelta corrisponde alla maggior diminuizione possibile dello sbilanciamento complessimo corrispondente al cammino P e pseudoflusso x
+Avremo il seguente algoritmo 
+
+procedure (x, caso) = Cammini-Minimi-Successivi(G,c,b,u){
+    x = inizializza(c,u); caso = "ottimo";
+    while (g(x) != 0){
+        (p,d) = Trova-Cammino-Minimo(Gx,Ox,Dx);
+        t = argmin{d[i] : i in Dx);
+        if(d[t] == inf) then {caso = "vuoto"; break;}
+        x = Aumenta-Flusso(x,p,t);
+    }
+}
+
+Inizializza: Costruisce e ritorna uno pseudoflusso x minimale, si fa ponendo per ogni (i,j) in A, xij = 0 se cij >= 0, altrimenti xij = uij
+    In tal modo i costi degli archi in Gx sono tutti non negativi, per cui x e' minimale
+    Si richiedere che in questa fase non ci siano archi con costo negativo o capacita' infinita
+Trova-Costo-Minimo: determina un albero dei cammini minimi con insieme di nodi radice Ox ed insieme destinazioni Dx su Gx
+    Se |Ox| > 1 si aggiunge a Gx un nodo radice r collegato a tutti i nodi in Ox con archi a costo nullo, poi si risolve il problema di albero dei cammini minimi di radice r suo graffo otenuto
+    L'operazione termina sicuramente
+    Si seleziona il nodo t in Dx con etichetta d[t] minima, corrispondente al piu corto tra tutti i cammini
+    Se d[t] = inf, allora non esiste un cammino aumentante da qualsiasi nodo in Ox a qualsiasi nodo in Dx e termina con caso vuoto
+    Se d[t] < inf, allora esiste un cammino aumentante P in p[] che unisce un nodo s in Ox a t
+Aumenta-Flusso: determina la quantita' di flusso th che deve essere inviata lungo P ed implementa l'operazione di composizione x = x + th*P
+    Se th = ex(s) allora il nodo s risultera' bilanciato rispetto al nuovo flusso, analogamente per il nodo t se -ex(t)
+    Altrimenti th e' determinato dalla capacita' de l cammino, il che significa che almeno un arco di P diviene saturo oppure vuoto
+Se l'algoritmo termina con g(x) = 0 allora x e' un flusso ottimo
+Ad ogni iterazione x e' intero, th >= 1 e g(x) diminuisce di almenno un'unita', quindi l'algoritmo termina in un numero finito di iterazioni 
+//2.5.3
+
+34:Dato un grafo non orientato e bipartito G = (O U D, E) dove O = {1, ..., n} l'insieme di nodi origini e D = {n+1, ..., n+d} e' l'insieme dei nodi destinazione e E e' un sottoinsieme di O x D, con |A| = m, e' l'insieme dei lati ai quali possono essere associati i costi cij
+Un accopiamento (matching) M e' un sottoinsieme di lati che non hanno nodi in comune, I lati in M sono detti interni. mentre i lati A\M sono detti esterni
+Dato un accopiamento M, un nodo i e' esposto rispetto a M se nessun lato di M incide in i, altrimente i e' detto accopiato
+Om e Dm sono gli insiemi di nodi esposti
+Nel caso |O| = |D| (d = n) M e' un accopiamento perfetto e nessun nodo e' esposto, ovvero se |M| = n 
+Il costo di accopiamento M C(M) e' la somma dei costi dei lati di M
+Il lato {i,j} di costo massimo e' detto bottleneck di M, il valore V(M) = max{cij : {i, j} in M} e' detto valore di bottleneck di M 
+//2.6
+
+35: Dato un grafo G = (O U D, E) puo' essere trasformato in un problema equivalente di MF con piu sorgenti e pozzi sul grafo orientato G^ = (O U D, A) dove A contiene un arco (i,j) per ogni lato {i,j} di E, orientato dal nodo O a quello in D con capacita' superiore uij = 1
+Possiamo risolvere il problema di MCM in G applicando un algoritmo di MF con piu sorgenti e pozzi di in G^
+Abbiamo che un cammino aumentato su G^ rispetto ad un flusso x corrisponde ad un cammino alternante su G rispetto all'accopiamento M, ossiam un cammino formato alternativamente da archi esterni ed interni rispetto a M
+Non tutti i cammini alternanti su G sono aumentanti su G^, dobbiamo aver che un cammino parta da un'origine esposta e termini in una destinazione esposta, cosi' il cammino alternante e' detto anche aumentante
+Un cammino alternante P su G e' aumentante se dato P+ = P\M e P- = M intersezione P l'insieme degli archi esterni e quello degli archi interni di P, si ha |P+| - |P-| = 1
+Cosi' l'algoritmo Accopiamento-MaxCard che e' una versione dell'algoritmo Edmonds-Karp 
+
+procedure M = Accopiamento-MaxCard(O,D,E){
+    M = vuoto;
+    while(Om != vuoto){
+        p = Cammino-Aumentante(O,D,E,M);
+        if(p[i] == 0 per ogni i in Dm) then break;
+        seleziona t in Dm tale che p[t] != 0;
+        M = Cambia-Accopiamento(M,p,t);
+    }
+}
+
+M = vuoto implicca scegliere x = 0 come flusso iniziale
+Cammino-Aumentante: determina. se esiste, un cammino alternante aumentante visitando il grafo bipartito G partendo dai nodi Om e visitando alternativamente archi esterni e interni, il che corrsponde alla procedura visita con semplice modifiche
+Alla fine si controlla se si e' raggiunto almeno un nodo in Dm
+    Se no, non esistono cammini aumentanti e l'accopiamento e' di massima cardinalita'
+    Se si, allora invoca la procedura Cambia-Accopiamento che realizza l'operazione M + P per il cammino aumentante P che le unisce
+    Tale operazione e' analoga al cammino di cambio flussi
+
+La complessita' totale e' di O(mn) in qualunque modo venga implementata la visita
+Infatti la complessita' di Cammini-Aumentati e' O(mnU) ma qui U = 1
+/2.6.1
+
+36: Il problema dell'assegnamento di Costo Massimo MCA e' analogo al MCF sul grafo orientato G^ in cui le capacita' sono unitarie
+Ogni nodo di O produce un'unita' di flusso ed ogni nodo di D consuma un'unita' di flusso 
+Per l'algoritmo, dobbiamo determinare il cammino alternante aumentante di costo minimo rispetto all'accoppiamento corrente M, si puo' fare questo col grafo aussiliario Gm = (N, Am) con 
+    Am = A+m U A-m = {(i,j) : {i, j} in E/M} U {(j,i) : {i, j} in M}
+Dove (i,j) in A+m ha costo cij mentre (j,i) in A-m ha costo -cij
+L'algoritmo per la risoluzione e' 
+
+Procedure M = Assegnamento-MinCost(O,D,E,c){
+    M = vuoto;
+    while(Om != vuoto){
+        (p,d) = Cammmino-AA-Minimo(Gm);
+        t = argmin{d[i] : i in Dm};
+        if(d[t] == inf) then break
+        M = Cambia-Accopiamento(M,p,t);
+    }
+}
+L'accopiamento vuoto corrsiponde al flusso iniziale x = 0;
+Non c'e' bisogno di una procedura di inizializzazione poiche' un grafo bipartito sara' per forza aciclico
+La procedura Cammino-AA-Minimo determina un albero dei cammini minimi con insieme di nodi radice Om ed insieme di nodi destinazione destinazione Om su GM, col relativo vettore di etichette d
+Si seleziona poi il nnodo t in DM con etticheta d[t] minore
+    Se d[t] = inf allora nessuna originne esposta e' connessa con una destinazione esposta e l'algoritmo termina comunque determinando un accopiamento di massima cardinalita (ma senza assegnamento)
+    Altrimenti si e' determinato un cammino alternante aumentate P di costo minimo tra un nodo s in Om ed un nodo t in Dm
+    La procedura Cambia-Accopiamento esegue l'operazione di composizione tra l'accopiamennto M corrente ed il cammino P
+L'algoritmo termina se |M| = |O| = |D| allora si e' determinato un assegnamento di costo minimo, altrimenti non esistono accopiamenti perfetti
+Ha complessita' di O(mn^2)
+//2.6.2
+
+37:Un problema di programmazione lineare PL e' un problema di ottimizzazione (massimo o minimo) caratterizzato dalle seguenti proprieta'
+    1. un numero finito n di variabili che assumono valori reali, col vettore x in R^n delle variabili per xi i in {1, ..., n}
+    2. la funzione obbiettivo c(x): R^n -> R e' lineare, ossia c(ax + by) = ac(x) + bc(y) per x,y in R^n e a,b in R 
+    3. l'insieme ammissibile e' cdefinito da un insieme finito di vincoli lineare del tipo ax = b e/o ax <= b e/o ax >= b, dove a in R^n e b in R 
+Si utilizza la forma standard max{cx : Ax <= b} dove A e' una matrice reale m x n, b in R^m e x in R^n
+//3.1
+
+38: Le variabili di scarto si sono inntrodotte nel modello per modificare il problema, ma non appaiono nella funzione obbiettivo
+Le variabili strutturali sono venute dalla struttura del problema e non di manipulazione algebrica
+Ci sono certi modi di usare vincoli per rendere il problema piu strutturato, e poter usare il metodo formale max{cx : Ax <= b} restrutturando il problema con le formule:
+    i. max{Sum{j = 1 to n}cj*xj} <-> -min{Sum{j = 1 to n}(-cj)*xj
+    ii. Sum{j = 1 to n}aij*xi = bi <-> Sum{j = 1 to n}aij*xi >= bi e Sum{j = 1 to n}aij*xi <= bi
+    iii. Sum{j = 1 to n}aij*xi >= bi <-> Sum{j = 1 to n}(-aij)*xi <= -bi
+    iv.  Sum{j = 1 to n}aij*xi >= bi <-> Sum{j = 1 to n}aij*xi - si = bi, per si >= 0
+    v.  Sum{j = 1 to n}aij*xi <= bi <-> Sum{j = 1 to n}aij*xi + si = bi, per si >= 0
+
+//3.1 
+
+39: Dato il prodotto scalare di un vettore ax = Sum{i = 1 to n}ai*xi, la norma e' data per x in R^n da 
+    ||x|| = sqrt(x*x) = sqrt(Sum{i = 1 to n}(xi)^2)
+    si ha anche ax = ||a|| * ||x|| cos(th), dove th e' l'angolo formato tra i due vettori
+    E' positivo se i due vottori puntono sullo stesso semispazio
+    E' nullo se i vettori sono ortogonali (perpendicolare)
+    E' negativo se i due vettori puntano in semispazi opposti
+//3.1.1.1
+
+40: Un poliedro e' definito da un vincolo lineare Ai*x = bi individuando l'iperpiano affine Pi {x: Ai*x = bi} che costituisce la frontiera del semispazio affine Si = {x : Ai*x <= bi} individuato dal vincolo Ai*x <= b
+Un insieme P e' un poliedro se e' espremibile come intersezione di un numero finito m di semispazio
+    Cioe' se esistono A in R^(m x n) e b in R^m per cui 
+    P = {x : Ax <= b}
+Una definizione alternativa usa l'inviluppo convesso di inseieme finito X = {x1, ..., xs} in R^n
+    conv(X) = {x = Sum{i = 1 to s}li * xi : sum{i = 1 to s} li = 1, li >= 0, i = 1, ..., s}
+    un insieme e' convesso se contiene l'inviluppo conmvesso di ciascun sottoinsieme finito dei suoi punti
+//3.1.1.1
+
+41: la direzione di un poliedro  P e' un qualsiasi vettore d in R^n tale che 
+    per ogni x in P, per ogni l >= 0, (x + l*d) in P
+//3.1.1.1
+
+42: La formula di un cono e' data da C = {x : Ax <= 0}, in cui il lato destro e' tutto nullo
+Abbiamo che x in C, a >= 0 implicca che ax in C
+Un cono e' anche conveso se 
+x, y in C, l e h in R+ => lx + hy in C
+Un inviluppo convesso e' 
+ cono(V) = {v = Sum{i = 1 to t}li*vi : li >= 0 i = 1, ..., t}
+//3.1.1.1
+
+43: Dato un poliedro P = {x in R^n : Ax <= b} e sia I = {1, ..., m} un sottoinsieme degli indici di riga, indichiamo I- = {1, ..., m}\I il complemento di I
+A- e b- sono la sottomatrice di A ed il sottovettore di b ristretti alle righe i cui indici sono in I 
+    L'insieme PI = {x in R^n : Aix = BI, AI-*x <= bI-}
+Se PI non e' vuoto, tale insieme 'e la faccia di P
+Una faccia che non sia contenuta in nessun'altra e' una faccia massimale o faccietta
+Una faccia che non contiene nessun'altra e' detta faccia minimale
+La dimensione di una faccia e' definita come la dimensione del piu piccolo sottospazione affine che la contiene, verificando che una faccia determinata da una matrica Ai di rango k ha dimensione n-k o inferiore
+//3.1.1.2
+
+44: Dato l'insieme degli indici dei vincoli attivi I(x-) = {i: Ai*x- = bi}
+PI(x-) e' una faccia del poliedro che contiene x-
+Dato x- in P, un vettore e in R^n e' detto una direzione ammissibile per x- se esiste un (l-)>0 per cui x(l) = x- + l*e e; ammissibile per P per ogni l in [0, l-]
+Cioe' per ogni i = 1, ..., m vale Aix(l) = Aix- + lAie <= bi
+Qualsiasi direzione di e in rec(P) = {d in R^n : Ad <= 0} e' una direzione ammissibile per qualsiasi x-
+//3.1.1.2
+
+45: Dato un problema PL 
+    (P) max{cx : Ax <= b, x >= 0}
+Possiamo associare ad esso un problema cosi' definito 
+    (D) min{yb : yA >=, y >= 0}
+Questa e' una coppia di problemi duali, il primo il problema primale mentre il secondo il duale
+Vale che il duale del duale e il primale
+Dim:
+    Il problema duale puo' essere trasformato in -max{-yb : -yA <= c, y >= 0}
+Secondo la definizione, il problema duale di questo e' -min{-cx : -Ax >= -b, x >= 0}
+Che uttilizzando di nuovo la stessa conversione, abbiamo 
+    max{cx : Ax <= b, x >= 0}
+Questa e' una coppia simmetrica, possiamo aver anche una coppia assimetrica 
+    P max{ cx: Ax <= b} (D) min{yb: yA = c, y >= 0}
+//3.2.1
+
+46: Dato x e y soluzioni per P e D, allora cx <= yb 
+Dim:
+    yA = c -> yAx = cx          } 
+    Ax <= b, y >= 0 -> yAx <= yb} -> cx <= yb
+Abbiamo anche che se P e' illimitato, allora D e' vuoto 
+Anche una risoluzione importante e' 
+Se x e y sono soluzioni ammissibili per P e D e cx = yb allora x e y sono anche soluzioni ottime 
+Questo e' il certificato di ottimalita' di x se abbiamo una soluzione duale y tale che cx = yb (vice versa per y e x) 
+Il teorema forte della dualita' e' se P e D ammettono entrambi soluzioni ammissibili, allora 
+    z(P) = max{cx : Ax <= b} = min {yb : yA = c, y >=0} = z(D) 
+//3.2.2
+
+47: Date due soluzioni complementari x in R^n e y in R^m (sono se yA = c) ammissibili per P e D che verificano la proprieta' degli scarti complementari 
+    y(b - Ax) = 0
+Queste due soluzioni sono ottime se e solo se verificano la condizione degli scarti complementari
+//3.2.3
+
+48: Data una base B che vengono associati la matrice di base Ab ed il punto x = (Ab^-1)*bb in R^n che e' detto soluzione primale di base
+Nel caso sia ammissibile x corrisponde ad un vertice del poliedro che individua la regione ammissibile di P 
+Possiamo costruire una soluzione duale che formi con x una coppia di soluzioni complementari
+Considerando anche l'insieme degli indici non in base N = {1, ..., m}\B possiamo associale alla base B la soluzione duale di base 
+    y = [yb, yn] = [cAb^-1, 0]
+Tale soluzione soddisfa che per costruzione yA = c, inoltre y e' complementare a x 
+//3.2.4
+
+49: Le soluzioni di una base B sono ammissibili se 
+    per x, An*x <= bn, per y yb >= 0
+sono non ammissibili se 
+    per x, esiste i in N: AiX > bi, per y se esiste i in B : yi < 0
+sono degenere se 
+    per x se esiste i in N: Ai*x = bi, per y se esiste i in B: yi = 0
+sono non degenere se 
+    per x se per ogni i in N: Ai*x != bi, per y  se per ogni i in B: yi != 0
+//3.2.4
+
+50: L'algoritmo del simplesso primale e' un algoritmo per la risoluzione di problemi lineari
+Scegliamo una base ammissibile B (supponendo non degenere) e la soluzione di base x = (Ab^-1)*bb, vogliamo determinare se esiste una direzione ammissibile di crescita rispetto a x, ossia e in C(x) tale che c*e > 0
+Indicizziamo le direzioni con gli indici i in B mediante 
+    ei = (-Ab^-1)ub(i) per i = 1, ..., n 
+Dove b(i) indica la posizione dell'indice i in B (riga di Ab in cui si trova Ai) mentre uj in R^n e' il vettore canonico dove u1,j = 1 
+In caso di una base non degenere abbiamo il modo di determinare un meccanismo per determinare una direzione ammissibile di crescita (se c'e') o dimostrare che x e' una soluzione ottima 
+Se c*ei <= 0 per ogni i in B equivale a yi = c(-Ab^-1)ub(i) = -c*ei >= 0 per ogni i in B, ossia y = [yb, 0] >= 0, ergo x e y sono entrambi ammissibili (rispettivamente primale e duale) e come sono anche complementari. abbiamo risolto il problema 
+Nel caso la soluzione x la base sia degenere, il risultato vale in una sola direzione 
+Caso yb >= 0 abbiamo una soluzione otima, invece se c*eh > 0 per qualche h in B, non possiamo affermare che x non sia ottima perche non abbiamo garanzie che eh sia una direzione ammissibile per x 
+Anche se una direzione di crescita e si riveli non ammissibile non la rende inutile, poiche causa un cambiamento di base 
+Calcoliamo il massimo passo di spostamento che e' possibile effetuare lungo e mantenendo l'ammissibilita', ossia il massimo vale di l per cui x(l) = x + l*e risulta ammissibile, sappiamo che questo valore sara' non negativo, in quanto x(0) = x e' ammissibile 
+    Per i in B, risulta Ai*x(l) = Ai*x + l*Ai*e <= Ai*x <= bi per ogni l >= 0, in quanto Ai*e <= 0 
+    Analogamente, se i in N e' tale che Ai*e <= 0 la soluzione x(l) soddisfa il vincolo i-esimo per ogni valore non negativo di l 
+    Se invece Ai*e > 0, abbiamo 
+    Ai*x(l) = Ai*x + l*Ai*e <= bi <-> l <= (bi - Ai*x)/(Ai*e) 
+    Cosi abbiamo che 
+        li = (bi - Ai*x)/(Ai*e) se Ai*e > 0 o +inf altrimenti 
+        Scegliamo il piu piccolo di questi valori, detto l- = min{li : i in N} 
+    Cosi si ottieme il massimo di spostamento consentito
+Cosi' abbiamo un'iterazione dell'algoritmo 
+Pero' per dimostrare che x(l-) sia un vertice del poliedro per poter continuare come era x, dimostriamo cosi' 
+Data una base ammissibile B, la corrsipondente soluzione di base x ed una direzione e = eh per h in B, ed un indice k in N tale che l- = lk-, B' = B u {k} \ {h} e' una base e x(l-) e' la corrispondente soluzione primale di base
+
+Cosi' abbiamo l'algoritmo formale
+Procedure(B, x, y, stato) = Simplesso_Primale(A,b,c,B){
+    for(stato = ""; ;){
+        x = (Ab^-1)*bb; y = [yb, yn] = [cAb^-1, 0];
+        if(yb >= 0) then {stato = "ottimo"; break;}
+        h = min {i in B : yi < 0}; e = (-Ab^-1)*ub(h);
+        if(An*e <= 0) then {stato = "P.illimitato"; break;}
+        l- = min{li = (bi - Ai*x)/(Ai*e), Ai*e > 0, i in N};
+        k = min {i in N : li = l}; B = B u {k} \ {h};
+    }
+}
+//3.3.1
+
+51: Dato il duale, la coppia assimetrica scritto in forma primale diviene 
+    (D') max{c'y : A'y <= b'} dove c' = -b^T, A' = [A^T; -A^T; -I], b' = [c; -c; 0] 
+Poiche ogni y ammissibile deve risultare yAi = ci per ogni i = 1, ..., n, almeno uno dei due vincoli Aiy <= ci e -Aiy <= -ci deve appartenere a qualsiasi base primale ammissibile B per il problema 
+Quindi degli m vincol,i di una base primale ammissibile per D', n devono essere scelti in modo da contenere l'intera matrice A^T mentre gli altri m - n devono essere scelti tra gli m vincoli -Iy <= 0 
+Si puo' assumere che la matrime di base A'b corrispondente alla base B' primale ammissibile per D' ed il corrispondente vettore b'b abbiano la forma 
+          [+-Ab^T +-An^t] b'b = [+-c; 0]  
+    A'b = [   0      -In]
+Dove +- indica che alcune righe potrebbero essere l'opposto della corrispondente collona di A. quindi anche il corrispondente elemento di b'b e' l'opposto del coefficiente di costi 
+La corrispondente soluzione primale della base y e' esattamente [yb, yn] = [c*Ab^-1, 0]
+Quindi l'algoritmo formalmente 
+
+Procedure(B, x, y, stato) = Simplesso_Duale(A, b, c, B){
+    for(stato = ""; ;){
+        x = Ab^-1*bb; y = [yb, yn] = [c*Ab^-1, 0];
+        if(An*x <= bn) then {stato = "ottimo"; break;}
+        k = min{i in N : Aix > bi}; nb = Ak*Ab^-1;
+        if(nb <= 0} them {stato = "P.vuoto"; break;}
+        th = min {thi = yi/ni : ni > 0, i in B}
+        h = min{i in B : thi = th}; B = B U {k} \ {h};
+    }    
+}
+
+L'algoritmo del simplesso duale riceve input una base ammissibile B e calcola la corrispondente coppia di soluzioni x e y con u >= 0
+Se anche x e' ammissibile, l'algoritmo termina avendo una coppia ottima 
+Altrimenti se esiste un indice k in N tale che Ak*x > bk, lalgoritmo determina una direzione d di decrescita per y, in taluni casi ammissibile definita cosi 
+    
+    di = { -ni se i in B, 1 se i = k, 0 altrimenti 
+dove nb = Ak*Ab^-1 
+Per garantire che d sia ammissibile, si verifica che y(th) = y + th*d >= 0 per un opportuno passo di spostamento th > 0
+Se nb < =0 allora y(th) e' ammissibile per qualsiasi th >= 0 essere d una direzione di decrestia, sarebbe che D e' illimitato e P e' vuoto 
+Se invece esiste un indice i in B per cui ni > 0, il massimo passo th che puo' essere compiuto lungo d senza perdere l'ammissibilita' duale e' th = {yi/ni : i in B, ni > 0}
+Se risulta > 0, d e' di decrescita, altrimentti si deve cambiare la base 
+
+52: Un problema lineare intero e' analogo al problema lineare 
+    PLI max{cx : Ax <= b, x in Z^n}
+Un problema di programmazione linenare mista-intera e' quando solitamente alcune variabili sono vioclate ad essere intere 
+    PLM max {c'x' + c"x" : A'x' + A"+x" <= b, x' in Z^n}
+//4.2
+
+53: L'algoritmo di branch and bound e' un tipo di algoritmo enumerativo per risolvere problemi di PLI NP-ardui in tempo accettabile 
+Funziona in un modo divide et impera, che affronta il problema con i passi:
+    Suddivide il problema in un certo numero di sottoproblemi piu piccoli 
+    Risolve separatamente i problemi (di solito suddivendo ancora finche non si puo' ottenere mediante un procedimento alternativo (caso base) 
+    Combinare le soluzioni dei singoli sottoproblemi per ottenere una soluzione del problema originale
+Se analisiamo un problema di ottimizazzione combinatoria generico 
+    P max{c(x) : x in X}
+Avendo a disposizione due procedimenti che forniscono la valutazione superiore z(P)- e inferiore z(P)_ di z(P), risolvere P sarebbe certificare che z(P)- = z(P)_ 
+Se alla valutazione inferiore e' associato x_ in X tale che c(x_) = z(P)_ allora si e' ottenuta una soluzione ottima 
+Altrimenti si usa il divite ed impera con la seguenta osservazione 
+
+Sia X1, X2, ..., Xk una suddivisione di X (Xi sottoinsieme di X e i = 1, ..., k X1 U X2 U ... U Xk = X) e sia 
+    Pi max{c(x) : x in Xi}; allora max{z(Pi)_ : i = 1, ..., k} <= z(P) <= max{z(Pi)- : i = 1, ..., k} 
+//5.1
+

@@ -1,0 +1,60 @@
+1: Com'e' definito un oggetto su java?
+2: Come si confrontano due oggetti su java? 
+3: Cos'e' una classe? 
+4: Cosa sono i costruttori?
+5: Cos'e' l'overloading di metodi?
+6: Cos'e' il riferimento this?
+7: Cosa sono e quali sono i modificatori di accesso?
+8: Cos'e' l'eredita' 
+9: Cos'e' il riferimento super 
+10: Cosa sono classi astratte
+11: Cosa sono le interfacce
+12: Cos'e' overriding
+13: Cosa sono i packages
+14: Cosa sono gli errori e le eccezioni su Java?
+15: Come funziona il blocco try-catch?
+16: Cosa sono le catch matching rules?
+17: Qual e' la differenza tra le keywords throw and throws?
+18: Cos'e' la Java Collections Framework?
+19: Come funziona l'arraylist?
+20: Cosa sono i generics e come funzionano su Java?
+21: Cosa sono gli iteratori e le sue funzioni?
+22: Cos'e' la hashmap e treemap e la loro differenza?
+23: Come si crea un thread in Java?
+24: Qual e' la differenza tra il metodo start e run e perche' non sono intercambiabili?
+25: Come funziona la terminazione di programmi concorrenti su Java?
+26: Cos'e' il threadpool e perche si usa?
+27: Come si eseguono i threadpool su Java e qual e' la differenza tra cachedthreadpool and fixedthreadpool?
+28: Cos'e' il ThreadPoolExecutor?
+29: Come funziona il rejectionhandler del threadpool?
+30: Spieghi ScheduledExecutorService e la differenza tra scheduleAtFixedRate e scheduleWithFixedDelay
+31: Cos'e' la blockingQueue?
+32: Cos'e' l'interfaccia Callable?
+33: Cos'e' l'interfaccia Future?
+34: Cos'e' il metodo/keyword synchronized? 
+35: Spieghi come funziona l'astrazione stream
+36: Spieghi la classe File
+37: Come si puo' leggere bytes come tipi specifici?
+38: Cos'e' try with resources?
+39: Cos'e' la serializazzione di oggetti?
+40: Come funziona JSON?
+41: Spiega i tipi di serializazzione e deserializzazione in Java con il pacchetto GSON
+42: Come si serializza nativamente gli oggetti su java?
+43: Cosa rende un oggetto non serializzabile?
+44: Come funziona la classe InetAddress?
+45: Come funziona la classe Socket?
+46: Come si mandano dati tramite le socket?
+47: Come si chiude una socket?
+48: Come si chiude un threadpool?
+49: Come funziona la classe ServerSocket?
+50: Come funzionano i pacchetti UDP su Java?
+51: Cosa sono le DatagramSockets?
+52: Come funziona la stream di bytes?
+53: Come funziona il multicast su Java?
+54: Come funziona il blocco synchronized?
+55: Cos'e' l'interfaccia Collection?
+56: Spieghi il pacchetto Concurrent Collections 
+57: Cosa sono operazioni composte atomiche?
+58: Come funzionano gli iteratori a livello di multithreading?
+59: Cos'e' una variabile volatile?
+60: Cosa sono le variabili atomiche?

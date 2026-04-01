@@ -3,15 +3,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <errno.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
 #include <ctype.h>
 #include <time.h>
-#include <pthread.h>
-
+#include <pthread.h> 
 const char* help = "Welcome to this simple and intuitive study software!\nCommands work as follows:\nn: get new question\na: get the answer for the question\ns: source for the answer (if there is one)\nq: exit\nh: print this message";
+
+int first_num = 1;
 
 typedef struct{
   char **matrix;
@@ -25,21 +25,24 @@ typedef struct{
 
 void *tbody(void *temp){
   t_args *f_args = (t_args *) temp;
-  char buffer[256]; 
-  while(fgets(buffer, 256*sizeof(char), f_args->file)){
+  char buffer[2048]; 
+  while(fgets(buffer, 2048*sizeof(char), f_args->file)){
     int i = 0;
+    int pass = 0;
     char num[4];
     while(isdigit(buffer[i])){
       num[i] = buffer[i];
       i++;
     }
     num[i] = '\0';
-
     if(buffer[i] == ':'){
-      if(f_args->matrix->num_ques > 0){
+      if(f_args->matrix->num_ques == 0){
+        first_num = atoi(buffer);
       }
+        
+        fprintf(stderr, "num %d\n", first_num);
       f_args->matrix->num_ques++;
-      f_args->matrix->matrix[f_args->matrix->num_ques - 1] = malloc(1024 * sizeof(char));
+      f_args->matrix->matrix[f_args->matrix->num_ques - 1] = malloc(4096 * sizeof(char));
 			strcpy(f_args->matrix->matrix[f_args->matrix->num_ques - 1],buffer);
     }
     else{
@@ -79,9 +82,9 @@ int main(int argc, char *argv[]){
     exit(0);
   }
   phrase_matrix questions, answers;
-  questions.matrix = malloc(100 * sizeof(char *));
+  questions.matrix = malloc(2048 * sizeof(char *));
   questions.num_ques = 0;
-  answers.matrix = malloc(100 * sizeof(char *));
+  answers.matrix = malloc(2048 * sizeof(char *));
   answers.num_ques = 0;
   pthread_t ques_t, answ_t;
   t_args answ_args;
@@ -113,7 +116,7 @@ int main(int argc, char *argv[]){
       snprintf(temp_str, 10 * sizeof(char), "%d", num_file);
       fprintf(stderr, "%s\n", temp_str);
       strcat(file_str, temp_str);
-      strcat(file_str, ".jpg");
+      strcat(file_str, ".png");
       fprintf(stderr, "%s\n", file_str);
       pid_t show_img = fork();
       if(show_img == 0){
@@ -130,11 +133,18 @@ int main(int argc, char *argv[]){
     int c;
     close(up[0]);
     fprintf(stderr, "%s\n", help);
-    int r_num = -1;
+    int r_num = 0;
+    int num_buff = 0;
+    fprintf(stderr, "num of questions: %d\n", questions.num_ques);
     while((c = getchar()) != 'q'){
       switch (c){
-        case 'q':
-          break;
+        case '\n':
+                if(num_buff != 0){
+                    r_num = num_buff - 1;
+                    fprintf(stderr, "%s\n", questions.matrix[r_num]);
+                    num_buff = 0;
+                }
+                break;
         case 'n':
           r_num = rand() % questions.num_ques;
           fprintf(stderr, "%s\n", questions.matrix[r_num]);
@@ -147,7 +157,7 @@ int main(int argc, char *argv[]){
           fprintf(stderr, "%s\n", answers.matrix[r_num]);
           break;
         case 's':
-          if(r_num < 0){
+          if(r_num <= 0){
               fprintf(stderr, "%s\n", "no question asked!\npress 'n' to get a question");
               break;
             }
@@ -157,6 +167,13 @@ int main(int argc, char *argv[]){
         case 'h':
           fprintf(stderr, "%s\n", help);
           break;
+        default:
+            if(isdigit(c)){
+                num_buff *= 10;
+                num_buff += c - 48;
+            }
+            fprintf(stdout, "num: %d\n", num_buff);
+            break;
       }
     }
     fprintf(stderr, "%s\n", "parent process exiting!");
